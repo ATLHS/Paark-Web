@@ -1,14 +1,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Roboto:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Mochiy+Pop+P+One&display=swap");
 .home {
   &__headlines {
-    &__headline {
-      font-size: 60px;
-      font-family: "Roboto", sans-serif;
-      justify-content: center;
+    margin-bottom: 50px;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+
+      &__headline {
+        font-size: 70px;
+        line-height: normal;
+        font-family: "Roboto", sans-serif;
+      }
+      &__sub-headline {
+        font-size: 30px;
+        margin-bottom: 20px;
+      }
+      &__ctas {
+        &__cta {
+          width: 45%;
+        }
+      }
     }
-    &__sub-headline {
-      justify-content: center;
-      font-size: 30px;
+    &__image {
+      display: flex;
+      align-items: center;
+
+      &__paark-home {
+        width: 800px;
+      }
+    }
+  }
+  &__how-it-works {
+    margin-bottom: 40px;
+    &__title {
+      font-size: 40px !important;
+      line-height: normal;
+      padding-left: 0 !important;
+      font-family: "Roboto", sans-serif;
+    }
+  }
+  &__steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    &__card {
+      width: 19rem !important;
+      &__container {
+        &__step {
+          position: relative;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          background-color: white !important;
+          border: none !important;
+          text-align: center;
+          margin-bottom: 20px !important;
+          padding: 0 !important;
+          &__one {
+            font-family: "Roboto", sans-serif;
+            font-size: 2em;
+            text-align: left;
+            color: #4360ff;
+          }
+          &__icon {
+            position: absolute;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+          }
+        }
+        &__title {
+          font-family: "Fugaz One";
+        }
+      }
     }
   }
 }
