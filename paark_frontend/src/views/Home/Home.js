@@ -30,11 +30,16 @@ const Home = () => {
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
+              className="home__headlines__container__ctas__get-valet"
               variant="primary"
               text="Réserver un voiturier"
               onClick={() => navigate("/booking")}
             />
-            <PrimaryButton variant="dark" text="Récupéré mon véhicule" />
+            <PrimaryButton
+              className="home__headlines__container__ctas__get-car"
+              variant="dark"
+              text="Récupéré mon véhicule"
+            />
           </Row>
         </Col>
         <Col className="home__headlines__image">

@@ -1,0 +1,18 @@
+.phone-field {
+  &__input {
+    width: 100% !important;
+    color: #212529 !important;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    &:focus {
+      &::placeholder {
+        opacity: 0.65;
+      }
+    }
+
+    &::placeholder {
+      color: #212529;
+    }
+  }
+}

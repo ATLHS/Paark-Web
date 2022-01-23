@@ -9,7 +9,6 @@ const GooglePlacesAutocompleteField = ({
   label,
   placeholder,
 }) => {
-  console.log(name);
   return (
     <>
       <GooglePlacesAutocomplete

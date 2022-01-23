@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useForm } from "react-hook-form";
@@ -23,7 +22,6 @@ const Booking = () => {
   }, []);
 
   const onSubmit = (data) => {
-    console.log("hello");
     console.log(data, "data");
   };
 
@@ -42,11 +40,14 @@ const Booking = () => {
           >
             <FormGroup schema={formSchema} control={control} />
             <Form.Group className="booking__section__form__container__cta">
-              <Button
+              <PrimaryButton
+                className="booking__section__form__container__cta__submit"
                 variant="primary"
                 text="Réserver un voiturier"
                 type="submit"
-              >bbbb</Button>
+              >
+                Réserver un voiturier
+              </PrimaryButton>
             </Form.Group>
           </Form>
         </Col>
