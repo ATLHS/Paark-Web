@@ -11,10 +11,12 @@ import {
   faCreditCard,
 } from "@fortawesome/free-solid-svg-icons";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
+import { useNavigate } from "react-router-dom";
 import paark_home from "../../assets/images/paark_home.jpg";
 import "./Home.scss";
 
 const Home = () => {
+  let navigate = useNavigate();
   return (
     <Container className="home">
       <Row className="home__headlines">
@@ -28,15 +30,11 @@ const Home = () => {
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
-              className="home__headlines__container__cta"
               variant="primary"
               text="Réserver un voiturier"
+              onClick={() => navigate("/booking")}
             />
-            <PrimaryButton
-              className="home__headlines__container__cta"
-              variant="dark"
-              text="Récupéré mon véhicule"
-            />
+            <PrimaryButton variant="dark" text="Récupéré mon véhicule" />
           </Row>
         </Col>
         <Col className="home__headlines__image">

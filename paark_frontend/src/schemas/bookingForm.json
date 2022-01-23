@@ -1,0 +1,40 @@
+{
+  "title": "Booking form",
+  "description": "Valet reservation",
+  "type": "object",
+  "fields": {
+    "google-places": {
+      "label": "Déestination",
+      "name": "destination",
+      "description": "User destination",
+      "type": "google-places",
+      "default": "",
+      "placeholder": "",
+      "validation": {
+        "required": "Indiquez votre destination"
+      }
+    },
+    "firstname": {
+      "label": "Prénom",
+      "name": "firstanme",
+      "description": "User name",
+      "type": "text",
+      "default": "",
+      "placeholder": "Prénom",
+      "validation": {
+        "required": "Indiquez votre prénom"
+      }
+    },
+    "phone": {
+      "label": "Télephone",
+      "name": "phone",
+      "description": "User phone number",
+      "type": "tel",
+      "default": "",
+      "placeholder": "N° de télephone",
+      "validation": {
+        "required": "Indiquez votre n° de télephone"
+      }
+    }
+  }
+}
