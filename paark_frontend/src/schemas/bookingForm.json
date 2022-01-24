@@ -39,8 +39,20 @@
         "required": "Indiquez votre n° de télephone",
         "minLength": {
           "value": 10,
-          "message": "N° de téléphone incorrect."
+          "message": "N° de téléphone invalide."
         }
+      }
+    },
+    "time": {
+      "label": "Heure d'arrivé",
+      "name": "time",
+      "description": "User time",
+      "type": "select",
+      "default": "",
+      "placeholder": "Heure d'arrivé",
+      "helper": "Un voiturier vous attendra à l'heure choisis.",
+      "validation": {
+        "required": "Indiquez l'heure d'arrvié"
       }
     }
   }
