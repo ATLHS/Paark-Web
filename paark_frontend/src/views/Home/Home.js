@@ -62,16 +62,10 @@ const Home = () => {
                 <FontAwesomeIcon icon={faCalendarCheck} size="2x" />
               </Col>
             </Card.Header>
-            <Card.Title
-              className="home__steps__card__container__title"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Title className="home__steps__card__container__title">
               RÉSERVÉ
             </Card.Title>
-            <Card.Text
-              className="home__steps__card__container__description"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Text className="home__steps__card__container__description">
               Cliquez sur "Réservé un voiturier" indiquez votre destination et
               l'heure d'arrivé puis procédé au paiement. un voiturier vous
               attendra sur le lieu de prise en charge.
@@ -86,16 +80,10 @@ const Home = () => {
                 <FontAwesomeIcon icon={faCar} size="2x" />
               </Col>
             </Card.Header>
-            <Card.Title
-              className="home__steps__card__container__title"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Title className="home__steps__card__container__title">
               CONFIEZ
             </Card.Title>
-            <Card.Text
-              className="home__steps__card__container__description"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Text className="home__steps__card__container__description">
               Confiez au voiturier votre vehicule qui sera garer dans un parking
               sécurisé au alentour du lieu de prise en charge.
             </Card.Text>
@@ -109,16 +97,10 @@ const Home = () => {
                 <FontAwesomeIcon icon={faKey} size="2x" />
               </Col>
             </Card.Header>
-            <Card.Title
-              className="home__steps__card__container__title"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Title className="home__steps__card__container__title">
               RÉCUPÉRÉ
             </Card.Title>
-            <Card.Text
-              className="home__steps__card__container__description"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Text className="home__steps__card__container__description">
               Sur paark.fr cliquer sur "Récupéré mon vehicule" puis inqiuer
               votre n° de téléphone et votre localisation. Un SMS vous sera
               envoyer à l'arrivé de votre vehicule.
@@ -133,16 +115,10 @@ const Home = () => {
                 <FontAwesomeIcon icon={faCreditCard} size="2x" />
               </Col>
             </Card.Header>
-            <Card.Title
-              className="home__steps__card__container__title"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Title className="home__steps__card__container__title">
               PAYER
             </Card.Title>
-            <Card.Text
-              className="home__steps__card__container__description"
-              style={{ textAlign: "center" }}
-            >
+            <Card.Text className="home__steps__card__container__description">
               Le stationement du parking à la remise des clés avec le voiturier
               et c'est tout ! <br /> <br /> Paiement accepté : <br /> CB,
               Paypal, Lydia, ApplePay
