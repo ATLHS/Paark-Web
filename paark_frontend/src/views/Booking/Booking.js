@@ -7,6 +7,7 @@ import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useForm } from "react-hook-form";
 import bookingForm from "../../schemas/bookingForm";
+import getUserCar from "../../services/getUserCar";
 import "./Booking.scss";
 
 const Booking = () => {
@@ -22,7 +23,15 @@ const Booking = () => {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(data, "data");
+    getUserCar
+      .getUserCarReservation(data)
+      .then((res) => res)
+      .then((r) => {
+        console.log(r);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
