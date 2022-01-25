@@ -23,17 +23,21 @@ const Booking = () => {
     setFormSchema(schemaProperties);
   }, []);
 
-  const onSubmit = (data) => {
-    getUserCar
-      .getUserCarReservation(data)
-      .then((res) => res)
-      .then((r) => {
-        console.log(r);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleUserInfos = (e) => {
+    // getUserCar
+    //   .getUserCarReservation(data)
+    //   .then((res) => res)
+    //   .then((r) => {
+    //     console.log(r);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
+
+  const confirmUserPhone = () => {};
+
+  const handlePayment = () => {};
 
   return (
     <Container className="booking">
@@ -53,7 +57,7 @@ const Booking = () => {
                 className={`booking__section__content__form__order__container ${
                   hide ? "switch" : ""
                 } `}
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(handleUserInfos)}
               >
                 <FormGroup schema={formSchema} control={control} />
                 <Form.Group className="booking__section__content__form__order__container__cta">
@@ -61,8 +65,7 @@ const Booking = () => {
                     className="booking__section__content__form__order__container__cta__submit"
                     variant="primary"
                     text="Réserver un voiturier"
-                    // type="submit"
-                    onClick={() => setHide(true)}
+                    type="submit"
                   >
                     Réserver un voiturier
                   </PrimaryButton>
@@ -74,7 +77,7 @@ const Booking = () => {
                 className={`booking__section__content__form__confirm__container ${
                   hide ? "switch" : ""
                 } `}
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(confirmUserPhone)}
               >
                 <FormGroup schema={formSchema} control={control} />
                 <Form.Group className="booking__section__content__form__confirm__container__cta">
@@ -100,7 +103,7 @@ const Booking = () => {
                 className={`booking__section__content__form__pay__container ${
                   hide ? "switch" : ""
                 } `}
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(handlePayment)}
               >
                 <FormGroup schema={formSchema} control={control} />
                 <Form.Group className="booking__section__content__form__pay__container__cta">
