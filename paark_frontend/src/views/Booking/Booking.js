@@ -13,6 +13,7 @@ import "./Booking.scss";
 const Booking = () => {
   const { handleSubmit, control } = useForm();
   const [formSchema, setFormSchema] = useState([]);
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     const schemaProperties = Object.keys(bookingForm.fields).map(
@@ -37,29 +38,86 @@ const Booking = () => {
   return (
     <Container className="booking">
       <Row className="booking__section">
-        <Col className="booking__section__form">
-          <Row className="booking__section__form__reservation">
-            <Col className="booking__section__form__reservation__title">
+        <Row className="booking__section__status">
+          <Col className="booking__section__status__title">Réservation.</Col>
+          <Row className="booking__section__status__helper">
+            <Col className="booking__section__status__helper__message">
               Réservation.
             </Col>
           </Row>
-          <Form
-            className="booking__section__form__container"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <FormGroup schema={formSchema} control={control} />
-            <Form.Group className="booking__section__form__container__cta">
-              <PrimaryButton
-                className="booking__section__form__container__cta__submit"
-                variant="primary"
-                text="Réserver un voiturier"
-                type="submit"
+        </Row>
+        <Row className="booking__section__content">
+          <Row className="booking__section__content__form">
+            <Col className="booking__section__content__form__order">
+              <Form
+                className={`booking__section__content__form__order__container ${
+                  hide ? "switch" : ""
+                } `}
+                onSubmit={handleSubmit(onSubmit)}
               >
-                Réserver un voiturier
-              </PrimaryButton>
-            </Form.Group>
-          </Form>
-        </Col>
+                <FormGroup schema={formSchema} control={control} />
+                <Form.Group className="booking__section__content__form__order__container__cta">
+                  <PrimaryButton
+                    className="booking__section__content__form__order__container__cta__submit"
+                    variant="primary"
+                    text="Réserver un voiturier"
+                    // type="submit"
+                    onClick={() => setHide(true)}
+                  >
+                    Réserver un voiturier
+                  </PrimaryButton>
+                </Form.Group>
+              </Form>
+            </Col>
+            <Col className="booking__section__content__form__confirm">
+              <Form
+                className={`booking__section__content__form__confirm__container ${
+                  hide ? "switch" : ""
+                } `}
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <FormGroup schema={formSchema} control={control} />
+                <Form.Group className="booking__section__content__form__confirm__container__cta">
+                  <PrimaryButton
+                    className="booking__section__content__form__confirm__container__cta__submit"
+                    variant="danger"
+                    text="Réserver un voiturier"
+                    // type="submit"
+                    onClick={() => setHide(true)}
+                  >
+                    Réserver un voiturier
+                  </PrimaryButton>
+                </Form.Group>
+              </Form>
+            </Col>
+            <Col className="booking__section__content__form__pay">
+              <Row className="booking__section__content__form__reservation">
+                <Col className="booking__section__content__form__reservation__title">
+                  Réservation.
+                </Col>
+              </Row>
+              <Form
+                className={`booking__section__content__form__pay__container ${
+                  hide ? "switch" : ""
+                } `}
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <FormGroup schema={formSchema} control={control} />
+                <Form.Group className="booking__section__content__form__pay__container__cta">
+                  <PrimaryButton
+                    className="booking__section__content__form__pay__container__cta__submit"
+                    variant="success"
+                    text="Réserver un voiturier"
+                    // type="submit"
+                    onClick={() => setHide(true)}
+                  >
+                    Réserver un voiturier
+                  </PrimaryButton>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        </Row>
       </Row>
     </Container>
   );

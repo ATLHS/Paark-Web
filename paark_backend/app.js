@@ -20,8 +20,8 @@ app.use(express.static("public"));
 const getUserCar = require("./routes/api/getUserCar");
 const returnUserCar = require("./routes/api/returnUserCar");
 
-app.use("/api/getusercar", getUserCar);
-app.use("/api/returnusercar", returnUserCar);
+app.use("/api/get-user-car", getUserCar);
+app.use("/api/return-user-car", returnUserCar);
 
 app.use((req, res, next) => {
   res.send("Welcome to Express");

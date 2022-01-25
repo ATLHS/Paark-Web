@@ -34,7 +34,7 @@
       "type": "phone",
       "default": "",
       "placeholder": "N° de télephone",
-      "helper": "Nous vous enverrons les details concernant les confirmations de réservatons et restitution de votre véhicule",
+      "helper": "Nous vous enverrons un SMS pour confirmer la réservatons et restitution de votre véhicule.",
       "validation": {
         "required": "Indiquez votre n° de télephone",
         "minLength": {
