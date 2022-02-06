@@ -7,35 +7,66 @@ import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useForm } from "react-hook-form";
 import bookingForm from "../../schemas/bookingForm";
-import getUserCar from "../../services/getUserCar";
+import confirmCodeForm from "../../schemas/verificationCodeField.json";
+import user from "../../services/user";
 import "./Booking.scss";
 
 const Booking = () => {
-  const { handleSubmit, control } = useForm();
-  const [formSchema, setFormSchema] = useState([]);
-  const [hide, setHide] = useState(false);
+  const { handleSubmit: handleSubmit1, control: control1 } = useForm();
+  const { handleSubmit: handleSubmit2, control: control2 } = useForm();
+  const { handleSubmit: handleSubmit3, control: control3 } = useForm();
 
+  const [bookingSchema, setBookingSchema] = useState([]);
+  const [message, setMessage] = useState("");
+  const [confirmCodeSchema, setConfirmCodeSchema] = useState([]);
+  const [processStatus, setProcessStatus] = useState({
+    userInfo: false,
+    confirmCode: false,
+    payment: false,
+  });
   useEffect(() => {
-    const schemaProperties = Object.keys(bookingForm.fields).map(
+    const bookingSchemaValidation = Object.keys(bookingForm.fields).map(
       (key) => bookingForm.fields[key]
     );
 
-    setFormSchema(schemaProperties);
+    const confirmCodeSchemaValidation = Object.keys(confirmCodeForm.fields).map(
+      (key) => confirmCodeForm.fields[key]
+    );
+    setBookingSchema(bookingSchemaValidation);
+    setConfirmCodeSchema(confirmCodeSchemaValidation);
   }, []);
 
-  const handleUserInfos = (e) => {
-    // getUserCar
-    //   .getUserCarReservation(data)
-    //   .then((res) => res)
-    //   .then((r) => {
-    //     console.log(r);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+  const handleUserInfos = (data) => {
+    user
+      .handleUserInformation(data)
+      .then((res) => res)
+      .then(({ message, isActive }) => {
+        setMessage(message);
+        if (!isActive) {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            userInfo: true,
+          }));
+        } else {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            userInfo: true,
+            confirmCode: true,
+          }));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const confirmUserPhone = () => {};
+  const confirmUserPhone = (data) => {
+    // const { code } = data;
+    // setProcessStatus((prevStatus) => ({
+    //   ...prevStatus,
+    //   confirmCode: true,
+    // }));
+  };
 
   const handlePayment = () => {};
 
@@ -46,79 +77,76 @@ const Booking = () => {
           <Col className="booking__section__status__title">Réservation.</Col>
           <Row className="booking__section__status__helper">
             <Col className="booking__section__status__helper__message">
-              Réservation.
+              {message ? message : ""}
             </Col>
           </Row>
         </Row>
-        <Row className="booking__section__content">
-          <Row className="booking__section__content__form">
-            <Col className="booking__section__content__form__order">
-              <Form
-                className={`booking__section__content__form__order__container ${
-                  hide ? "switch" : ""
-                } `}
-                onSubmit={handleSubmit(handleUserInfos)}
+        <Row className="booking__section__process">
+          <Row className="booking__section__process__content">
+            <Row
+              className={`booking__section__process__content__form ${
+                processStatus.userInfo ? "switchX1" : ""
+              } ${processStatus.confirmCode ? "switchX2" : ""} `}
+            >
+              {/* user info form */}
+              <Col
+                className={`booking__section__process__content__form__order  ${
+                  processStatus.userInfo ? "hide" : "show"
+                }`}
               >
-                <FormGroup schema={formSchema} control={control} />
-                <Form.Group className="booking__section__content__form__order__container__cta">
-                  <PrimaryButton
-                    className="booking__section__content__form__order__container__cta__submit"
-                    variant="primary"
-                    text="Réserver un voiturier"
-                    type="submit"
-                  >
-                    Réserver un voiturier
-                  </PrimaryButton>
-                </Form.Group>
-              </Form>
-            </Col>
-            <Col className="booking__section__content__form__confirm">
-              <Form
-                className={`booking__section__content__form__confirm__container ${
-                  hide ? "switch" : ""
-                } `}
-                onSubmit={handleSubmit(confirmUserPhone)}
+                <Form className="booking__section__process__content__form__order__container">
+                  <FormGroup schema={bookingSchema} control={control1} />
+                  <Form.Group className="booking__section__process__content__form__order__container__cta">
+                    <PrimaryButton
+                      className="booking__section__process__content__form__order__container__cta__submit"
+                      variant="primary"
+                      text="Réserver un voiturier"
+                      onClick={handleSubmit1(handleUserInfos)}
+                    />
+                  </Form.Group>
+                </Form>
+              </Col>
+              {/* confirm code number form */}
+              <Col
+                className={`booking__section__process__content__form__confirm ${
+                  processStatus.userInfo ? "show" : ""
+                } ${processStatus.confirmCode ? "hide" : ""} `}
               >
-                <FormGroup schema={formSchema} control={control} />
-                <Form.Group className="booking__section__content__form__confirm__container__cta">
-                  <PrimaryButton
-                    className="booking__section__content__form__confirm__container__cta__submit"
-                    variant="danger"
-                    text="Réserver un voiturier"
-                    // type="submit"
-                    onClick={() => setHide(true)}
-                  >
-                    Réserver un voiturier
-                  </PrimaryButton>
-                </Form.Group>
-              </Form>
-            </Col>
-            <Col className="booking__section__content__form__pay">
-              <Row className="booking__section__content__form__reservation">
-                <Col className="booking__section__content__form__reservation__title">
-                  Réservation.
-                </Col>
-              </Row>
-              <Form
-                className={`booking__section__content__form__pay__container ${
-                  hide ? "switch" : ""
+                <Form className="booking__section__process__content__form__confirm__container">
+                  <FormGroup schema={confirmCodeSchema} control={control2} />
+                  <Form.Group className="booking__section__process__content__form__confirm__container__cta">
+                    <PrimaryButton
+                      className="booking__section__process__content__form__confirm__container__cta__submit"
+                      variant="primary"
+                      text="Confirmer"
+                      onClick={handleSubmit2(confirmUserPhone)}
+                    />
+                  </Form.Group>
+                </Form>
+              </Col>
+              {/* payment form */}
+              <Col
+                className={`booking__section__process__content__form__pay ${
+                  processStatus.confirmCode ? "show" : ""
                 } `}
-                onSubmit={handleSubmit(handlePayment)}
               >
-                <FormGroup schema={formSchema} control={control} />
-                <Form.Group className="booking__section__content__form__pay__container__cta">
-                  <PrimaryButton
-                    className="booking__section__content__form__pay__container__cta__submit"
-                    variant="success"
-                    text="Réserver un voiturier"
-                    // type="submit"
-                    onClick={() => setHide(true)}
-                  >
-                    Réserver un voiturier
-                  </PrimaryButton>
-                </Form.Group>
-              </Form>
-            </Col>
+                <Form
+                  className="booking__section__process__content__form__pay__container"
+                  onSubmit={handleSubmit3(handlePayment)}
+                >
+                  <FormGroup schema={bookingSchema} control={control3} />
+                  <Form.Group className="booking__section__process__content__form__pay__container__cta">
+                    <PrimaryButton
+                      className="booking__section__process__content__form__pay__container__cta__submit"
+                      variant="success"
+                      text="Réserver un voiturier"
+                    >
+                      Réserver un voiturier
+                    </PrimaryButton>
+                  </Form.Group>
+                </Form>
+              </Col>
+            </Row>
           </Row>
         </Row>
       </Row>

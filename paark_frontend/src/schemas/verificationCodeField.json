@@ -1,0 +1,23 @@
+{
+  "title": "Code confirmation form",
+  "description": "Valet reservation",
+  "type": "object",
+  "fields": {
+    "code": {
+      "label": "Confirmez votre numéro",
+      "name": "code",
+      "description": "User phone code",
+      "type": "tel",
+      "default": "",
+      "placeholder": "",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez le code reçue par SMS.",
+        "minLength": {
+          "value": 4,
+          "message": "N° de téléphone invalide."
+        }
+      }
+    }
+  }
+}

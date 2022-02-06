@@ -3,6 +3,7 @@ import InputField from "../FormElement/InputField/InputField";
 import PhoneField from "../FormElement/PhoneField/PhoneField";
 import GooglePlacesAutocompleteField from "../FormElement/GooglePlacesAutocompleteField/GooglePlacesAutocompleteField";
 import SelectField from "../FormElement/SelectField/SelectField";
+import VerificationCodeField from "../FormElement/VerificationCodeField/VerificationCodeField";
 
 const FormConstructor = ({ events, field }) => {
   switch (field.type) {
@@ -16,6 +17,8 @@ const FormConstructor = ({ events, field }) => {
       return <InputField {...events} {...field} />;
     case "google-places":
       return <GooglePlacesAutocompleteField {...events} {...field} />;
+    case "tel":
+      return <VerificationCodeField {...events} {...field} />;
     default:
       return;
   }
