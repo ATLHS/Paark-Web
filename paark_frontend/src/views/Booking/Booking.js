@@ -17,6 +17,7 @@ const Booking = () => {
   const { handleSubmit: handleSubmit3, control: control3 } = useForm();
 
   const [bookingSchema, setBookingSchema] = useState([]);
+  const [userData, setUserData] = useState();
   const [message, setMessage] = useState("");
   const [confirmCodeSchema, setConfirmCodeSchema] = useState([]);
   const [processStatus, setProcessStatus] = useState({
@@ -40,9 +41,11 @@ const Booking = () => {
     user
       .handleUserInformation(data)
       .then((res) => res)
-      .then(({ message, isActive }) => {
-        setMessage(message);
-        if (!isActive) {
+      .then((data) => {
+        setMessage(data.message);
+        setUserData(data.user);
+        const isConfirmed = data.user.isConfirmed;
+        if (!isConfirmed) {
           setProcessStatus((prevStatus) => ({
             ...prevStatus,
             userInfo: true,
@@ -61,11 +64,28 @@ const Booking = () => {
   };
 
   const confirmUserPhone = (data) => {
-    // const { code } = data;
-    // setProcessStatus((prevStatus) => ({
-    //   ...prevStatus,
-    //   confirmCode: true,
-    // }));
+    data.userData = userData;
+    user
+      .handleUserPhoneCode(data)
+      .then((res) => res)
+      .then(({ message, isConfirmed }) => {
+        setMessage(message);
+        if (!isConfirmed) {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            confirmCode: true,
+          }));
+        } else {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            userInfo: true,
+            confirmCode: true,
+          }));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handlePayment = () => {};

@@ -15,7 +15,7 @@
         "required": "Indiquez le code reçue par SMS.",
         "minLength": {
           "value": 4,
-          "message": "N° de téléphone invalide."
+          "message": "Indiquez le code reçue par SMS."
         }
       }
     }

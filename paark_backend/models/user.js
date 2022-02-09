@@ -4,10 +4,10 @@ const Schema = new mongoose.Schema();
 
 const userSchema = new mongoose.Schema(
   {
-    firstname: { type: String, unique: true },
+    firstname: { type: String },
     phone: { type: String, unique: true },
-    isConfirmed: { type: Boolean, unique: true, default: false },
-    confirmedCode: { type: Number, unique: true, default: 0 },
+    isConfirmed: { type: Boolean, default: false },
+    confirmedCode: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
