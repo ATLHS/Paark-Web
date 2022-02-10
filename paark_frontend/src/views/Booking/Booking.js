@@ -68,13 +68,11 @@ const Booking = () => {
     user
       .handleUserPhoneCode(data)
       .then((res) => res)
-      .then(({ message, isConfirmed }) => {
-        setMessage(message);
+      .then((data) => {
+        const isConfirmed = data.user.isConfirmed;
+        setMessage(data.message);
         if (!isConfirmed) {
-          setProcessStatus((prevStatus) => ({
-            ...prevStatus,
-            confirmCode: true,
-          }));
+          return;
         } else {
           setProcessStatus((prevStatus) => ({
             ...prevStatus,

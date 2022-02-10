@@ -18,10 +18,8 @@ app.use(cors());
 app.use(express.static("public"));
 
 const user = require("./routes/api/user");
-// const returnUserCar = require("./routes/api/returnUserCar");
 
 app.use("/api/user/", user);
-// app.use("/api/return-user-car", returnUserCar);
 
 app.use((req, res, next) => {
   res.send("Welcome to Express");

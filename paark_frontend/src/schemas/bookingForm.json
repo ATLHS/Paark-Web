@@ -17,7 +17,7 @@
     },
     "firstname": {
       "label": "Prénom",
-      "name": "firstanme",
+      "name": "firstname",
       "description": "User name",
       "type": "text",
       "default": "",

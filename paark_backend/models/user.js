@@ -5,9 +5,15 @@ const Schema = new mongoose.Schema();
 const userSchema = new mongoose.Schema(
   {
     firstname: { type: String },
-    phone: { type: String, unique: true },
+    phone: { type: String },
     isConfirmed: { type: Boolean, default: false },
     confirmedCode: { type: Number, default: 0 },
+    rides: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ride",
+      },
+    ],
   },
   { timestamps: true }
 );
