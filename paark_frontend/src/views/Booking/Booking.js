@@ -44,19 +44,22 @@ const Booking = () => {
       .then((data) => {
         setMessage(data.message);
         setUserData(data.user);
-        const isConfirmed = data.user.isConfirmed;
-        if (!isConfirmed) {
-          setProcessStatus((prevStatus) => ({
-            ...prevStatus,
-            userInfo: true,
-          }));
-        } else {
-          setProcessStatus((prevStatus) => ({
-            ...prevStatus,
-            userInfo: true,
-            confirmCode: true,
-          }));
+        const { isConfirmed, hasRide } = data.user;
+        if (!hasRide) {
+          if (!isConfirmed) {
+            setProcessStatus((prevStatus) => ({
+              ...prevStatus,
+              userInfo: true,
+            }));
+          } else {
+            setProcessStatus((prevStatus) => ({
+              ...prevStatus,
+              userInfo: true,
+              confirmCode: true,
+            }));
+          }
         }
+        return;
       })
       .catch((err) => {
         console.log(err);
