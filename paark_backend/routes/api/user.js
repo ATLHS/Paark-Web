@@ -126,7 +126,7 @@ router.post("/user-information", async (req, res) => {
             user: {
               phone: newUser.phone,
               isConfirmed: newUser.isConfirmed,
-              hasRide: saveRide.status === "registered",
+              hasRide: false,
             },
             message: `Entrez le code reçu par SMS au ${newUser.phone} :`,
           });

@@ -59,7 +59,6 @@ const Booking = () => {
             }));
           }
         }
-        return;
       })
       .catch((err) => {
         console.log(err);
