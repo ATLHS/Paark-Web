@@ -43,7 +43,7 @@ router.post("/user-information", async (req, res) => {
           async (err, updatedRide) => {
             if (err) {
               res.status(400).json({
-                message: "Un probleme est survenue, réessayer plus tard.",
+                message: "Un probleme est survenue, veuillez réessayer.",
               });
             } else {
               if (!user.isConfirmed) {
@@ -57,7 +57,7 @@ router.post("/user-information", async (req, res) => {
                     if (err) {
                       res.status(400).json({
                         message:
-                          "Un probleme est survenue, réessayer plus tard.",
+                          "Un probleme est survenue, veuillez réessayer.",
                       });
                     } else {
                       // send confirmed code to the user via SMS
@@ -78,7 +78,7 @@ router.post("/user-information", async (req, res) => {
                       } else {
                         res.status(400).json({
                           message:
-                            "Un probleme est survenue, réessayer plus tard.",
+                            "Un probleme est survenue, veuillez réessayer.",
                         });
                       }
                     }
@@ -88,7 +88,7 @@ router.post("/user-information", async (req, res) => {
               if (user.isConfirmed) {
                 res.status(200).json({
                   user: { phone: user.phone, isConfirmed: user.isConfirmed },
-                  message: `Étape 3 : paiement + message de nouvelle course.`,
+                  message: "",
                 });
               }
             }
@@ -133,19 +133,19 @@ router.post("/user-information", async (req, res) => {
         } else {
           res.status(400).json({
             user: { firstname: newUser.firstname },
-            message: "Un probleme est survenue, réessayer plus tard.",
+            message: "Un probleme est survenue, veuillez réessayer.",
           });
         }
       } else {
         res.status(400).json({
           user: { firstname: newUser.firstname },
-          message: "Un probleme est survenue, réessayer plus tard.",
+          message: "Un probleme est survenue, veuillez réessayer.",
         });
       }
     } else {
       res.status(400).json({
         user: { firstname: newUser.firstname },
-        message: "Un probleme est survenue, réessayer plus tard.",
+        message: "Un probleme est survenue, veuillez réessayer.",
       });
     }
   }
@@ -191,7 +191,7 @@ router.post("/confirm-user-phone", async (req, res) => {
   } else {
     res.status(400).json({
       user: { phone: user.phone, isConfirmed: user.isConfirmed },
-      message: "Un probleme est survenue, réessayer plus tard.",
+      message: "Un probleme est survenue, veuillez réessayer.",
     });
   }
 });

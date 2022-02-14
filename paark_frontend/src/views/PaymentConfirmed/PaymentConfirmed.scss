@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Mochiy+Pop+P+One&display=swap");
+.payment-confirmed {
+  &__headlines {
+    &__container {
+      &__icon {
+        display: flex;
+        justify-content: center;
+        color: #4360ff;
+        margin-bottom: 40px;
+      }
+      &__title {
+        display: flex;
+        justify-content: center;
+        font-family: "Fugaz One";
+        font-size: 30px;
+      }
+      &__description {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 40px;
+      }
+      &__action {
+        &__cta {
+          display: flex;
+          justify-content: center;
+          &__back-to-home {
+            width: 200px;
+            height: 60px;
+            margin: auto;
+            background-color: #4360ff;
+            &:hover {
+              background-color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

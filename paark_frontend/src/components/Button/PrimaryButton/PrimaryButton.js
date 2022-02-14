@@ -1,17 +1,16 @@
-import Button from "react-bootstrap/Button";
 import "./PrimaryButton.scss";
 
-const PrimaryButton = ({ variant, text, onClick, type, className }) => {
+const PrimaryButton = ({ text, onClick, type, variant, size, disabled }) => {
   return (
     <>
-      <Button
-        className={className}
-        variant={variant}
+      <button
+        className={`primary-button ${variant} ${size}`}
         onClick={onClick}
         type={type}
+        disabled={disabled}
       >
         {text}
-      </Button>
+      </button>
     </>
   );
 };

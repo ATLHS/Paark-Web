@@ -18,16 +18,8 @@
         margin-bottom: 20px;
       }
       &__ctas {
-        &__get-valet {
-          margin-bottom: 20px;
-          margin-right: 20px;
-          width: 45% !important;
-          height: 60px;
-        }
-        &__get-car {
-          margin-bottom: 20px;
-          width: 45% !important;
-          height: 60px;
+        button:first-child {
+          margin-right: 10px !important;
         }
       }
     }
@@ -36,7 +28,7 @@
       align-items: center;
 
       &__paark-home {
-        width: 800px;
+        width: 780px;
       }
     }
   }
@@ -81,12 +73,10 @@
         }
         &__title {
           text-align: center;
+          font-family: "Fugaz One";
         }
         &__description {
           text-align: center;
-        }
-        &__title {
-          font-family: "Fugaz One";
         }
       }
     }

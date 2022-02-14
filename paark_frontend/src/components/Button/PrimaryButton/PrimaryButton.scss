@@ -1,0 +1,22 @@
+.primary-button {
+  color: white;
+  height: 60px !important;
+  transition: background-color ease 0.2s, border-color ease 0.2s !important;
+  border-style: none;
+  border-radius: 5px;
+  &.medium {
+    width: 250px;
+  }
+  &.large {
+    width: 100%;
+  }
+  &.blue-paark {
+    background-color: #4360ff;
+    &:hover {
+      background-color: #3b55e1;
+    }
+  }
+  &.black-paark {
+    background-color: black;
+  }
+}
