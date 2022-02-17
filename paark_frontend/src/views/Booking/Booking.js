@@ -43,12 +43,13 @@ const Booking = () => {
     );
     setBookingSchema(bookingSchemaValidation);
     setConfirmCodeSchema(confirmCodeSchemaValidation);
-
-    // Create PaymentIntent as soon as the page loads
-    paymentServices.getPaymentIntent().then(({ data }) => {
-      setClientSecret(data.clientSecret);
-    });
-  }, []);
+    if (processStatus.confirmCode) {
+      // Create PaymentIntent as soon as the page loads
+      paymentServices.getPaymentIntent(userData).then(({ data }) => {
+        setClientSecret(data.clientSecret);
+      });
+    }
+  }, [userData, processStatus.confirmCode]);
 
   // stripe options
   const appearance = {
@@ -86,20 +87,18 @@ const Booking = () => {
         setIsLoading(false);
         setMessage(data.message);
         setUserData(data.user);
-        const { isConfirmed, hasRide } = data.user;
-        if (!hasRide) {
-          if (!isConfirmed) {
-            setProcessStatus((prevStatus) => ({
-              ...prevStatus,
-              userInfo: true,
-            }));
-          } else {
-            setProcessStatus((prevStatus) => ({
-              ...prevStatus,
-              userInfo: true,
-              confirmCode: true,
-            }));
-          }
+        const { isConfirmed } = data.user;
+        if (!isConfirmed) {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            userInfo: true,
+          }));
+        } else {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            userInfo: true,
+            confirmCode: true,
+          }));
         }
       })
       .catch((err) => {
@@ -120,6 +119,7 @@ const Booking = () => {
         if (!isConfirmed) {
           return;
         } else {
+          setUserData(data.user);
           setProcessStatus((prevStatus) => ({
             ...prevStatus,
             userInfo: true,
@@ -165,13 +165,16 @@ const Booking = () => {
                       disabled={isLoading ? true : false}
                       text={
                         isLoading ? (
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />
+                          <>
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />{" "}
+                            Réserver un voiturier
+                          </>
                         ) : (
                           "Réserver un voiturier"
                         )
@@ -196,13 +199,16 @@ const Booking = () => {
                       disabled={isLoading ? true : false}
                       text={
                         isLoading ? (
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                          />
+                          <>
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />{" "}
+                            Confirmer
+                          </>
                         ) : (
                           "Confirmer"
                         )

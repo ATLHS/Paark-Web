@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema(
         ref: "Ride",
       },
     ],
+    stripeCustomerId: { type: String },
   },
   { timestamps: true }
 );

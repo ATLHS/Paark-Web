@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const randomNumber = require("../../utils/randomDigitNumber.js");
+const stripeCustomer = require("../../utils/stripeCustomer.js");
 const sendSMS = require("../../services/send_sms");
 const User = require("../../models/user");
 const Ride = require("../../models/ride");
@@ -26,13 +27,14 @@ router.post("/user-information", async (req, res) => {
       if (userRideDoc.status === "ongoing") {
         res.status(200).json({
           user: {
-            phone: user.phone,
+            user_id: user._id,
             isConfirmed: user.isConfirmed,
             hasRide: userRideDoc.status === "ongoing",
           },
           message: "Vous avez déja réserver un voiturier.",
         });
       } else {
+        // update user ride with new ride data even if the user is not confirmed
         await Ride.findOneAndUpdate(
           { userId: user._id, status: "registered" },
           { dropOffLocation: label, dropOffTime: time },
@@ -40,7 +42,7 @@ router.post("/user-information", async (req, res) => {
             new: true,
             upsert: true, // Make this update into an upsert
           },
-          async (err, updatedRide) => {
+          async (err) => {
             if (err) {
               res.status(400).json({
                 message: "Un probleme est survenue, veuillez réessayer.",
@@ -48,7 +50,7 @@ router.post("/user-information", async (req, res) => {
             } else {
               if (!user.isConfirmed) {
                 await User.findOneAndUpdate(
-                  { phone },
+                  { _id: user.id },
                   { confirmedCode },
                   {
                     new: true,
@@ -67,11 +69,11 @@ router.post("/user-information", async (req, res) => {
                       // );
 
                       if (updatedUser) {
+                        // console.log(updatedUser);
                         res.status(200).json({
                           user: {
-                            phone: updatedUser.phone,
+                            user_id: updatedUser._id,
                             isConfirmed: updatedUser.isConfirmed,
-                            hasRide: updatedRide.status === "registered",
                           },
                           message: `Entrez le code reçu par SMS au ${updatedUser.phone} :`,
                         });
@@ -87,7 +89,7 @@ router.post("/user-information", async (req, res) => {
               }
               if (user.isConfirmed) {
                 res.status(200).json({
-                  user: { phone: user.phone, isConfirmed: user.isConfirmed },
+                  user: { user_id: user._id, isConfirmed: user.isConfirmed },
                   message: "",
                 });
               }
@@ -124,7 +126,7 @@ router.post("/user-information", async (req, res) => {
         if (saveRide) {
           res.status(200).json({
             user: {
-              phone: newUser.phone,
+              user_id: newUser.id,
               isConfirmed: newUser.isConfirmed,
               hasRide: false,
             },
@@ -157,40 +159,52 @@ router.post("/user-information", async (req, res) => {
 router.post("/confirm-user-phone", async (req, res) => {
   const {
     code,
-    userData: { phone },
+    userData: { user_id },
   } = req.body.data;
 
-  const user = await User.findOne({ phone });
+  const user = await User.findOne({ _id: user_id });
+
   if (code && user) {
     const isValidCode = user.confirmedCode === Number(code);
 
     if (isValidCode) {
-      const updatedUser = await User.findOneAndUpdate(
-        { phone },
-        { isConfirmed: true },
-        {
-          new: true,
-        }
-      );
+      const createdCustomer = await stripeCustomer.createCustomer({
+        name: user.firstname,
+        phone: user.phone,
+      });
 
-      if (updatedUser) {
+      if (createdCustomer) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user_id },
+          { isConfirmed: true, stripeCustomerId: createdCustomer.id },
+          {
+            new: true,
+          }
+        );
+        if (updatedUser) {
+          res.status(200).json({
+            user: {
+              user_id: updatedUser._id,
+              isConfirmed: updatedUser.isConfirmed,
+            },
+            message: "",
+          });
+        }
+      } else {
         res.status(200).json({
-          user: {
-            phone: updatedUser.phone,
-            isConfirmed: updatedUser.isConfirmed,
-          },
-          message: "",
+          user: { id: user._id, isConfirmed: user.isConfirmed },
+          message: "Un probleme est survenue, veuillez réessayer.",
         });
       }
     } else {
-      res.status(400).json({
-        user: { phone: user.phone, isConfirmed: user.isConfirmed },
+      res.status(200).json({
+        user: { id: user._id, isConfirmed: user.isConfirmed },
         message: "Code incorrect veuillez réessayer.",
       });
     }
   } else {
-    res.status(400).json({
-      user: { phone: user.phone, isConfirmed: user.isConfirmed },
+    res.status(200).json({
+      user: { id: user._id, isConfirmed: user.isConfirmed },
       message: "Un probleme est survenue, veuillez réessayer.",
     });
   }

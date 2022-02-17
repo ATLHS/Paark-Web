@@ -12,9 +12,9 @@ mongoose
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 app.use(express.static("public"));
 
 const user = require("./routes/api/user");
