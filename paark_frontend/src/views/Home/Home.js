@@ -33,12 +33,13 @@ const Home = () => {
               variant="blue-paark"
               size="medium"
               text="Réserver un voiturier"
-              onClick={() => navigate("/booking")}
+              onClick={() => navigate("/get-valet")}
             />
             <PrimaryButton
               variant="black-paark"
               size="medium"
               text="Récupéré mon véhicule"
+              onClick={() => navigate("/get-car")}
             />
           </Row>
         </Col>

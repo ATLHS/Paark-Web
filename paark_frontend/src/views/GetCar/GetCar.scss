@@ -1,0 +1,23 @@
+.get-car {
+  &__section {
+    display: flex;
+    justify-content: center;
+
+    &__status {
+      margin-bottom: 20px;
+      &__title {
+        font-size: 40px !important;
+        line-height: normal;
+        font-family: "Fugaz One";
+        text-align: center;
+      }
+      &__helper {
+        margin: auto;
+        &__message {
+          text-align: center;
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}

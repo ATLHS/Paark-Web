@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Booking from "./views/Booking/Booking";
+import GetCar from "./views/GetCar/GetCar";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
 
 ReactDOM.render(
@@ -15,7 +16,8 @@ ReactDOM.render(
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/booking" element={<Booking />}></Route>
+        <Route path="/get-valet" element={<Booking />}></Route>
+        <Route path="/get-car" element={<GetCar />}></Route>
         <Route path="/payment-confirmed" element={<PaymentConfirmed />}></Route>
       </Routes>
     </BrowserRouter>
