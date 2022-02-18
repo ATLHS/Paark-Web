@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../../models/user");
+const Ride = require("../../models/ride");
 const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post("/create-payment-intent", async (req, res) => {
@@ -23,21 +24,32 @@ router.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-router.post("/stripe/webhooks-event", (req, res) => {
+router.post("/stripe/webhooks-event", async (req, res) => {
   let event = req.body;
 
   // Handle the event
   switch (event.type) {
     case "payment_intent.succeeded":
-      const paymentIntent = event.data.object;
-      console.log(paymentIntent.customer, "user stripe id");
+      const { customer } = event.data.object;
+      const user = await User.findOne({ stripeCustomerId: customer });
+
+      await Ride.findOneAndUpdate(
+        { userId: user._id },
+        { status: "ongoing" },
+        {
+          new: true,
+        },
+        async (err) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      ).clone();
       break;
-    default:
-      console.log(`Unhandled event type ${event.type}.`);
   }
 
   // Return a 200 response to acknowledge receipt of the event
-  response.send();
+  res.send();
 });
 
 module.exports = router;

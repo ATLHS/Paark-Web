@@ -87,7 +87,10 @@ const Booking = () => {
         setIsLoading(false);
         setMessage(data.message);
         setUserData(data.user);
-        const { isConfirmed } = data.user;
+        const { isConfirmed, hasRide } = data.user;
+        if (hasRide) {
+          return;
+        }
         if (!isConfirmed) {
           setProcessStatus((prevStatus) => ({
             ...prevStatus,

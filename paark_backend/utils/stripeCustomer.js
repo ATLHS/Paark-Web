@@ -9,7 +9,7 @@ module.exports = {
       .then((customer) => {
         return customer;
       })
-      .catch((err) => {
+      .catch(() => {
         return false;
       });
   },
