@@ -36,11 +36,14 @@ const AdminLogin = () => {
         console.log(err);
       });
   };
+
   return (
     <Container className="admin-login">
       <Row className="admin-login__section">
         <Row className="admin-login__section__status">
-          <Col className="admin-login__section__status__title">CONNEXION ADMIN</Col>
+          <Col className="admin-login__section__status__title">
+            CONNEXION ADMIN
+          </Col>
           <Row className="admin-login__section__status__helper">
             <Col className="admin-login__section__status__helper__message">
               {/* {message ? message : ""} */}
@@ -51,7 +54,9 @@ const AdminLogin = () => {
           <Row className="admin-login__section__process__content">
             <Row className={`admin-login__section__process__content__form`}>
               {/* admin login form */}
-              <Col className={`admin-login__section__process__content__form__login`}>
+              <Col
+                className={`admin-login__section__process__content__form__login`}
+              >
                 <Form className="admin-login__section__process__content__form__login__container">
                   <FormGroup schema={adminLoginSchema} control={control1} />
                   <Form.Group className="admin-login__section__process__content__form__login__container__cta">

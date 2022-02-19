@@ -59,6 +59,15 @@ const AdminSignup = () => {
 
   const handleSignUp = (data) => {
     setIsLoading(true);
+    admin
+    .handleAdminSignUp(data)
+    .then((res) => res)
+    .then((data) => {
+      setIsLoading(false);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   };
 
   const confirmAdminEmail = (data) => {
