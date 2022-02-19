@@ -1,0 +1,23 @@
+{
+  "title": "Get user number",
+  "description": "Get user number",
+  "type": "object",
+  "fields": {
+    "phone": {
+      "label": "Télephone",
+      "name": "phone",
+      "description": "User phone number",
+      "type": "phone",
+      "default": "",
+      "placeholder": "N° de télephone",
+      "helper": "Nous vous enverrons un SMS pour vous indiquez l'arrivé de votre véhicule.",
+      "validation": {
+        "required": "Indiquez votre n° de télephone",
+        "minLength": {
+          "value": 10,
+          "message": "N° de téléphone invalide."
+        }
+      }
+    }
+  }
+}

@@ -17,11 +17,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// protected module
 const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
 
+// admin module
+const adminUser = require("./routes/api/admin");
+
+// protected routes
 app.use("/api/user/", user);
 app.use("/api/payment/", payment);
+
+// admin routes
+app.use("/api/admin/", adminUser);
 
 app.use((req, res, next) => {
   res.send("Welcome to Express");

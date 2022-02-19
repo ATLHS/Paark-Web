@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema(
     firstname: { type: String },
     phone: { type: String },
     isConfirmed: { type: Boolean, default: false },
-    confirmedCode: { type: Number, default: 0 },
+    registeredConfirmedCode: { type: Number, default: 0 },
+    getCarConfirmedCode: { type: Number, default: 0 },
     rides: [
       {
         type: mongoose.Schema.Types.ObjectId,

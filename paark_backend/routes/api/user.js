@@ -17,13 +17,18 @@ router.post("/user-information", async (req, res) => {
     time,
   } = req.body.data;
 
-  const confirmedCode = randomNumber.randomFourDigitNumber();
+  const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
 
   const user = await User.findOne({ phone });
 
   if (user) {
     await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
       // do not register a ride for the user if he already has one on going
+      if (err) {
+        return res.status(400).json({
+          message: "Un probleme est survenue, veuillez réessayer.",
+        });
+      }
       if (userRideDoc.status === "ongoing") {
         res.status(200).json({
           user: {
@@ -51,7 +56,7 @@ router.post("/user-information", async (req, res) => {
               if (!user.isConfirmed) {
                 await User.findOneAndUpdate(
                   { _id: user.id },
-                  { confirmedCode },
+                  { registeredConfirmedCode },
                   {
                     new: true,
                   },
@@ -64,7 +69,7 @@ router.post("/user-information", async (req, res) => {
                     } else {
                       // send confirmed code to the user via SMS
                       // const isSent = sendSMS.sendSmsNotification(
-                      //   confirmedCode,
+                      //   registeredConfirmedCode,
                       //   formattedPhone(phone)
                       // );
 
@@ -103,7 +108,7 @@ router.post("/user-information", async (req, res) => {
       firstname,
       phone,
       isConfirmed: false,
-      confirmedCode,
+      registeredConfirmedCode,
     });
     const newUser = await user.save();
 
@@ -119,7 +124,7 @@ router.post("/user-information", async (req, res) => {
       if (saveRide) {
         // send confirmed code to the user via SMS
         // const isSent = sendSMS.sendSmsNotification(
-        //   confirmedCode,
+        //   registeredConfirmedCode,
         //   formattedPhone(phone)
         // );
 
@@ -165,7 +170,7 @@ router.post("/confirm-user-phone", async (req, res) => {
   const user = await User.findOne({ _id: user_id });
 
   if (code && user) {
-    const isValidCode = user.confirmedCode === Number(code);
+    const isValidCode = user.registeredConfirmedCode === Number(code);
 
     if (isValidCode) {
       const createdCustomer = await stripeCustomer.createCustomer({
@@ -206,6 +211,44 @@ router.post("/confirm-user-phone", async (req, res) => {
     res.status(200).json({
       user: { id: user._id, isConfirmed: user.isConfirmed },
       message: "Un probleme est survenue, veuillez réessayer.",
+    });
+  }
+});
+
+// @route POST /api/user/user-information
+// @description confirm user phone
+// @access Public
+router.post("/user-phone", async (req, res) => {
+  const { phone } = req.body.data;
+
+  const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
+
+  const user = await User.findOne({ phone });
+
+  if (user) {
+    await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
+      if (userRideDoc && userRideDoc.status === "ongoing") {
+        // suggest race cancellation
+        console.log("helld");
+      }
+      if (userRideDoc && userRideDoc.status === "registered") {
+        return res.status(200).json({
+          message: "Vous n'avez aucune réservation de voituirier en cours.",
+        });
+      }
+      if (userRideDoc && userRideDoc.status === "pickedup") {
+        return res.status(200).json({
+          user: {
+            user_id: user._id,
+          },
+          ride: userRideDoc,
+          message: `Entrez le code reçu par SMS au ${newUser.phone} :`,
+        });
+      }
+    }).clone();
+  } else {
+    res.status(200).json({
+      message: "Aucun utilisateur ne correspond avec se numéro.",
     });
   }
 });

@@ -32,7 +32,6 @@ router.post("/stripe/webhooks-event", async (req, res) => {
     case "payment_intent.succeeded":
       const { customer } = event.data.object;
       const user = await User.findOne({ stripeCustomerId: customer });
-
       await Ride.findOneAndUpdate(
         { userId: user._id },
         { status: "ongoing" },

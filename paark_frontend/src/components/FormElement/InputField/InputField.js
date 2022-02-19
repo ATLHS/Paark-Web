@@ -10,9 +10,15 @@ const InputField = ({
   type,
   label,
   placeholder,
+  autoComplete,
 }) => (
   <FloatingLabel className="input-field" controlId={name} label={label}>
-    <Form.Control onChange={onChange} type={type} placeholder={placeholder} />
+    <Form.Control
+      onChange={onChange}
+      type={type}
+      autoComplete={autoComplete}
+      placeholder={placeholder}
+    />
   </FloatingLabel>
 );
 

@@ -1,0 +1,19 @@
+{
+  "title": "Admin email field",
+  "description": "Admin email field",
+  "type": "object",
+  "fields": {
+    "code": {
+      "label": "Email",
+      "name": "email",
+      "description": "Admin email field",
+      "type": "email",
+      "default": "",
+      "placeholder": "",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez votre email."
+      }
+    }
+  }
+}

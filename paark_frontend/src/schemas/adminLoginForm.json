@@ -1,0 +1,33 @@
+{
+  "title": "Admin login form",
+  "description": "Admin login form",
+  "type": "object",
+  "fields": {
+    "email": {
+      "label": "Email",
+      "name": "email",
+      "description": "Admin email",
+      "type": "text",
+      "default": "",
+      "placeholder": "Adresse email",
+      "helper": "",
+      "autoComplete": "email",
+      "validation": {
+        "required": "Indiquez votre adresse email"
+      }
+    },
+    "password": {
+      "label": "Mot de passe",
+      "name": "password",
+      "description": "Admin password",
+      "type": "password",
+      "default": "",
+      "placeholder": "Mot de passe",
+      "helper": "",
+      "autoComplete": "password",
+      "validation": {
+        "required": "Indiquez votre mot de passe"
+      }
+    }
+  }
+}

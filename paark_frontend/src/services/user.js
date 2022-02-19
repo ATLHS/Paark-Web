@@ -13,6 +13,12 @@ const user = {
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
+  handleUserPhone(data) {
+    return axios
+      .post("/api/user/user-phone", { data })
+      .then(({ data }) => data)
+      .catch(({ response }) => Promise.reject(response.data));
+  },
 };
 
 export default user;

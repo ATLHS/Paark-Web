@@ -8,13 +8,13 @@ import VerificationCodeField from "../FormElement/VerificationCodeField/Verifica
 const FormConstructor = ({ events, field }) => {
   switch (field.type) {
     case "text":
+    case "email":
+    case "password":
       return <InputField {...events} {...field} />;
     case "select":
       return <SelectField {...events} {...field} />;
     case "phone":
       return <PhoneField {...events} {...field} />;
-    case "email":
-      return <InputField {...events} {...field} />;
     case "google-places":
       return <GooglePlacesAutocompleteField {...events} {...field} />;
     case "tel":

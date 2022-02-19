@@ -1,0 +1,23 @@
+{
+  "title": "Admin code field",
+  "description": "Admin code field",
+  "type": "object",
+  "fields": {
+    "code": {
+      "label": "code",
+      "name": "code",
+      "description": "Admin email code",
+      "type": "tel",
+      "default": "",
+      "placeholder": "",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez le code reçue par email.",
+        "minLength": {
+          "value": 4,
+          "message": "Indiquez le code reçue par email."
+        }
+      }
+    }
+  }
+}
