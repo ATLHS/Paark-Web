@@ -23,9 +23,9 @@ const AdminSignup = () => {
   const [codeSchema, setAdminCodeSchema] = useState([]);
   const [passwordSchema, setAdminPasswordSchema] = useState([]);
 
-  //   const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  //   const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState(null);
   const [processStatus, setProcessStatus] = useState({
     adminEmail: false,
     confirmCode: false,
@@ -64,14 +64,53 @@ const AdminSignup = () => {
       .then((res) => res)
       .then((data) => {
         setIsLoading(false);
+        setMessage(data.message);
+        setUserData(data.user);
+        if (!data.user.isConfirmed) {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            adminEmail: true,
+          }));
+        } else {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            adminEmail: true,
+            confirmCode: true,
+          }));
+        }
       })
       .catch((err) => {
-        console.log(err);
+        setIsLoading(false);
+        setMessage(err.message);
       });
   };
 
   const confirmAdminEmail = (data) => {
     setIsLoading(true);
+    data.user = userData;
+    admin
+      .handleAdminConfirmedCode(data)
+      .then((res) => res)
+      .then((data) => {
+        setIsLoading(false);
+        setMessage(data.message);
+
+        const isConfirmed = data.user.isConfirmed;
+        if (!isConfirmed) {
+          return;
+        } else {
+          setUserData(data.user);
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            adminEmail: true,
+            confirmCode: true,
+          }));
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setMessage(err.message);
+      });
   };
 
   const handlePassword = (data) => {
@@ -87,7 +126,7 @@ const AdminSignup = () => {
           </Col>
           <Row className="admin-signup__section__status__helper">
             <Col className="admin-signup__section__status__helper__message">
-              {/* {message ? message : ""} */}
+              {message ? message : ""}
             </Col>
           </Row>
         </Row>

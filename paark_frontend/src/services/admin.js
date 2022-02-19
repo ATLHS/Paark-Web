@@ -13,6 +13,12 @@ const admin = {
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
+  handleAdminConfirmedCode(data) {
+    return axios
+      .post("/api/admin/confirmed-code", { data })
+      .then(({ data }) => data)
+      .catch(({ response }) => Promise.reject(response.data));
+  },
 };
 
 export default admin;

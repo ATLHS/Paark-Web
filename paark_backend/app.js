@@ -22,7 +22,7 @@ const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
 
 // admin module
-const adminUser = require("./routes/api/admin");
+const adminUser = require("./routes/api/admin_user");
 
 // protected routes
 app.use("/api/user/", user);
