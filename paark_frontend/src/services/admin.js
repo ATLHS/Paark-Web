@@ -1,6 +1,6 @@
 const axios = require("axios").default;
 
-const user = {
+const admin = {
   handleAdminLogin(data) {
     return axios
       .post("/api/admin/login", { data })
@@ -9,10 +9,10 @@ const user = {
   },
   handleAdminSignUp(data) {
     return axios
-      .post("/api/admin/login", { data })
+      .post("/api/admin/signup", { data })
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
 };
 
-export default user;
+export default admin;

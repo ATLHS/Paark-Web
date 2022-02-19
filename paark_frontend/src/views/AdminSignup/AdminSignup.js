@@ -26,11 +26,11 @@ const AdminSignup = () => {
   //   const [userData, setUserData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   //   const [message, setMessage] = useState(null);
-    const [processStatus, setProcessStatus] = useState({
-      userInfo: false,
-      confirmCode: false,
-      payment: false,
-    });
+  const [processStatus, setProcessStatus] = useState({
+    adminEmail: false,
+    confirmCode: false,
+    adminPassword: false,
+  });
   useEffect(() => {
     const emailSchemaValidation = Object.keys(adminEmailForm.fields).map(
       (key) => adminEmailForm.fields[key]
@@ -50,7 +50,7 @@ const AdminSignup = () => {
   }, []);
 
   const titleStatus = () => {
-    return !processStatus.adminInfo
+    return !processStatus.adminEmail
       ? "INSCRIPTION ADMIN"
       : !processStatus.confirmCode
       ? "CONFIRMEZ VOTRE EMAIL"
@@ -60,14 +60,14 @@ const AdminSignup = () => {
   const handleSignUp = (data) => {
     setIsLoading(true);
     admin
-    .handleAdminSignUp(data)
-    .then((res) => res)
-    .then((data) => {
-      setIsLoading(false);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .handleAdminSignUp(data)
+      .then((res) => res)
+      .then((data) => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const confirmAdminEmail = (data) => {
@@ -95,13 +95,13 @@ const AdminSignup = () => {
           <Row className="admin-signup__section__process__content">
             <Row
               className={`admin-signup__section__process__content__form ${
-                processStatus.adminInfo ? "switchX1" : ""
+                processStatus.adminEmail ? "switchX1" : ""
               } ${processStatus.confirmCode ? "switchX2" : ""} `}
             >
               {/* admin email form */}
               <Col
                 className={`admin-signup__section__process__content__form__order  ${
-                  processStatus.adminInfo ? "hide" : "show"
+                  processStatus.adminEmail ? "hide" : "show"
                 } `}
               >
                 <Form className="admin-signup__section__process__content__form__order__container">
@@ -135,7 +135,7 @@ const AdminSignup = () => {
               {/* admin code form */}
               <Col
                 className={`admin-signup__section__process__content__form__confirm ${
-                  processStatus.adminInfo ? "show" : ""
+                  processStatus.adminEmail ? "show" : ""
                 } ${processStatus.confirmCode ? "hide" : ""} `}
               >
                 <Form className="admin-signup__section__process__content__form__confirm__container">
@@ -169,8 +169,8 @@ const AdminSignup = () => {
               {/* admin password form */}
               <Col
                 className={`admin-signup__section__process__content__form__password ${
-                  processStatus.adminInfo ? "show" : ""
-                } ${processStatus.confirmCode ? "hide" : ""} `}
+                  processStatus.confirmCode ? "show" : ""
+                } ${processStatus.adminPassword ? "hide" : ""} `}
               >
                 <Form className="admin-signup__section__process__content__form__password__container">
                   <FormGroup schema={passwordSchema} control={control3} />
