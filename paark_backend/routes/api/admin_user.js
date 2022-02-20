@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const Admin = require("../../models/admin");
 const randomNumber = require("../../utils/randomDigitNumber.js");
+const bcrypt = require("bcrypt");
+
 // const sendEmail = require("../../services/send_email");
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-
-const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
+const saltRounds = 12;
 
 // @route POST /api/admin/login
 // @description admin login
@@ -24,9 +25,9 @@ router.post("/signup", async (req, res) => {
   }
 
   const adminExist = await Admin.findOne({ email });
-
+  const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
   if (adminExist) {
-    if (!adminExist.isConfirmed) {
+    if (!adminExist.emailConfirmed) {
       await Admin.findOneAndUpdate(
         { _id: adminExist.id },
         { registeredConfirmedCode },
@@ -50,7 +51,7 @@ router.post("/signup", async (req, res) => {
                 user: {
                   user_id: updatedAdminUser._id,
                   email: updatedAdminUser.email,
-                  isConfirmed: updatedAdminUser.isConfirmed,
+                  emailConfirmed: updatedAdminUser.emailConfirmed,
                 },
 
                 message: `Entrez le code reçu par email a l'adresse ${email} :`,
@@ -64,20 +65,33 @@ router.post("/signup", async (req, res) => {
         }
       ).clone();
     }
-    if (adminExist.isConfirmed) {
-      res.status(200).json({
-        user: {
-          user_id: adminExist._id,
-          email: adminExist.email,
-          isConfirmed: adminExist.isConfirmed,
-        },
-        message: "Indiquez un mot de passe.",
-      });
+    if (adminExist.emailConfirmed) {
+      if (!adminExist.accountConfirmed) {
+        res.status(200).json({
+          user: {
+            user_id: adminExist._id,
+            email: adminExist.email,
+            emailConfirmed: adminExist.emailConfirmed,
+            accountConfirmed: adminExist.accountConfirmed,
+          },
+          message: "Indiquez un mot de passe.",
+        });
+      } else {
+        res.status(200).json({
+          user: {
+            user_id: adminExist._id,
+            email: adminExist.email,
+            emailConfirmed: adminExist.emailConfirmed,
+            accountConfirmed: adminExist.accountConfirmed,
+          },
+          message: `Un compte admin existe déjà avec l'adresse email ${adminExist.email}`,
+        });
+      }
     }
   } else {
     const admin = new Admin({
       email,
-      isConfirmed: false,
+      emailConfirmed: false,
       registeredConfirmedCode,
     });
     const newAdmin = await admin.save();
@@ -87,7 +101,7 @@ router.post("/signup", async (req, res) => {
         user: {
           user_id: newAdmin.id,
           email: newAdmin.email,
-          isConfirmed: newAdmin.isConfirmed,
+          emailConfirmed: newAdmin.emailConfirmed,
         },
         message: `Entrez le code reçu par email a l'adresse ${email} :`,
       });
@@ -117,7 +131,11 @@ router.post("/confirmed-code", async (req, res) => {
   }
   if (!isValidCode) {
     return res.status(200).json({
-      user: { id: user._id, email: user.email, isConfirmed: user.isConfirmed },
+      user: {
+        id: user._id,
+        email: user.email,
+        emailConfirmed: user.emailConfirmed,
+      },
       message: "Code incorrect veuillez réessayer.",
     });
   }
@@ -125,7 +143,7 @@ router.post("/confirmed-code", async (req, res) => {
   if (isValidCode) {
     const updatedAdminUser = await Admin.findOneAndUpdate(
       { _id: user.user_id },
-      { isConfirmed: true },
+      { emailConfirmed: true },
       {
         new: true,
       }
@@ -135,7 +153,7 @@ router.post("/confirmed-code", async (req, res) => {
         user: {
           id: updatedAdminUser._id,
           email: updatedAdminUser.email,
-          isConfirmed: updatedAdminUser.isConfirmed,
+          emailConfirmed: updatedAdminUser.emailConfirmed,
         },
         message: "Indiquez un mot de passe.",
       });
@@ -151,8 +169,43 @@ router.post("/confirmed-code", async (req, res) => {
 // @description handling admin password account
 // @access Public
 router.post("/password", async (req, res) => {
-  // const { code, user } = req.body.data;
-  console.log(req.body.data);
+  const {
+    user: { email },
+    password,
+  } = req.body.data;
+
+  const adminUser = await Admin.findOne({ email });
+
+  if (adminUser) {
+    bcrypt.hash(password, saltRounds, async (err, hash) => {
+      const updatedAdminUser = await Admin.findOneAndUpdate(
+        { email: adminUser.email },
+        { password: hash, accountConfirmed: true },
+        {
+          new: true,
+        }
+      );
+
+      if (!err && updatedAdminUser) {
+        return res.status(200).json({
+          user: {
+            id: updatedAdminUser._id,
+            email: updatedAdminUser.email,
+            accountConfirmed: updatedAdminUser.accountConfirmed,
+          },
+          message: "Votre compte admin est actif",
+        });
+      } else {
+        return res.status(400).json({
+          message: "Un probleme est survenue, veuillez réessayer.",
+        });
+      }
+    });
+  } else {
+    return res.status(400).json({
+      message: "Un probleme est survenue, veuillez réessayer.",
+    });
+  }
 });
 
 module.exports = router;

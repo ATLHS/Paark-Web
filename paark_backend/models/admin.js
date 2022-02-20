@@ -5,8 +5,10 @@ const Schema = new mongoose.Schema();
 const adminSchema = new mongoose.Schema(
   {
     email: { type: String },
-    isConfirmed: { type: Boolean, default: false },
+    emailConfirmed: { type: Boolean, default: false },
+    accountConfirmed: { type: Boolean, default: false },
     registeredConfirmedCode: { type: Number, default: 0 },
+    password: { type: String },
   },
   { timestamps: true }
 );

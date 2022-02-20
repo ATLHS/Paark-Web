@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
-// import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import admin from "../../services/admin";
 import { useForm } from "react-hook-form";
 import Form from "react-bootstrap/Form";
@@ -13,11 +13,16 @@ import Spinner from "react-bootstrap/Spinner";
 import "./AdminLogin.scss";
 
 const AdminLogin = () => {
-  //   let navigate = useNavigate();
+  let location = useLocation();
+
+  const [message, setMessage] = useState(null);
   const { handleSubmit: handleSubmit1, control: control1 } = useForm();
   const [adminLoginSchema, setAdminLoginSchema] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    if (location.state.message) {
+      setMessage(location.state.message);
+    }
     const adminSchemaValidation = Object.keys(adminLoginForm.fields).map(
       (key) => adminLoginForm.fields[key]
     );
@@ -46,7 +51,7 @@ const AdminLogin = () => {
           </Col>
           <Row className="admin-login__section__status__helper">
             <Col className="admin-login__section__status__helper__message">
-              {/* {message ? message : ""} */}
+              {message ? message : ""}
             </Col>
           </Row>
         </Row>

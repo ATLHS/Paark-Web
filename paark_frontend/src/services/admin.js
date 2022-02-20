@@ -19,6 +19,12 @@ const admin = {
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
+  handleAdminPassword(data) {
+    return axios
+      .post("/api/admin/password", { data })
+      .then(({ data }) => data)
+      .catch(({ response }) => Promise.reject(response.data));
+  },
 };
 
 export default admin;

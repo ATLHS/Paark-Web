@@ -11,12 +11,18 @@ import adminEmailForm from "../../schemas/adminEmailForm";
 import adminPasswordForm from "../../schemas/adminPasswordForm";
 import admin from "../../services/admin";
 import Spinner from "react-bootstrap/Spinner";
+import { useNavigate } from "react-router-dom";
 import "./AdminSignup.scss";
 
 const AdminSignup = () => {
+  let navigate = useNavigate();
   const { handleSubmit: handleSubmit1, control: control1 } = useForm();
   const { handleSubmit: handleSubmit2, control: control2 } = useForm();
-  const { handleSubmit: handleSubmit3, control: control3 } = useForm();
+  const {
+    handleSubmit: handleSubmit3,
+    getValues,
+    control: control3,
+  } = useForm();
 
   // schemas
   const [emailSchema, setAdminEmailSchema] = useState([]);
@@ -32,6 +38,7 @@ const AdminSignup = () => {
     adminPassword: false,
   });
   useEffect(() => {
+    // should be improved
     const emailSchemaValidation = Object.keys(adminEmailForm.fields).map(
       (key) => adminEmailForm.fields[key]
     );
@@ -43,6 +50,9 @@ const AdminSignup = () => {
     const passwordSchemaValidation = Object.keys(adminPasswordForm.fields).map(
       (key) => adminPasswordForm.fields[key]
     );
+    passwordSchemaValidation[1].validation.validate = (password) =>
+      getValues("password") === password ||
+      "Le mot de passe ne correspondent pas.";
 
     setAdminEmailSchema(emailSchemaValidation);
     setAdminCodeSchema(codeSchemaValidation);
@@ -66,17 +76,21 @@ const AdminSignup = () => {
         setIsLoading(false);
         setMessage(data.message);
         setUserData(data.user);
-        if (!data.user.isConfirmed) {
-          setProcessStatus((prevStatus) => ({
-            ...prevStatus,
-            adminEmail: true,
-          }));
+        if (data.user.accountConfirmed) {
+          return;
         } else {
-          setProcessStatus((prevStatus) => ({
-            ...prevStatus,
-            adminEmail: true,
-            confirmCode: true,
-          }));
+          if (!data.user.emailConfirmed) {
+            setProcessStatus((prevStatus) => ({
+              ...prevStatus,
+              adminEmail: true,
+            }));
+          } else {
+            setProcessStatus((prevStatus) => ({
+              ...prevStatus,
+              adminEmail: true,
+              confirmCode: true,
+            }));
+          }
         }
       })
       .catch((err) => {
@@ -94,8 +108,7 @@ const AdminSignup = () => {
       .then((data) => {
         setIsLoading(false);
         setMessage(data.message);
-
-        const isConfirmed = data.user.isConfirmed;
+        const isConfirmed = data.user.emailConfirmed;
         if (!isConfirmed) {
           return;
         } else {
@@ -115,6 +128,26 @@ const AdminSignup = () => {
 
   const handlePassword = (data) => {
     setIsLoading(true);
+    data.user = userData;
+    admin
+      .handleAdminPassword(data)
+      .then((res) => res)
+      .then((data) => {
+        setIsLoading(false);
+        if (data.user.accountConfirmed) {
+          setProcessStatus((prevStatus) => ({
+            ...prevStatus,
+            adminEmail: true,
+            confirmCode: true,
+            adminPassword: true,
+          }));
+          navigate("/admin/login", { state: { message: data.message } });
+        }
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setMessage(err.message);
+      });
   };
 
   return (
