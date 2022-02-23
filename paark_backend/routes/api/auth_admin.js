@@ -2,22 +2,68 @@ const router = require("express").Router();
 const Admin = require("../../models/admin");
 const randomNumber = require("../../utils/randomDigitNumber.js");
 const bcrypt = require("bcrypt");
-
-// const sendEmail = require("../../services/send_email");
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const jwt = require("jsonwebtoken");
+const { verifyJwt } = require("../../middleware/verifyJwt.js");
+const AUTHORIZE_ADMIN_EMAIL = process.env.AUTHORIZE_ADMIN_EMAIL;
 const saltRounds = 12;
 
 // @route POST /api/admin/login
 // @description admin login
 // @access Public
 router.post("/login", async (req, res) => {
-  return res.send({ route: "login" });
+  const { email, password } = req.body.data;
+
+  const adminExist = await Admin.findOne({ email });
+  if (adminExist) {
+    if (adminExist.accountConfirmed) {
+      bcrypt.compare(password, adminExist.password).then((result) => {
+        if (result) {
+          const payload = {
+            id: adminExist._id,
+            email: adminExist.email,
+          };
+
+          jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRES_IN },
+            (err, token) => {
+              if (err) {
+                return res.status(400).json({
+                  message: "Un probleme est survenue, réessayer plus tard.",
+                });
+              }
+
+              res
+                .status(200)
+                .cookie("token", token, { httpOnly: true })
+                .json(payload);
+            }
+          );
+        } else {
+          res.status(400).json({
+            message: "Adresse email ou mot de passe incorrect.",
+          });
+        }
+      });
+    }
+    if (!adminExist.accountConfirmed) {
+      return res.status(400).json({
+        message:
+          "Votre adresse email doit être confirmé avant de vous connecter.",
+      });
+    }
+  } else {
+    res.status(400).json({
+      message: "Aucun administrateur ne correspond à l'adresse email indiquer.",
+    });
+  }
 });
 
 router.post("/signup", async (req, res) => {
   const { email } = req.body.data;
 
-  if (email !== ADMIN_EMAIL) {
+  if (email !== AUTHORIZE_ADMIN_EMAIL) {
     return res.status(400).json({
       message: "Adresse email non autorisé.",
       email,
@@ -77,7 +123,7 @@ router.post("/signup", async (req, res) => {
           message: "Indiquez un mot de passe.",
         });
       } else {
-        res.status(200).json({
+        res.status(400).json({
           user: {
             user_id: adminExist._id,
             email: adminExist.email,
@@ -112,6 +158,11 @@ router.post("/signup", async (req, res) => {
       });
     }
   }
+});
+
+router.post("/logout", async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ isAuth: false });
 });
 
 // @route POST /api/admin/confirmed-code
@@ -193,7 +244,8 @@ router.post("/password", async (req, res) => {
             email: updatedAdminUser.email,
             accountConfirmed: updatedAdminUser.accountConfirmed,
           },
-          message: "Votre compte admin est actif",
+          message:
+            "Votre compte admin est actif vous pouvez désormais vous connecter",
         });
       } else {
         return res.status(400).json({
@@ -206,6 +258,13 @@ router.post("/password", async (req, res) => {
       message: "Un probleme est survenue, veuillez réessayer.",
     });
   }
+});
+
+// @route POST /api/admin/is-authenticate
+// @description handling authenticate status
+// @access Public
+router.get("/is-authenticate", verifyJwt, async (req, res) => {
+  res.status(200).json({ isAuth: true, user: req.user });
 });
 
 module.exports = router;

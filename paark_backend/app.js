@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 // db config
 const url = process.env.ATLAS_URL;
@@ -16,23 +17,14 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cookieParser());
 
-// protected module
 const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
+const adminAuth = require("./routes/api/auth_admin");
 
-// admin module
-const adminUser = require("./routes/api/admin_user");
-
-// protected routes
 app.use("/api/user/", user);
 app.use("/api/payment/", payment);
-
-// admin routes
-app.use("/api/admin/", adminUser);
-
-app.use((req, res, next) => {
-  res.send("Welcome to Express");
-});
+app.use("/api/admin/", adminAuth);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

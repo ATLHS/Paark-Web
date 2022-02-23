@@ -6,9 +6,7 @@ const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET_KEY);
 router.post("/create-payment-intent", async (req, res) => {
   const { user_id } = req.body.userData;
   const user = await User.findOne({ _id: user_id });
-
   const customer = await stripe.customers.retrieve(user.stripeCustomerId);
-
   // payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 700,

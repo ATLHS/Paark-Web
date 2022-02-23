@@ -1,8 +1,8 @@
-const axios = require("axios").default;
+import axioConfig from "./config/axiosConfig";
 
 const payment = {
   getPaymentIntent(userData) {
-    return axios
+    return axioConfig
       .post("/api/payment/create-payment-intent", { userData })
       .then((data) => data)
       .catch(({ response }) => Promise.reject(response.data));

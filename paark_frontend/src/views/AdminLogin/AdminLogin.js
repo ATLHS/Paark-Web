@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
+import { useNavigate } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import AuthApi from "../../context/AuthApi";
 import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useLocation } from "react-router-dom";
@@ -13,6 +15,8 @@ import Spinner from "react-bootstrap/Spinner";
 import "./AdminLogin.scss";
 
 const AdminLogin = () => {
+  let navigate = useNavigate();
+  const { setAuth, setAdmin } = useContext(AuthApi);
   let location = useLocation();
 
   const [message, setMessage] = useState(null);
@@ -20,7 +24,7 @@ const AdminLogin = () => {
   const [adminLoginSchema, setAdminLoginSchema] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    if (location.state.message) {
+    if (location.state && location.state.message) {
       setMessage(location.state.message);
     }
     const adminSchemaValidation = Object.keys(adminLoginForm.fields).map(
@@ -36,9 +40,13 @@ const AdminLogin = () => {
       .then((res) => res)
       .then((data) => {
         setIsLoading(false);
+        setAuth(true);
+        setAdmin(data.email);
+        navigate("/admin/dashboard");
       })
       .catch((err) => {
-        console.log(err);
+        setIsLoading(false);
+        setMessage(err.message);
       });
   };
 

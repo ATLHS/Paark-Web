@@ -1,15 +1,17 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useNavigate } from "react-router-dom";
+import AuthApi from "../../context/AuthApi";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
-  let navigate = useNavigate();
+  const { admin } = useContext(AuthApi);
   return (
     <Container className="admin-dashboard">
-      <Row className="">
-        <Col className=""></Col>
+      <Row>
+        <Col>Dashboard</Col>
+        <Col>Bonjour {admin.email}</Col>
       </Row>
     </Container>
   );
