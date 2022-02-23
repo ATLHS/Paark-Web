@@ -33,7 +33,6 @@ router.post("/login", async (req, res) => {
                   message: "Un probleme est survenue, réessayer plus tard.",
                 });
               }
-
               res
                 .status(200)
                 .cookie("token", token, { httpOnly: true })
@@ -160,7 +159,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/logout", async (req, res) => {
+router.get("/signout", async (req, res) => {
   res.clearCookie("token");
   res.status(200).json({ isAuth: false });
 });

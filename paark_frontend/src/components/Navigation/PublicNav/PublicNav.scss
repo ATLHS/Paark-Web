@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Mochiy+Pop+P+One&display=swap");
+.public-nav {
+  &__brand {
+    font-weight: "bold";
+    font-size: 20px;
+    color: #4360ff;
+    text-align: "center";
+    font-family: "Fugaz One";
+  }
+  &__collapse {
+    justify-content: end;
+  }
+}

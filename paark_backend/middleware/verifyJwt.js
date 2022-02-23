@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 
 const verifyJwt = (req, res, next) => {
   const token = req.cookies.token;
@@ -11,7 +12,7 @@ const verifyJwt = (req, res, next) => {
           message: "Requête non authentifiée",
         });
       }
-      req.user = decoded;
+      req.user = _.pick(decoded, ["id", "email"]);
       next();
     });
   } else {

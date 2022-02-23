@@ -6,12 +6,12 @@ import AuthApi from "../../context/AuthApi";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
-  const { admin } = useContext(AuthApi);
+  const { user } = useContext(AuthApi);
   return (
     <Container className="admin-dashboard">
       <Row>
         <Col>Dashboard</Col>
-        <Col>Bonjour {admin.email}</Col>
+        <Col>Bonjour {user.email}</Col>
       </Row>
     </Container>
   );

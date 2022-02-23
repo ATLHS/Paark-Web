@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation/Navigation";
+import Navigation from "./components/Navigation/Navigation/Navigation";
 import AdminRoute from "./components/AdminRoute/AdminRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
 import Booking from "./views/Booking/Booking";
@@ -15,7 +15,7 @@ import Home from "./views/Home/Home";
 
 const App = () => {
   const [auth, setAuth] = useState(false);
-  const [admin, setAdmin] = useState(null);
+  const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const App = () => {
       .then((res) => res)
       .then((data) => {
         setAuth(data.isAuth);
-        setAdmin(data);
+        setUser(data.user);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -36,7 +36,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <AuthApi.Provider value={{ auth, setAuth, setAdmin, admin }}>
+      <AuthApi.Provider value={{ auth, setAuth, setUser, user }}>
         <Navigation />
         {!isLoading && (
           <Routes>
