@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AuthApi from "../../context/AuthApi";
+import constStatus from "../../constants/status";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import "./AdminDashboard.scss";
@@ -10,17 +11,74 @@ import "./AdminDashboard.scss";
 const AdminDashboard = () => {
   const { user } = useContext(AuthApi);
 
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState([
+    {
+      id: 0,
+      firstname: "Mila",
+      tel: "0624557510",
+      dropOffLocation: "1 place du frommage",
+      dropOffTime: "16h00",
+      status: "Pris en charge",
+    },
+    {
+      id: 1,
+      firstname: "Pistache",
+      tel: "0624557510",
+      dropOffLocation: "5 rue des pistaches",
+      dropOffTime: "14h00",
+      status: "En chemin",
+    },
+    {
+      id: 2,
+      firstname: "Grizou",
+      tel: "0624557510",
+      dropOffLocation: "24 rue du sommeil",
+      dropOffTime: "13h30",
+      status: "En chemin",
+    },
+    {
+      id: 3,
+      firstname: "Scarlett",
+      tel: "0624557510",
+      dropOffLocation: "2 rue des relous",
+      dropOffTime: "20h40",
+      status: "Terminée",
+    },
+    {
+      id: 4,
+      firstname: "Django",
+      tel: "0624557510",
+      dropOffLocation: "place de la boulangerie",
+      dropOffTime: "18hh10",
+      status: "Enregistré",
+    },
+    {
+      id: 6,
+      firstname: "Hermione",
+      tel: "0624557510",
+      dropOffLocation: "2 rue des relous",
+      dropOffTime: "22h00",
+      status: "En chemin",
+    },
+    {
+      id: 5,
+      firstname: "Guapo",
+      tel: "0624557510",
+      dropOffLocation: "1 place dou brazil",
+      dropOffTime: "8h00",
+      status: "Pris en charge",
+    },
+  ]);
 
   const getVariantStatus = (status) => {
     switch (status) {
-      case "En chemin":
+      case constStatus.ONGOING:
         return "primary";
-      case "Pris en charge":
+      case constStatus.PICKEDUP:
         return "warning";
-      case "Enregistré":
+      case constStatus.REGISTERED:
         return "secondary";
-      case "Terminer":
+      case constStatus.RETURNED:
         return "success";
       default:
         return;
@@ -31,14 +89,14 @@ const AdminDashboard = () => {
     switch (status) {
       case "En chemin":
         return (
-          <Dropdown.Item eventKey={"Pris en charge"} as="button">
-            Pris en charge
+          <Dropdown.Item eventKey={constStatus.PICKEDUP} as="button">
+            {constStatus.PICKEDUP}
           </Dropdown.Item>
         );
       case "Pris en charge":
         return (
-          <Dropdown.Item eventKey={"Terminer"} as="button">
-            Terminer
+          <Dropdown.Item eventKey={constStatus.RETURNED} as="button">
+            {constStatus.RETURNED}
           </Dropdown.Item>
         );
       default:
@@ -106,14 +164,16 @@ const AdminDashboard = () => {
                 <Col className="admin-dashboard__container__table__body__race__info">
                   <DropdownButton
                     className={`admin-dashboard__container__table__body__race__info__selector-status ${
-                      user.status === "Terminer" || user.status === "Enregistré"
+                      user.status === constStatus.RETURNED ||
+                      user.status === constStatus.REGISTERED
                         ? "hide"
                         : ""
                     }`}
                     title={user.status}
                     variant={getVariantStatus(user.status)}
                     disabled={
-                      user.status === "Terminer" || user.status === "Enregistré"
+                      user.status === constStatus.RETURNED ||
+                      user.status === constStatus.REGISTERED
                     }
                     onSelect={(eventKey) => setTitle(eventKey, user.id)}
                   >
