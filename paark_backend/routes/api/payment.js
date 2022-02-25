@@ -32,7 +32,7 @@ router.post("/stripe/webhooks-event", async (req, res) => {
       const user = await User.findOne({ stripeCustomerId: customer });
       await Ride.findOneAndUpdate(
         { userId: user._id },
-        { status: "ongoing" },
+        { status: "En chemin" },
         {
           new: true,
         },

@@ -10,8 +10,7 @@ const rideSchema = new mongoose.Schema(
     dropOffLocation: { type: String },
     dropOffTime: { type: String },
     dropBackLocation: { type: String },
-    dropBackTime: { type: String },
-    status: { type: String, default: "registered" },
+    status: { type: String, default: "En chemin" },
     valet: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Valet",

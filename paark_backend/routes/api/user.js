@@ -29,19 +29,19 @@ router.post("/user-information", async (req, res) => {
           message: "Un probleme est survenue, veuillez réessayer.",
         });
       }
-      if (userRideDoc.status === "ongoing") {
+      if (userRideDoc.status === "En chemin") {
         res.status(200).json({
           user: {
             user_id: user._id,
             isConfirmed: user.isConfirmed,
-            hasRide: userRideDoc.status === "ongoing",
+            hasRide: userRideDoc.status === "En chemin",
           },
           message: "Vous avez déja réserver un voiturier.",
         });
       } else {
         // update user ride with new ride data even if the user is not confirmed
         await Ride.findOneAndUpdate(
-          { userId: user._id, status: "registered" },
+          { userId: user._id, status: "En chemin" },
           { dropOffLocation: label, dropOffTime: time },
           {
             new: true,
@@ -227,22 +227,27 @@ router.post("/user-phone", async (req, res) => {
 
   if (user) {
     await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
-      if (userRideDoc && userRideDoc.status === "ongoing") {
-        // suggest race cancellation
-        console.log("helld");
-      }
-      if (userRideDoc && userRideDoc.status === "registered") {
+      if (userRideDoc && userRideDoc.status === "En chemin") {
         return res.status(200).json({
           message: "Vous n'avez aucune réservation de voituirier en cours.",
         });
       }
-      if (userRideDoc && userRideDoc.status === "pickedup") {
+      if (userRideDoc && userRideDoc.status === "En chemin") {
+        // suggest race cancellation
+        console.log("helld");
+      }
+      if (userRideDoc && userRideDoc.status === "Pris en charge") {
         return res.status(200).json({
           user: {
             user_id: user._id,
           },
           ride: userRideDoc,
           message: `Entrez le code reçu par SMS au ${newUser.phone} :`,
+        });
+      }
+      if (userRideDoc && userRideDoc.status === "Términée") {
+        return res.status(200).json({
+          message: "Vous n'avez aucune réservation de voituirier en cours.",
         });
       }
     }).clone();

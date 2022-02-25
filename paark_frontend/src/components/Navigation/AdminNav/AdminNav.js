@@ -28,7 +28,6 @@ const AdminNav = () => {
       {user ? (
         <>
           <Navbar.Brand className="admin-nav__avatar">
-            USERNAME : {user.email}
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="admin-nav__collapse">
