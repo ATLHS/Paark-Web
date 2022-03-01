@@ -123,7 +123,7 @@ const AdminDashboard = () => {
                   onClick={getAllOptions}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Tous ({allStatusLength()})
+                  Tous {allStatusLength()}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
@@ -131,7 +131,7 @@ const AdminDashboard = () => {
                   onClick={getResgisteredOptions}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Enregistré ({statusesLenth[constStatus.REGISTERED]})
+                  Enregistré {statusesLenth[constStatus.REGISTERED]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
@@ -139,7 +139,7 @@ const AdminDashboard = () => {
                   onClick={getOnGoingOptions}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  En chemin ({statusesLenth[constStatus.ONGOING]})
+                  En chemin {statusesLenth[constStatus.ONGOING]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
@@ -147,7 +147,7 @@ const AdminDashboard = () => {
                   onClick={getPickedupOptions}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Pris en charge ({statusesLenth[constStatus.PICKEDUP]})
+                  Pris en charge {statusesLenth[constStatus.PICKEDUP]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
@@ -155,7 +155,7 @@ const AdminDashboard = () => {
                   onClick={getReturnedOptions}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Terminée ({statusesLenth[constStatus.RETURNED]})
+                  Terminée {statusesLenth[constStatus.RETURNED]}
                 </Nav.Link>
               </Nav.Item>
             </Nav>

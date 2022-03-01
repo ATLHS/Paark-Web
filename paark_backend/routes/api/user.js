@@ -22,87 +22,83 @@ router.post("/user-information", async (req, res) => {
   const user = await User.findOne({ phone });
 
   if (user) {
-    await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
-      // do not register a ride for the user if he already has one on going
-      if (err) {
-        return res.status(400).json({
-          message: "Un probleme est survenue, veuillez réessayer.",
-        });
-      }
-      if (userRideDoc.status === "En chemin") {
-        res.status(200).json({
-          user: {
-            user_id: user._id,
-            isConfirmed: user.isConfirmed,
-            hasRide: userRideDoc.status === "En chemin",
-          },
-          message: "Vous avez déja réserver un voiturier.",
-        });
-      } else {
-        // update user ride with new ride data even if the user is not confirmed
-        await Ride.findOneAndUpdate(
-          { userId: user._id, status: "En chemin" },
-          { dropOffLocation: label, dropOffTime: time },
-          {
-            new: true,
-            upsert: true, // Make this update into an upsert
-          },
-          async (err) => {
-            if (err) {
-              res.status(400).json({
-                message: "Un probleme est survenue, veuillez réessayer.",
-              });
-            } else {
-              if (!user.isConfirmed) {
-                await User.findOneAndUpdate(
-                  { _id: user.id },
-                  { registeredConfirmedCode },
-                  {
-                    new: true,
-                  },
-                  async (err, updatedUser) => {
-                    if (err) {
+    const userRideDoc = await Ride.find({
+      userId: user._id,
+    })
+      .or([{ status: "En chmin" }, { status: "Pris en chrge" }])
+      .exec();
+
+    if (userRideDoc.length) {
+      res.status(200).json({
+        user: {
+          user_id: user._id,
+          isConfirmed: user.isConfirmed,
+          hasRide: true,
+        },
+        message: "Vous avez déja réserver un voiturier.",
+      });
+    } else {
+      // update user ride with new ride data even if the user is not confirmed
+      await Ride.findOneAndUpdate(
+        { userId: user._id, status: "Enregistré" },
+        { dropOffLocation: label, dropOffTime: time },
+        {
+          new: true,
+          upsert: true, // Make this update into an upsert
+        },
+        async (err) => {
+          if (err) {
+            res.status(400).json({
+              message: "Un probleme est survenue, veuillez réessayer.",
+            });
+          } else {
+            if (!user.isConfirmed) {
+              await User.findOneAndUpdate(
+                { _id: user.id },
+                { registeredConfirmedCode },
+                {
+                  new: true,
+                },
+                async (err, updatedUser) => {
+                  if (err) {
+                    res.status(400).json({
+                      message: "Un probleme est survenue, veuillez réessayer.",
+                    });
+                  } else {
+                    // send confirmed code to the user via SMS
+                    // const isSent = sendSMS.sendSmsNotification(
+                    //   registeredConfirmedCode,
+                    //   formattedPhone(phone)
+                    // );
+
+                    if (updatedUser) {
+                      res.status(200).json({
+                        user: {
+                          user_id: updatedUser._id,
+                          isConfirmed: updatedUser.isConfirmed,
+                        },
+                        message: `Entrez le code reçu par SMS au ${updatedUser.phone} :`,
+                      });
+                    } else {
                       res.status(400).json({
                         message:
                           "Un probleme est survenue, veuillez réessayer.",
                       });
-                    } else {
-                      // send confirmed code to the user via SMS
-                      // const isSent = sendSMS.sendSmsNotification(
-                      //   registeredConfirmedCode,
-                      //   formattedPhone(phone)
-                      // );
-
-                      if (updatedUser) {
-                        // console.log(updatedUser);
-                        res.status(200).json({
-                          user: {
-                            user_id: updatedUser._id,
-                            isConfirmed: updatedUser.isConfirmed,
-                          },
-                          message: `Entrez le code reçu par SMS au ${updatedUser.phone} :`,
-                        });
-                      } else {
-                        res.status(400).json({
-                          message:
-                            "Un probleme est survenue, veuillez réessayer.",
-                        });
-                      }
                     }
                   }
-                ).clone();
-              }
-              if (user.isConfirmed) {
-                res.status(200).json({
-                  user: { user_id: user._id, isConfirmed: user.isConfirmed },
-                  message: "",
-                });
-              }
+                }
+              ).clone();
+            }
+            if (user.isConfirmed) {
+              res.status(200).json({
+                user: { user_id: user._id, isConfirmed: user.isConfirmed },
+                message: "",
+              });
             }
           }
-        ).clone();
-      }
-    }).clone();
+        }
+      ).clone();
+    }
   } else {
     const user = new User({
       firstname,
@@ -227,14 +223,16 @@ router.post("/user-phone", async (req, res) => {
 
   if (user) {
     await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
-      if (userRideDoc && userRideDoc.status === "En chemin") {
+      if (userRideDoc && userRideDoc.status === "Enregistré") {
         return res.status(200).json({
           message: "Vous n'avez aucune réservation de voituirier en cours.",
         });
       }
       if (userRideDoc && userRideDoc.status === "En chemin") {
-        // suggest race cancellation
-        console.log("helld");
+        return res.status(200).json({
+          message:
+            "Vous avez déja une course en cours, voulez vous l'annuler ?",
+        });
       }
       if (userRideDoc && userRideDoc.status === "Pris en charge") {
         return res.status(200).json({
