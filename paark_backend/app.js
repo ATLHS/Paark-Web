@@ -22,9 +22,11 @@ app.use(cookieParser());
 const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
 const adminAuth = require("./routes/api/auth_admin");
+const ride = require("./routes/api/ride");
 
 app.use("/api/user/", user);
 app.use("/api/payment/", payment);
 app.use("/api/admin/", adminAuth);
+app.use("/api/ride/", ride);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

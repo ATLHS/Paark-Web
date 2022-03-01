@@ -1,5 +1,6 @@
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import AuthApi from "../../../context/AuthApi";
 import Nav from "react-bootstrap/Nav";
@@ -27,8 +28,12 @@ const AdminNav = () => {
     <>
       {user ? (
         <>
-          <Navbar.Brand className="admin-nav__avatar">
-          </Navbar.Brand>
+          <Nav>
+            <Nav.Item style={{ display: "flex", alignItems: "center" }}>
+              <FontAwesomeIcon icon={faUserCircle} size="2x" />
+              <Nav.Link>{`user name`}</Nav.Link>
+            </Nav.Item>
+          </Nav>
           <Navbar.Toggle />
           <Navbar.Collapse className="admin-nav__collapse">
             <Nav>
