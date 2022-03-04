@@ -25,7 +25,7 @@ router.post("/user-information", async (req, res) => {
     const userRideDoc = await Ride.find({
       userId: user._id,
     })
-      .or([{ status: "En chmin" }, { status: "Pris en chrge" }])
+      .or([{ status: "En chemin" }, { status: "Pris en charge" }])
       .exec();
 
     if (userRideDoc.length) {
@@ -46,7 +46,7 @@ router.post("/user-information", async (req, res) => {
           new: true,
           upsert: true, // Make this update into an upsert
         },
-        async (err) => {
+        async (err, ride) => {
           if (err) {
             res.status(400).json({
               message: "Un probleme est survenue, veuillez réessayer.",
@@ -116,6 +116,8 @@ router.post("/user-information", async (req, res) => {
       });
 
       const saveRide = await newRide.save();
+      user.rides.push(saveRide);
+      const a = await user.save();
 
       if (saveRide) {
         // send confirmed code to the user via SMS
@@ -216,7 +218,6 @@ router.post("/confirm-user-phone", async (req, res) => {
 // @access Public
 router.post("/user-phone", async (req, res) => {
   const { phone } = req.body.data;
-
   const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
 
   const user = await User.findOne({ phone });
@@ -226,26 +227,30 @@ router.post("/user-phone", async (req, res) => {
       if (userRideDoc && userRideDoc.status === "Enregistré") {
         return res.status(200).json({
           message: "Vous n'avez aucune réservation de voituirier en cours.",
+          status: userRideDoc.status,
         });
       }
       if (userRideDoc && userRideDoc.status === "En chemin") {
         return res.status(200).json({
           message:
             "Vous avez déja une course en cours, voulez vous l'annuler ?",
+          status: userRideDoc.status,
         });
       }
       if (userRideDoc && userRideDoc.status === "Pris en charge") {
         return res.status(200).json({
           user: {
             user_id: user._id,
+            phone,
           },
-          ride: userRideDoc,
-          message: `Entrez le code reçu par SMS au ${newUser.phone} :`,
+          status: userRideDoc.status,
+          message: `Entrez le code reçu par SMS au ${phone} :`,
         });
       }
       if (userRideDoc && userRideDoc.status === "Términée") {
         return res.status(200).json({
           message: "Vous n'avez aucune réservation de voituirier en cours.",
+          status: userRideDoc.status,
         });
       }
     }).clone();

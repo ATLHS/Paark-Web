@@ -23,15 +23,16 @@ const AdminDashboard = () => {
       .getAllride()
       .then((res) => res)
       .then((data) => {
-        setUsers(data.test);
-        setInitialRace(data.test);
+        setUsers(data.user);
+        setInitialRace(data.user);
 
-        data.test.forEach((race) => {
-          if (race.status in statusesLenth) {
-            statusesLenth[race.status] = statusesLenth[race.status] + 1;
+        data.user.forEach((user) => {
+          if (user.rides[0].status in statusesLenth) {
+            statusesLenth[user.rides[0].status] =
+              statusesLenth[user.rides[0].status] + 1;
             return;
           }
-          statusesLenth[race.status] = 1;
+          statusesLenth[user.rides[0].status] = 1;
         });
 
         setIsLoading(false);
@@ -78,8 +79,8 @@ const AdminDashboard = () => {
 
   const setTitle = (newStatus, id) => {
     const updatedUsers = users.map((user) => {
-      if (user.id === id) {
-        user.status = newStatus;
+      if (user._id === id) {
+        user.rides[0].status = newStatus;
       }
       return user;
     });
@@ -90,20 +91,28 @@ const AdminDashboard = () => {
 
   const getResgisteredOptions = () =>
     setUsers(
-      initialRace.filter((user) => user.status === constStatus.REGISTERED)
+      initialRace.filter(
+        (user) => user.rides[0].status === constStatus.REGISTERED
+      )
     );
 
   const getOnGoingOptions = () =>
-    setUsers(initialRace.filter((user) => user.status === constStatus.ONGOING));
+    setUsers(
+      initialRace.filter((user) => user.rides[0].status === constStatus.ONGOING)
+    );
 
   const getPickedupOptions = () =>
     setUsers(
-      initialRace.filter((user) => user.status === constStatus.PICKEDUP)
+      initialRace.filter(
+        (user) => user.rides[0].status === constStatus.PICKEDUP
+      )
     );
 
   const getReturnedOptions = () =>
     setUsers(
-      initialRace.filter((user) => user.status === constStatus.RETURNED)
+      initialRace.filter(
+        (user) => user.rides[0].status === constStatus.RETURNED
+      )
     );
 
   const allStatusLength = () =>
@@ -185,7 +194,7 @@ const AdminDashboard = () => {
           {!isLoading &&
             users.map((user) => (
               <Row
-                key={user.id}
+                key={user._id}
                 className="admin-dashboard__container__table__body"
               >
                 <Row className="admin-dashboard__container__table__body__race">
@@ -193,34 +202,34 @@ const AdminDashboard = () => {
                     {user.firstname}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.dropOffLocation}
+                    {user.rides[0].dropOffLocation}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.dropOffTime}
+                    {user.rides[0].dropOffTime}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
                     -
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.tel}
+                    {user.phone}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
                     <DropdownButton
                       className={`admin-dashboard__container__table__body__race__info__selector-status ${
-                        user.status === constStatus.RETURNED ||
-                        user.status === constStatus.REGISTERED
+                        user.rides[0].status === constStatus.RETURNED ||
+                        user.rides[0].status === constStatus.REGISTERED
                           ? "hide"
                           : ""
                       }`}
-                      title={user.status}
-                      variant={getVariantStatus(user.status)}
+                      title={user.rides[0].status}
+                      variant={getVariantStatus(user.rides[0].status)}
                       disabled={
-                        user.status === constStatus.RETURNED ||
-                        user.status === constStatus.REGISTERED
+                        user.rides[0].status === constStatus.RETURNED ||
+                        user.rides[0].status === constStatus.REGISTERED
                       }
-                      onSelect={(eventKey) => setTitle(eventKey, user.id)}
+                      onSelect={(eventKey) => setTitle(eventKey, user._id)}
                     >
-                      {getOptions(user.status)}
+                      {getOptions(user.rides[0].status)}
                     </DropdownButton>
                   </Col>
                 </Row>
