@@ -58,17 +58,25 @@ const AdminDashboard = () => {
     }
   };
 
-  const getOptions = (status) => {
-    switch (status) {
+  const getOptions = (user) => {
+    switch (user.rides[0].status) {
       case "En chemin":
         return (
-          <Dropdown.Item eventKey={constStatus.PICKEDUP} as="button">
+          <Dropdown.Item
+            eventKey={constStatus.PICKEDUP}
+            as="button"
+            onClick={updateRideStatus(user.rides[0]._id, constStatus.PICKEDUP)}
+          >
             {constStatus.PICKEDUP}
           </Dropdown.Item>
         );
       case "Pris en charge":
         return (
-          <Dropdown.Item eventKey={constStatus.RETURNED} as="button">
+          <Dropdown.Item
+            eventKey={constStatus.RETURNED}
+            as="button"
+            onClick={updateRideStatus(user.rides[0]._id, constStatus.RETURNED)}
+          >
             {constStatus.RETURNED}
           </Dropdown.Item>
         );
@@ -76,6 +84,8 @@ const AdminDashboard = () => {
         return;
     }
   };
+
+  const updateRideStatus = (id, status) => {};
 
   const setTitle = (newStatus, id) => {
     const updatedUsers = users.map((user) => {
@@ -229,7 +239,7 @@ const AdminDashboard = () => {
                       }
                       onSelect={(eventKey) => setTitle(eventKey, user._id)}
                     >
-                      {getOptions(user.rides[0].status)}
+                      {getOptions(user)}
                     </DropdownButton>
                   </Col>
                 </Row>
