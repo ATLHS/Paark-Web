@@ -208,7 +208,7 @@ const AdminDashboard = () => {
                     {user.rides[0].dropOffTime}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
-                    -
+                    {user.rides[0].dropBackLocation || "-"}
                   </Col>
                   <Col className="admin-dashboard__container__table__body__race__info">
                     {user.phone}

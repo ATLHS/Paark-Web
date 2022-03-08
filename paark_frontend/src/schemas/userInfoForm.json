@@ -3,6 +3,18 @@
   "description": "Get user number",
   "type": "object",
   "fields": {
+    "google-places": {
+      "label": "Déestination",
+      "name": "destination",
+      "description": "User destination",
+      "type": "google-places",
+      "default": "",
+      "placeholder": "Indiquez votre localisation ?",
+      "helper": "Un voiturier vous restitura votre véhicule à l'adresse indiquer.",
+      "validation": {
+        "required": "Indiquez votre localisation"
+      }
+    },
     "phone": {
       "label": "Télephone",
       "name": "phone",

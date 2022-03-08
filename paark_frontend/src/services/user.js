@@ -13,9 +13,9 @@ const user = {
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
-  handleUserPhone(data) {
+  returnUserCar(data) {
     return axioConfig
-      .post("/api/user/user-phone", { data })
+      .post("/api/user/return-user-car", { data })
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },

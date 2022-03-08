@@ -25,7 +25,7 @@ const GooglePlacesAutocompleteField = ({
           },
           className: "google-places",
           classNamePrefix: "google-places__field",
-          placeholder: "Indiquez votre destination ?",
+          placeholder: placeholder,
           onChange: onChange,
         }}
       />

@@ -168,45 +168,81 @@ router.post("/confirm-user-phone", async (req, res) => {
   const user = await User.findOne({ _id: user_id });
 
   if (code && user) {
-    const isValidCode = user.registeredConfirmedCode === Number(code);
+    // if user phone is confirmed
+    if (user.isConfirmed) {
+      const isValidCode = user.getCarConfirmedCode === Number(code);
 
-    if (isValidCode) {
-      const createdCustomer = await stripeCustomer.createCustomer({
-        name: user.firstname,
-        phone: user.phone,
-      });
-
-      if (createdCustomer) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: user_id },
-          { isConfirmed: true, stripeCustomerId: createdCustomer.id },
+      if (isValidCode) {
+        await Ride.findOneAndUpdate(
+          { userId: user._id, status: "Pris en charge" },
+          { isReturning: true },
           {
             new: true,
+          },
+          async (err, { dropBackLocation }) => {
+            if (err) {
+              return res.status(400).json({
+                message: "Un probleme est survenue, veuillez réessayer.",
+              });
+            } else {
+              // return res to the client and send a notification to bring the car back to the customer
+              return res.status(200).json({
+                user: {
+                  user_id: user._id,
+                },
+                message: `Un voiturier prend en charge votre véhicule, il vous contactera des son arrivé à l'adresse : ${dropBackLocation}`,
+              });
+            }
           }
-        );
-        if (updatedUser) {
-          res.status(200).json({
-            user: {
-              user_id: updatedUser._id,
-              isConfirmed: updatedUser.isConfirmed,
-            },
-            message: "",
+        ).clone();
+      } else {
+        return res.status(400).json({
+          user: { id: user._id, isConfirmed: user.isConfirmed },
+          message: "Code incorrect veuillez réessayer.",
+        });
+      }
+    }
+    // if user phone is not confirmed
+    if (!user.isConfirmed) {
+      const isValidCode = user.registeredConfirmedCode === Number(code);
+
+      if (isValidCode) {
+        const createdCustomer = await stripeCustomer.createCustomer({
+          name: user.firstname,
+          phone: user.phone,
+        });
+        if (createdCustomer) {
+          const updatedUser = await User.findOneAndUpdate(
+            { _id: user_id },
+            { isConfirmed: true, stripeCustomerId: createdCustomer.id },
+            {
+              new: true,
+            }
+          );
+          if (updatedUser) {
+            res.status(200).json({
+              user: {
+                user_id: updatedUser._id,
+                isConfirmed: updatedUser.isConfirmed,
+              },
+              message: "",
+            });
+          }
+        } else {
+          return res.status(200).json({
+            user: { id: user._id, isConfirmed: user.isConfirmed },
+            message: "Un probleme est survenue, veuillez réessayer.",
           });
         }
       } else {
-        res.status(200).json({
+        return res.status(200).json({
           user: { id: user._id, isConfirmed: user.isConfirmed },
-          message: "Un probleme est survenue, veuillez réessayer.",
+          message: "Code incorrect veuillez réessayer.",
         });
       }
-    } else {
-      res.status(200).json({
-        user: { id: user._id, isConfirmed: user.isConfirmed },
-        message: "Code incorrect veuillez réessayer.",
-      });
     }
   } else {
-    res.status(200).json({
+    return res.status(200).json({
       user: { id: user._id, isConfirmed: user.isConfirmed },
       message: "Un probleme est survenue, veuillez réessayer.",
     });
@@ -214,49 +250,76 @@ router.post("/confirm-user-phone", async (req, res) => {
 });
 
 // @route POST /api/user/user-information
-// @description confirm user phone
+// @description returning car process
 // @access Public
-router.post("/user-phone", async (req, res) => {
-  const { phone } = req.body.data;
+router.post("/return-user-car", async (req, res) => {
+  const {
+    destination: { label },
+    phone,
+  } = req.body.data;
+
   const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
 
   const user = await User.findOne({ phone });
 
   if (user) {
-    await Ride.findOne({ userId: user._id }, async (err, userRideDoc) => {
-      if (userRideDoc && userRideDoc.status === "Enregistré") {
-        return res.status(200).json({
-          message: "Vous n'avez aucune réservation de voituirier en cours.",
-          status: userRideDoc.status,
-        });
-      }
-      if (userRideDoc && userRideDoc.status === "En chemin") {
+    const ride = await Ride.findOne({
+      userId: user._id,
+      status: "Pris en charge",
+    });
+
+    if (ride) {
+      if (ride.isReturning) {
         return res.status(200).json({
           message:
-            "Vous avez déja une course en cours, voulez vous l'annuler ?",
-          status: userRideDoc.status,
+            "Votre véhicule est déja en chemin vers votre position un voiturier Paark vous contatera des son arrivé.",
+          status: null,
         });
+      } else {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { getCarConfirmedCode: registeredConfirmedCode },
+          {
+            new: true,
+          }
+        );
+        if (updatedUser) {
+          await Ride.findOneAndUpdate(
+            { userId: user._id, status: "Pris en charge" },
+            { dropBackLocation: label },
+            {
+              new: true,
+            },
+            async (err, updatedRide) => {
+              if (err) {
+                res.status(400).json({
+                  message: "Un probleme est survenue, veuillez réessayer.",
+                });
+              } else {
+                // return res to the client and send a notification to bring the car back to the customer
+                return res.status(200).json({
+                  user: {
+                    user_id: user._id,
+                    phone,
+                  },
+                  status: updatedRide.status,
+                  message: `Entrez le code reçu par SMS au ${phone} :`,
+                });
+              }
+            }
+          ).clone();
+        }
       }
-      if (userRideDoc && userRideDoc.status === "Pris en charge") {
-        return res.status(200).json({
-          user: {
-            user_id: user._id,
-            phone,
-          },
-          status: userRideDoc.status,
-          message: `Entrez le code reçu par SMS au ${phone} :`,
-        });
-      }
-      if (userRideDoc && userRideDoc.status === "Términée") {
-        return res.status(200).json({
-          message: "Vous n'avez aucune réservation de voituirier en cours.",
-          status: userRideDoc.status,
-        });
-      }
-    }).clone();
+    } else {
+      return res.status(200).json({
+        message:
+          "Vous n'avez aucun véhicule pris en charge par un voiturier paark.",
+        status: null,
+      });
+    }
   } else {
     res.status(200).json({
-      message: "Aucun utilisateur ne correspond avec se numéro.",
+      message: "Aucun utilisateur ne correspond au numéro indiqué.",
     });
   }
 });

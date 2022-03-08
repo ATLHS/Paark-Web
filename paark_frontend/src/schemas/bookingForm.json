@@ -9,7 +9,7 @@
       "description": "User destination",
       "type": "google-places",
       "default": "",
-      "placeholder": "",
+      "placeholder": "Indiquez votre destination ?",
       "helper": "Un voiturier vous attendra à la destination choisis.",
       "validation": {
         "required": "Indiquez votre destination"
