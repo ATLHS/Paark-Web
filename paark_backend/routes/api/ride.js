@@ -6,7 +6,11 @@ router.get("/rides", async (req, res) => {
   const user = await User.find({}, "_id firstname phone rides")
     .populate({
       path: "rides",
-      match: { status: { $in: ["Enregistré", "En chemin", "Pris en charge"] } },
+      match: {
+        status: {
+          $in: ["Enregistré", "En chemin", "Pris en charge"],
+        },
+      },
     })
     .exec();
 

@@ -4,6 +4,7 @@ const stripeCustomer = require("../../utils/stripeCustomer.js");
 const sendSMS = require("../../services/send_sms");
 const User = require("../../models/user");
 const Ride = require("../../models/ride");
+const { findOneAndUpdate } = require("../../models/ride");
 
 const formattedPhone = (phone) => parseInt(phone);
 // @route POST /api/user/user-information
@@ -27,7 +28,7 @@ router.post("/user-information", async (req, res) => {
     })
       .or([{ status: "En chemin" }, { status: "Pris en charge" }])
       .exec();
-
+    // check if user already has on going ride or pickedup car
     if (userRideDoc.length) {
       res.status(200).json({
         user: {
@@ -38,61 +39,92 @@ router.post("/user-information", async (req, res) => {
         message: "Vous avez déja réserver un voiturier.",
       });
     } else {
-      // update user ride with new ride data even if the user is not confirmed
-      await Ride.findOneAndUpdate(
-        { userId: user._id, status: "Enregistré" },
-        { dropOffLocation: label, dropOffTime: time },
+      await Ride.findOne(
         {
-          new: true,
-          upsert: true, // Make this update into an upsert
+          userId: user._id,
+          status: "Enregistré",
         },
         async (err, ride) => {
-          if (err) {
-            res.status(400).json({
+          if (err)
+            return res.status(400).json({
               message: "Un probleme est survenue, veuillez réessayer.",
             });
-          } else {
-            if (!user.isConfirmed) {
-              await User.findOneAndUpdate(
-                { _id: user.id },
-                { registeredConfirmedCode },
-                {
-                  new: true,
-                },
-                async (err, updatedUser) => {
-                  if (err) {
-                    res.status(400).json({
-                      message: "Un probleme est survenue, veuillez réessayer.",
-                    });
-                  } else {
-                    // send confirmed code to the user via SMS
-                    // const isSent = sendSMS.sendSmsNotification(
-                    //   registeredConfirmedCode,
-                    //   formattedPhone(phone)
-                    // );
 
-                    if (updatedUser) {
-                      res.status(200).json({
-                        user: {
-                          user_id: updatedUser._id,
-                          isConfirmed: updatedUser.isConfirmed,
-                        },
-                        message: `Entrez le code reçu par SMS au ${updatedUser.phone} :`,
-                      });
-                    } else {
-                      res.status(400).json({
+          if (ride) {
+            ride.dropOffLocation = label;
+            ride.dropOffTime = time;
+
+            const updatedRide = await ride.save();
+            if (updatedRide) {
+              if (!user.isConfirmed) {
+                await User.findOneAndUpdate(
+                  { _id: user.id },
+                  { registeredConfirmedCode },
+                  {
+                    new: true,
+                  },
+                  async (err, updatedUser) => {
+                    if (err) {
+                      return res.status(400).json({
                         message:
                           "Un probleme est survenue, veuillez réessayer.",
                       });
+                    } else {
+                      // send confirmed code to the user via SMS
+                      // const isSent = sendSMS.sendSmsNotification(
+                      //   registeredConfirmedCode,
+                      //   formattedPhone(phone)
+                      // );
+
+                      if (updatedUser) {
+                        return res.status(200).json({
+                          user: {
+                            user_id: updatedUser._id,
+                            isConfirmed: updatedUser.isConfirmed,
+                          },
+                          message: `Entrez le code reçu par SMS au ${updatedUser.phone} :`,
+                        });
+                      } else {
+                        return res.status(400).json({
+                          message:
+                            "Un probleme est survenue, veuillez réessayer.",
+                        });
+                      }
                     }
                   }
-                }
-              ).clone();
+                ).clone();
+              }
+              if (user.isConfirmed) {
+                return res.status(200).json({
+                  user: { user_id: user._id, isConfirmed: user.isConfirmed },
+                  message: "",
+                });
+              }
+            } else {
+              return res.status(400).json({
+                message: "Un probleme est survenue, veuillez réessayer.",
+              });
             }
-            if (user.isConfirmed) {
-              res.status(200).json({
+          } else {
+            // create new ride for confirmed user
+            const newRide = new Ride({
+              dropOffLocation: label,
+              dropOffTime: time,
+              userId: user._id,
+            });
+
+            const saveRide = await newRide.save();
+            user.rides.push(saveRide);
+            const savedUser = await user.save();
+
+            if (savedUser) {
+              return res.status(200).json({
                 user: { user_id: user._id, isConfirmed: user.isConfirmed },
                 message: "",
+              });
+            } else {
+              return res.status(400).json({
+                message: "Un probleme est survenue, veuillez réessayer.",
               });
             }
           }
@@ -322,6 +354,31 @@ router.post("/return-user-car", async (req, res) => {
       message: "Aucun utilisateur ne correspond au numéro indiqué.",
     });
   }
+});
+
+// @route POST /api/user/update-ride-status
+// @description update user ride status
+// @access Public
+router.post("/update-ride-status", async (req, res) => {
+  const { id, status } = req.body;
+
+  await Ride.findOneAndUpdate(
+    { _id: id },
+    { status },
+    {
+      new: true,
+    },
+    async (err, updatedRide) => {
+      if (err) {
+        res.status(400).json({
+          message: "Un probleme est survenue, veuillez réessayer.",
+        });
+      } else {
+        // return res to the client and send a notification to bring the car back to the customer
+        return res.status(200).json({ isUpdated: true });
+      }
+    }
+  ).clone();
 });
 
 module.exports = router;

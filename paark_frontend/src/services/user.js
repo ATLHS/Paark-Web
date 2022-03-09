@@ -19,6 +19,12 @@ const user = {
       .then(({ data }) => data)
       .catch(({ response }) => Promise.reject(response.data));
   },
+  updateUserRideStatus(id, status) {
+    return axioConfig
+      .post("/api/user/update-ride-status", { id, status })
+      .then(({ data }) => data)
+      .catch(({ response }) => Promise.reject(response.data));
+  },
 };
 
 export default user;

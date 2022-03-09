@@ -8,6 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Nav from "react-bootstrap/Nav";
 import rideServices from "../../services/ride";
+import userServices from "../../services/user";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
@@ -24,6 +25,7 @@ const AdminDashboard = () => {
       .then((res) => res)
       .then((data) => {
         setUsers(data.user);
+        console.log(data.user);
         setInitialRace(data.user);
 
         data.user.forEach((user) => {
@@ -65,7 +67,9 @@ const AdminDashboard = () => {
           <Dropdown.Item
             eventKey={constStatus.PICKEDUP}
             as="button"
-            onClick={updateRideStatus(user.rides[0]._id, constStatus.PICKEDUP)}
+            onClick={() =>
+              updateRideStatus(user.rides[0]._id, constStatus.PICKEDUP)
+            }
           >
             {constStatus.PICKEDUP}
           </Dropdown.Item>
@@ -75,7 +79,9 @@ const AdminDashboard = () => {
           <Dropdown.Item
             eventKey={constStatus.RETURNED}
             as="button"
-            onClick={updateRideStatus(user.rides[0]._id, constStatus.RETURNED)}
+            onClick={() =>
+              updateRideStatus(user.rides[0]._id, constStatus.RETURNED)
+            }
           >
             {constStatus.RETURNED}
           </Dropdown.Item>
@@ -85,7 +91,19 @@ const AdminDashboard = () => {
     }
   };
 
-  const updateRideStatus = (id, status) => {};
+  const updateRideStatus = (rideId, status) => {
+    setIsLoading(true);
+    userServices
+      .updateUserRideStatus(rideId, status)
+      .then((res) => res)
+      .then((data) => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  };
 
   const setTitle = (newStatus, id) => {
     const updatedUsers = users.map((user) => {
