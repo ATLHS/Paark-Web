@@ -14,9 +14,9 @@ import "./AdminDashboard.scss";
 const AdminDashboard = () => {
   const { user } = useContext(AuthApi);
 
-  const [initialRace, setInitialRace] = useState();
-  const [statusesLenth, setStatusesLenth] = useState({});
-  const [users, setUsers] = useState();
+  const [initialRace, setInitialRace] = useState([]);
+  const [statusesLength, setStatusesLength] = useState({});
+  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,17 +24,17 @@ const AdminDashboard = () => {
       .getAllride()
       .then((res) => res)
       .then((data) => {
-        setUsers(data.user);
-        console.log(data.user);
-        setInitialRace(data.user);
-
         data.user.forEach((user) => {
-          if (user.rides[0].status in statusesLenth) {
-            statusesLenth[user.rides[0].status] =
-              statusesLenth[user.rides[0].status] + 1;
-            return;
+          if (user.rides.length) {
+            setUsers([...users, user]);
+            setInitialRace([...initialRace, user]);
+            if (user.rides[0].status in statusesLength) {
+              statusesLength[user.rides[0].status] =
+                statusesLength[user.rides[0].status] + 1;
+              return;
+            }
+            statusesLength[user.rides[0].status] = 1;
           }
-          statusesLenth[user.rides[0].status] = 1;
         });
 
         setIsLoading(false);
@@ -144,7 +144,7 @@ const AdminDashboard = () => {
     );
 
   const allStatusLength = () =>
-    Object.values(statusesLenth).reduce(
+    Object.values(statusesLength).reduce(
       (previousValue, currentValue) => previousValue + currentValue,
       0
     );
@@ -165,34 +165,34 @@ const AdminDashboard = () => {
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
                 <Nav.Link
-                  onClick={getResgisteredOptions}
+                  onClick={users ? getResgisteredOptions : null}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Enregistré {statusesLenth[constStatus.REGISTERED]}
+                  Enregistré {statusesLength[constStatus.REGISTERED]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
                 <Nav.Link
-                  onClick={getOnGoingOptions}
+                  onClick={users ? getOnGoingOptions : null}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  En chemin {statusesLenth[constStatus.ONGOING]}
+                  En chemin {statusesLength[constStatus.ONGOING]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
                 <Nav.Link
-                  onClick={getPickedupOptions}
+                  onClick={users ? getPickedupOptions : null}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Pris en charge {statusesLenth[constStatus.PICKEDUP]}
+                  Pris en charge {statusesLength[constStatus.PICKEDUP]}
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item className="admin-dashboard__container__table__nav__base-nav__items">
                 <Nav.Link
-                  onClick={getReturnedOptions}
+                  onClick={users ? getReturnedOptions : null}
                   className="admin-dashboard__container__table__nav__base-nav__item"
                 >
-                  Terminée {statusesLenth[constStatus.RETURNED]}
+                  Terminée {statusesLength[constStatus.RETURNED]}
                 </Nav.Link>
               </Nav.Item>
             </Nav>
@@ -219,50 +219,51 @@ const AdminDashboard = () => {
               </Col>
             </Row>
           </Row>
-          {!isLoading &&
-            users.map((user) => (
-              <Row
-                key={user._id}
-                className="admin-dashboard__container__table__body"
-              >
-                <Row className="admin-dashboard__container__table__body__race">
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.firstname}
-                  </Col>
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.rides[0].dropOffLocation}
-                  </Col>
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.rides[0].dropOffTime}
-                  </Col>
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.rides[0].dropBackLocation || "-"}
-                  </Col>
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    {user.phone}
-                  </Col>
-                  <Col className="admin-dashboard__container__table__body__race__info">
-                    <DropdownButton
-                      className={`admin-dashboard__container__table__body__race__info__selector-status ${
-                        user.rides[0].status === constStatus.RETURNED ||
-                        user.rides[0].status === constStatus.REGISTERED
-                          ? "hide"
-                          : ""
-                      }`}
-                      title={user.rides[0].status}
-                      variant={getVariantStatus(user.rides[0].status)}
-                      disabled={
-                        user.rides[0].status === constStatus.RETURNED ||
-                        user.rides[0].status === constStatus.REGISTERED
-                      }
-                      onSelect={(eventKey) => setTitle(eventKey, user._id)}
-                    >
-                      {getOptions(user)}
-                    </DropdownButton>
-                  </Col>
+          {!isLoading && users
+            ? users.map((user) => (
+                <Row
+                  key={user._id}
+                  className="admin-dashboard__container__table__body"
+                >
+                  <Row className="admin-dashboard__container__table__body__race">
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      {user.firstname}
+                    </Col>
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      {user.rides[0].dropOffLocation}
+                    </Col>
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      {user.rides[0].dropOffTime}
+                    </Col>
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      {user.rides[0].dropBackLocation || "-"}
+                    </Col>
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      {user.phone}
+                    </Col>
+                    <Col className="admin-dashboard__container__table__body__race__info">
+                      <DropdownButton
+                        className={`admin-dashboard__container__table__body__race__info__selector-status ${
+                          user.rides[0].status === constStatus.RETURNED ||
+                          user.rides[0].status === constStatus.REGISTERED
+                            ? "hide"
+                            : ""
+                        }`}
+                        title={user.rides[0].status}
+                        variant={getVariantStatus(user.rides[0].status)}
+                        disabled={
+                          user.rides[0].status === constStatus.RETURNED ||
+                          user.rides[0].status === constStatus.REGISTERED
+                        }
+                        onSelect={(eventKey) => setTitle(eventKey, user._id)}
+                      >
+                        {getOptions(user)}
+                      </DropdownButton>
+                    </Col>
+                  </Row>
                 </Row>
-              </Row>
-            ))}
+              ))
+            : ""}
         </Col>
       </Row>
     </Container>
