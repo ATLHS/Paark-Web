@@ -43,25 +43,21 @@
           padding: 0;
           transition: transform ease 1s;
 
-          &.switchX1 {
-            transform: translateX(-500px);
-            &.switchX2 {
-              transform: translateX(-1000px);
-            }
+          @media only screen and (max-width: 750px) {
+            padding: 12px;
           }
 
           &__login {
             width: 500px;
-            transition: opacity ease 0.3s;
+
+            @media only screen and (max-width: 750px) {
+              width: 366px;
+            }
 
             &__container {
               display: flex;
               flex-direction: column;
               padding-top: 1rem !important;
-
-              @media only screen and (max-width: 750px) {
-                width: 350px;
-              }
 
               &__cta {
                 margin-bottom: 1rem;

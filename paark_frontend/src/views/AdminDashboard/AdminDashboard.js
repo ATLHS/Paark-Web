@@ -14,7 +14,7 @@ import "./AdminDashboard.scss";
 const AdminDashboard = () => {
   const { user } = useContext(AuthApi);
 
-  const [initialRace, setInitialRace] = useState([]);
+  const [initialUsers, setInitialUser] = useState([]);
   const [statusesLength, setStatusesLength] = useState({});
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +26,8 @@ const AdminDashboard = () => {
       .then((data) => {
         data.user.forEach((user) => {
           if (user.rides.length) {
-            setUsers([...users, user]);
-            setInitialRace([...initialRace, user]);
+            setUsers((prevUsers) => [...prevUsers, user]);
+            setInitialUser((prevUsers) => [...prevUsers, user]);
             if (user.rides[0].status in statusesLength) {
               statusesLength[user.rides[0].status] =
                 statusesLength[user.rides[0].status] + 1;
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
     userServices
       .updateUserRideStatus(rideId, status)
       .then((res) => res)
-      .then((data) => {
+      .then(() => {
         setIsLoading(false);
       })
       .catch((err) => {
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
       });
   };
 
-  const setTitle = (newStatus, id) => {
+  const setTitle = (prevStatus, newStatus, id) => {
     const updatedUsers = users.map((user) => {
       if (user._id === id) {
         user.rides[0].status = newStatus;
@@ -113,41 +113,55 @@ const AdminDashboard = () => {
       return user;
     });
 
+    if (statusesLength[prevStatus] === 1) {
+      statusesLength[prevStatus] = "";
+    } else {
+      statusesLength[prevStatus] = -1;
+    }
+    if (newStatus in statusesLength) {
+      statusesLength[newStatus] = statusesLength[newStatus] + 1;
+      return;
+    } else {
+      statusesLength[newStatus] = 1;
+    }
+
     setUsers(updatedUsers);
   };
-  const getAllOptions = () => setUsers(initialRace);
+  const getAllOptions = () => setUsers(initialUsers);
 
   const getResgisteredOptions = () =>
     setUsers(
-      initialRace.filter(
+      initialUsers.filter(
         (user) => user.rides[0].status === constStatus.REGISTERED
       )
     );
 
   const getOnGoingOptions = () =>
     setUsers(
-      initialRace.filter((user) => user.rides[0].status === constStatus.ONGOING)
+      initialUsers.filter(
+        (user) => user.rides[0].status === constStatus.ONGOING
+      )
     );
 
   const getPickedupOptions = () =>
     setUsers(
-      initialRace.filter(
+      initialUsers.filter(
         (user) => user.rides[0].status === constStatus.PICKEDUP
       )
     );
 
   const getReturnedOptions = () =>
     setUsers(
-      initialRace.filter(
+      initialUsers.filter(
         (user) => user.rides[0].status === constStatus.RETURNED
       )
     );
 
-  const allStatusLength = () =>
-    Object.values(statusesLength).reduce(
-      (previousValue, currentValue) => previousValue + currentValue,
-      0
-    );
+  const allStatusLength = () => {
+    return Object.values(statusesLength)
+      .filter((status) => status !== "")
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  };
 
   return (
     <Container className="admin-dashboard">
@@ -255,7 +269,9 @@ const AdminDashboard = () => {
                           user.rides[0].status === constStatus.RETURNED ||
                           user.rides[0].status === constStatus.REGISTERED
                         }
-                        onSelect={(eventKey) => setTitle(eventKey, user._id)}
+                        onSelect={(eventKey) =>
+                          setTitle(user.rides[0].status, eventKey, user._id)
+                        }
                       >
                         {getOptions(user)}
                       </DropdownButton>

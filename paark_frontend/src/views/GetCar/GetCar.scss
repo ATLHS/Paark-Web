@@ -39,8 +39,15 @@
           padding: 0;
           transition: transform ease 1s;
 
+          @media only screen and (max-width: 750px) {
+            padding: 12px;
+          }
+
           &.switchX1 {
             transform: translateX(-500px);
+            @media only screen and (max-width: 750px) {
+              transform: translateX(-366px);
+            }
           }
 
           &__phone,
@@ -50,14 +57,14 @@
             width: 500px;
             transition: opacity ease 0.3s;
 
+            @media only screen and (max-width: 750px) {
+              width: 366px;
+            }
+
             &__container {
               display: flex;
               flex-direction: column;
               padding-top: 1rem !important;
-
-              @media only screen and (max-width: 750px) {
-                width: 350px;
-              }
 
               &__cta {
                 margin-bottom: 1rem;

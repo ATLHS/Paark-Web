@@ -11,7 +11,6 @@ import "./AdminNav.scss";
 const AdminNav = () => {
   let navigate = useNavigate();
   const { user, setAuth } = useContext(AuthApi);
-
   const handleSignOut = () => {
     authService
       .handleSignOut()
@@ -31,7 +30,7 @@ const AdminNav = () => {
           <Nav>
             <Nav.Item style={{ display: "flex", alignItems: "center" }}>
               <FontAwesomeIcon icon={faUserCircle} size="2x" />
-              <Nav.Link>{`user name`}</Nav.Link>
+              <Nav.Link>{user.email}</Nav.Link>
             </Nav.Item>
           </Nav>
           <Navbar.Toggle />

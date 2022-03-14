@@ -16,6 +16,5 @@ router.get("/rides", async (req, res) => {
 
   res.status(200).json({ user });
 });
-router.get("/ride/:id", async (req, res) => {});
 
 module.exports = router;

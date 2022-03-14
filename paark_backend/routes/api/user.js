@@ -375,7 +375,7 @@ router.post("/update-ride-status", async (req, res) => {
         });
       } else {
         // return res to the client and send a notification to bring the car back to the customer
-        return res.status(200).json({ isUpdated: true });
+        return res.status(200).json({ updatedRide });
       }
     }
   ).clone();
