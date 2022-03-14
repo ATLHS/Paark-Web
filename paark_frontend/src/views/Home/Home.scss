@@ -8,45 +8,99 @@
       flex-direction: column;
       align-self: center;
 
+      &__image {
+        display: none;
+        &__mobile {
+          display: none;
+
+          @media only screen and (max-width: 750px) {
+            display: block;
+            margin-bottom: 20px;
+          }
+          &__paark-home {
+            width: 100%;
+          }
+        }
+      }
+
       &__headline {
         font-size: 70px;
         line-height: normal;
         font-family: "Roboto", sans-serif;
+
+        @media only screen and (max-width: 750px) {
+          font-size: 50px;
+          text-align: center;
+        }
       }
       &__sub-headline {
         font-size: 30px;
         margin-bottom: 20px;
+
+        @media only screen and (max-width: 750px) {
+          font-size: 25px;
+          text-align: center;
+        }
       }
       &__ctas {
         button:first-child {
           margin-right: 10px !important;
         }
+
+        @media only screen and (max-width: 750px) {
+          justify-content: center;
+          button:first-child {
+            margin-right: 10px !important;
+          }
+          button {
+            margin: 10px;
+          }
+        }
       }
     }
     &__image {
-      display: flex;
-      align-items: center;
+      &__desktop {
+        display: flex;
+        align-items: center;
 
-      &__paark-home {
-        width: 780px;
+        @media only screen and (max-width: 750px) {
+          display: none;
+        }
+        &__paark-home {
+          width: 780px;
+        }
       }
     }
   }
   &__how-it-works {
     margin-bottom: 40px;
     &__title {
-      font-size: 40px !important;
+      font-size: 40px;
       line-height: normal;
-      padding-left: 0 !important;
+      padding-left: 0;
       font-family: "Roboto", sans-serif;
+
+      @media only screen and (max-width: 750px) {
+        text-align: center;
+        font-size: 30px;
+        padding-left: 12px;
+      }
     }
   }
   &__steps {
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
+
+    @media only screen and (max-width: 750px) {
+      justify-content: center;
+    }
     &__card {
       width: 19rem !important;
+
+      @media only screen and (max-width: 750px) {
+        margin-bottom: 20px;
+      }
       &__container {
         &__step {
           position: relative;
@@ -80,5 +134,11 @@
         }
       }
     }
+  }
+  &__copyright {
+    display: flex;
+    justify-content: center;
+    color: #6c757d !important;
+    margin-bottom: 20px;
   }
 }

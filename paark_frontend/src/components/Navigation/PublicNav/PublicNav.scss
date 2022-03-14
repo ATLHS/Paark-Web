@@ -6,8 +6,19 @@
     color: #4360ff;
     text-align: "center";
     font-family: "Fugaz One";
+    @media only screen and (max-width: 750px) {
+      margin: auto;
+      justify-content: center;
+    }
   }
   &__collapse {
     justify-content: end;
+
+    @media only screen and (max-width: 750px) {
+      &.navbar-collapse {
+        display: none !important;
+      }
+      display: none;
+    }
   }
 }

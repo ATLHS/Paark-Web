@@ -21,12 +21,18 @@ const Home = () => {
     <Container className="home">
       <Row className="home__headlines">
         <Col className="home__headlines__container">
+          <Col className="home__headlines__container__image__mobile">
+            <Image
+              className="home__headlines__container__image__mobile__paark-home"
+              src={paark_home}
+              rounded
+            />
+          </Col>
           <Row className="home__headlines__container__headline">
             Service de voiturier à la demande.
           </Row>
           <Row className="home__headlines__container__sub-headline">
-            Utilisez Paark pour le travail, la maison ou les loisirs : rapide,
-            abordable et pratique.
+            Ne tournez plus en rond a la recherche d'une place de stationement.
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
@@ -43,9 +49,9 @@ const Home = () => {
             />
           </Row>
         </Col>
-        <Col className="home__headlines__image">
+        <Col className="home__headlines__image__desktop">
           <Image
-            className="home__headlines__image__paark-home"
+            className="home__headlines__image__desktop__paark-home"
             src={paark_home}
             rounded
           />
@@ -127,6 +133,7 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Row>
+      <Row className="home__copyright">Copyright &copy; paark.fr 2022.</Row>
     </Container>
   );
 };
