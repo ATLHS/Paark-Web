@@ -24,7 +24,7 @@ os: linux
 #   may cause associated deployments to fail.
 files:
   - source: /
-    destination: /home/ubuntu/folder
+    destination: /home/paark-web
 hooks:
   AfterInstall:
     - location: /aws-script/mvbuildreactfolder.sh 

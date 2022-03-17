@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import AuthApi from "../../context/AuthApi";
+// import AuthApi from "../../context/AuthApi";
 import constStatus from "../../constants/status";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -12,7 +12,7 @@ import userServices from "../../services/user";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
-  const { user } = useContext(AuthApi);
+  // const { user } = useContext(AuthApi);
 
   const [initialUsers, setInitialUser] = useState([]);
   const [statusesLength, setStatusesLength] = useState({});
