@@ -2,8 +2,8 @@
 sudo chown -R ubuntu "/home/paark-web/"
 
 # Building react app
-cd "/home/paark-web/paark_frontend/"
-npm run build
+# cd "/home/paark-web/paark_frontend/"
+# npm run build
 
 # Remove react build folder content from Nginx web server to new location
 sudo rm -r "/var/www/paark-web/"*
