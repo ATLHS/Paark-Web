@@ -126,10 +126,10 @@ const GetCar = () => {
                               role="status"
                               aria-hidden="true"
                             />{" "}
-                            Confirmer
+                            Confirmez
                           </>
                         ) : (
-                          "Confirmer"
+                          "Confirmez"
                         )
                       }
                       onClick={handleSubmit1(handleReturningCarInfo)}

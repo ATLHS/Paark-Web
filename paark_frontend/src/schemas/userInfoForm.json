@@ -10,7 +10,7 @@
       "type": "google-places",
       "default": "",
       "placeholder": "Indiquez votre localisation ?",
-      "helper": "Un voiturier vous restitura votre véhicule à l'adresse indiquer.",
+      "helper": "Un voiturier vous restituera votre véhicule à l'adresse indiquée.",
       "validation": {
         "required": "Indiquez votre localisation"
       }
@@ -22,7 +22,7 @@
       "type": "phone",
       "default": "",
       "placeholder": "N° de télephone",
-      "helper": "Nous vous enverrons un SMS pour vous indiquez l'arrivé de votre véhicule.",
+      "helper": "Nous vous enverrons un SMS pour vous indiquer l'arrivée de votre véhicule.",
       "validation": {
         "required": "Indiquez votre n° de télephone",
         "minLength": {

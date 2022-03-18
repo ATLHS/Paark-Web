@@ -176,10 +176,10 @@ const Booking = () => {
                               role="status"
                               aria-hidden="true"
                             />{" "}
-                            Réserver un voiturier
+                            Réservez un voiturier
                           </>
                         ) : (
-                          "Réserver un voiturier"
+                          "Réservez un voiturier"
                         )
                       }
                       onClick={handleSubmit1(handleUserInfos)}

@@ -10,7 +10,7 @@
       "type": "google-places",
       "default": "",
       "placeholder": "Indiquez votre destination ?",
-      "helper": "Un voiturier vous attendra à la destination choisis.",
+      "helper": "Un voiturier vous attendra à l'heure choisie.",
       "validation": {
         "required": "Indiquez votre destination"
       }

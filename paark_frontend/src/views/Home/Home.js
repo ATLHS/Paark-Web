@@ -32,7 +32,7 @@ const Home = () => {
             Service de voiturier à la demande.
           </Row>
           <Row className="home__headlines__container__sub-headline">
-            Ne tournez plus en rond a la recherche d'une place de stationement.
+            Ne tournez plus en rond à la recherche d'une place de stationnement.
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
@@ -44,7 +44,7 @@ const Home = () => {
             <PrimaryButton
               variant="black-paark"
               size="medium"
-              text="Récupéré mon véhicule"
+              text="Récupérer mon véhicule"
               onClick={() => navigate("/get-car")}
             />
           </Row>
@@ -70,12 +70,12 @@ const Home = () => {
               </Col>
             </Card.Header>
             <Card.Title className="home__steps__card__container__title">
-              RÉSERVÉ
+              RÉSERVEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Cliquez sur "Réservé un voiturier" indiquez votre destination et
-              l'heure d'arrivé puis procédé au paiement. un voiturier vous
-              attendra sur le lieu de prise en charge.
+              Cliquez sur "Réservez un voiturier", indiquez votre destination et
+              l'heure d'arrivée puis procédez au paiement. Un voiturier vous
+              attendra sur le lieu de prise en charge
             </Card.Text>
           </Card.Body>
         </Card>
@@ -91,8 +91,8 @@ const Home = () => {
               CONFIEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Confiez au voiturier votre vehicule qui sera garer dans un parking
-              sécurisé au alentour du lieu de prise en charge.
+              Confiez au voiturier votre véhicule qui sera gare dans un parking
+              sécurisé aux alentours du lieu de prise en charge
             </Card.Text>
           </Card.Body>
         </Card>
@@ -105,12 +105,12 @@ const Home = () => {
               </Col>
             </Card.Header>
             <Card.Title className="home__steps__card__container__title">
-              RÉCUPÉRÉ
+              RÉCUPÉREZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Sur paark.fr cliquer sur "Récupéré mon vehicule" puis inqiuer
-              votre n° de téléphone et votre localisation. Un SMS vous sera
-              envoyer à l'arrivé de votre vehicule.
+              Sur paark.fr, cliquez sur "Ré mon véhicule" puis indiquez vôtre
+              numéro de téléphone et votre localisation. Un SMS vous sera envoyé
+              à l'arrivée de votre véhicule
             </Card.Text>
           </Card.Body>
         </Card>
@@ -123,12 +123,12 @@ const Home = () => {
               </Col>
             </Card.Header>
             <Card.Title className="home__steps__card__container__title">
-              PAYER
+              PAYEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Le stationement du parking à la remise des clés avec le voiturier
-              et c'est tout ! <br /> <br /> Paiement accepté : <br /> CB,
-              Paypal, Lydia, ApplePay
+              Le stationnement du parking est à régler avec le voiturier à la
+              remise des clés et c'est tout ! <br /> <br /> Paiement acceptés :{" "}
+              <br /> CB, Paypal, Lydia, ApplePay
             </Card.Text>
           </Card.Body>
         </Card>
