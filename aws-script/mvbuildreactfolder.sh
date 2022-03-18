@@ -9,7 +9,7 @@ npm run build
 sudo rm -r "/var/www/paark-web/"*
 
 # Copy paste new react build folder to nginx web server new location
-cp -r "/home/paark-web/paark_frontend/build/"* "/var/www/paark-web"
+cp -r "/home/paark-web/paark_frontend/build/"* "/var/www/paark-web/"
 
 # Installing backend dependencies
 cd "/home/paark-web/paark_backend/"
