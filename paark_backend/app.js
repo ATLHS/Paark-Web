@@ -20,7 +20,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.get("/a", (req, res) => {
-  res.json({ user: process.env.PAARK });
+  res.json({ user: "toby" });
 });
 
 const user = require("./routes/api/user");
