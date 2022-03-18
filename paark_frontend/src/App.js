@@ -36,7 +36,7 @@ const App = () => {
   }, [auth]);
 
   useEffect(() => {
-    console.log("hello");
+    console.log("helloo");
     axios.get("/a").then(({ data }) => {
       // setUser(JSON.stringify(data));
       console.log(data);
