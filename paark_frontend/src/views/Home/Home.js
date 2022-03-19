@@ -108,7 +108,7 @@ const Home = () => {
               RÉCUPÉREZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Sur paark.fr, cliquez sur "Ré mon véhicule" puis indiquez vôtre
+              Sur paark.fr, cliquez sur "Récupérer mon véhicule" puis indiquez vôtre
               numéro de téléphone et votre localisation. Un SMS vous sera envoyé
               à l'arrivée de votre véhicule
             </Card.Text>
