@@ -12,7 +12,6 @@ import AuthApi from "./context/AuthApi";
 import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
 import Home from "./views/Home/Home";
-const axios = require("axios");
 
 const App = () => {
   const [auth, setAuth] = useState(false);
@@ -34,14 +33,6 @@ const App = () => {
         setAuth(err.isAuth);
       });
   }, [auth]);
-
-  useEffect(() => {
-    console.log("Starlink ");
-    axios.get("/a").then(({ data }) => {
-      // setUser(JSON.stringify(data));
-      console.log(data);
-    });
-  }, []);
 
   return (
     <BrowserRouter>
