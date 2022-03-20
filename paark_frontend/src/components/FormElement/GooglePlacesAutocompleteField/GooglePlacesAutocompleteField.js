@@ -15,6 +15,12 @@ const GooglePlacesAutocompleteField = ({
         apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
         name={name}
         apiOptions={{ language: "fr", region: "fr" }}
+        autocompletionRequest={{
+          bounds: [{ lat: 48.856614, lng: 2.3522219 }],
+          componentRestrictions: {
+            country: "fr",
+          },
+        }}
         selectProps={{
           styles: {
             placeholder: (provided, state) => ({
