@@ -17,7 +17,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(process.env.REACT_APP_NAME);
   useEffect(() => {
     setIsLoading(true);
     authService
