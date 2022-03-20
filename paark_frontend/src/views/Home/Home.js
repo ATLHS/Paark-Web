@@ -91,7 +91,7 @@ const Home = () => {
               CONFIEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Confiez au voiturier votre véhicule qui sera gare dans un parking
+              Confiez au voiturier votre véhicule qui sera garé dans un parking
               sécurisé aux alentours du lieu de prise en charge
             </Card.Text>
           </Card.Body>
