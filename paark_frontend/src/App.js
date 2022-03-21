@@ -18,7 +18,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY, "google api");
   useEffect(() => {
     setIsLoading(true);
     authService
