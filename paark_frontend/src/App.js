@@ -18,7 +18,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  console.log(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY, "strp api");
+  console.log(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY, "strpapi");
   useEffect(() => {
     setIsLoading(true);
     authService
