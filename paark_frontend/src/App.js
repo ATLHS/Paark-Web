@@ -20,12 +20,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("/a").then(({ data }) => {
-      console.log(data);
-    });
-  }, []);
-
-  useEffect(() => {
     setIsLoading(true);
     authService
       .isLoggedIn()

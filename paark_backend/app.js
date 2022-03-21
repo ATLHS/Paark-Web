@@ -19,10 +19,6 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(cookieParser());
 
-app.get("/a", (req, res) => {
-  res.json({ user: "tobyy" });
-});
-
 const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
 const adminAuth = require("./routes/api/auth_admin");
