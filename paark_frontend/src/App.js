@@ -12,11 +12,18 @@ import AuthApi from "./context/AuthApi";
 import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
 import Home from "./views/Home/Home";
+const axios = require("axios");
 
 const App = () => {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    axios.get("/a").then(({ data }) => {
+      console.log(data);
+    });
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
