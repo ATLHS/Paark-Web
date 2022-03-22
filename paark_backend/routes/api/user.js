@@ -71,7 +71,7 @@ router.post("/user-information", async (req, res) => {
                       });
                     } else {
                       // send confirmed code to the user via SMS
-                      const isSent = sendSMS.sendSmsNotification(
+                      const isSent = await sendSMS.sendSmsNotification(
                         registeredConfirmedCode,
                         formattedPhone(phone)
                       );
@@ -153,7 +153,7 @@ router.post("/user-information", async (req, res) => {
 
       if (saveRide) {
         // send confirmed code to the user via SMS
-        const isSent = sendSMS.sendSmsNotification(
+        const isSent = await sendSMS.sendSmsNotification(
           registeredConfirmedCode,
           formattedPhone(phone)
         );
