@@ -5,6 +5,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import "./PaymentForm.scss";
@@ -42,6 +43,12 @@ const PaymentForm = ({ setMessage }) => {
   return (
     <>
       <PaymentElement />
+      <Col className="payment-form">
+        <Form.Text className="payment-form__description text-muted">
+          Total
+        </Form.Text>
+        <Form.Text className="payment-form__total text-muted">7,00 €</Form.Text>
+      </Col>
       <Form.Group className="payment-group">
         <PrimaryButton
           variant="blue-paark"
@@ -57,10 +64,10 @@ const PaymentForm = ({ setMessage }) => {
                   role="status"
                   aria-hidden="true"
                 />{" "}
-                Réserver
+                Payez
               </>
             ) : (
-              "Réserver"
+              "Payez"
             )
           }
           onClick={handleSubmit}

@@ -6,3 +6,15 @@
     height: 60px;
   }
 }
+.payment-form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  &__description {
+    font-size: 18px;
+  }
+
+  &__total {
+    font-size: 18px;
+  }
+}
