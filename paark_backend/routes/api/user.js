@@ -71,7 +71,7 @@ router.post("/user-information", async (req, res) => {
                       });
                     } else {
                       // send confirmed code to the user via SMS
-                      const isSent = await sendSMS.sendSmsNotification(
+                      const isSent = sendSMS.sendSmsNotification(
                         registeredConfirmedCode,
                         formattedPhone(phone)
                       );
