@@ -2,11 +2,7 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import "./GooglePlacesAutocompleteField.scss";
 
 const GooglePlacesAutocompleteField = ({
-  field: { onChange, value, name, ref },
-  fieldState: { invalid, isTouched, isDirty, error },
-  formState: { errors },
-  type,
-  label,
+  field: { onChange, name },
   placeholder,
 }) => {
   return (
