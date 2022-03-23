@@ -17,8 +17,8 @@ const GooglePlacesAutocompleteField = ({
         apiOptions={{ language: "fr", region: "fr" }}
         autocompletionRequest={{
           bounds: [{ lat: 48.856614, lng: 2.3522219 }],
-          types: ["address"],
           strictBounds: true,
+          types: ["address"],
           componentRestrictions: {
             country: "fr",
           },
