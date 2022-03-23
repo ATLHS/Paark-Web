@@ -71,10 +71,10 @@ router.post("/user-information", async (req, res) => {
                       });
                     } else {
                       // send confirmed code to the user via SMS
-                      const isSent = sendSMS.sendSmsNotification(
-                        registeredConfirmedCode,
-                        formattedPhone(phone)
-                      );
+                      // const isSent = sendSMS.sendSmsNotification(
+                      //   registeredConfirmedCode,
+                      //   formattedPhone(phone)
+                      // );
 
                       if (updatedUser) {
                         return res.status(200).json({
@@ -153,10 +153,10 @@ router.post("/user-information", async (req, res) => {
 
       if (saveRide) {
         // send confirmed code to the user via SMS
-        const isSent = await sendSMS.sendSmsNotification(
-          registeredConfirmedCode,
-          formattedPhone(phone)
-        );
+        // const isSent = await sendSMS.sendSmsNotification(
+        //   registeredConfirmedCode,
+        //   formattedPhone(phone)
+        // );
 
         if (saveRide) {
           res.status(200).json({
