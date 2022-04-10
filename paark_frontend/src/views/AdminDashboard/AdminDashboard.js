@@ -294,7 +294,7 @@ const AdminDashboard = () => {
                 <Accordion.Header className="admin-dashboard__container__filter__items__header">
                   Filtres
                 </Accordion.Header>
-                <Accordion.Body>
+                <Accordion.Body bsPrefix="admin-dashboard__container__filter__items__body">
                   <Button
                     className="m-1"
                     variant="outline-dark"
