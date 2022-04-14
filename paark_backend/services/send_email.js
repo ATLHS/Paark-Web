@@ -41,6 +41,8 @@ module.exports = {
       },
     };
 
-    return transporter.sendMail(mailData);
+    const t = await transporter.sendMail(mailData);
+    console.log(t);
+    return t;
   },
 };
