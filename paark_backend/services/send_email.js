@@ -21,27 +21,26 @@ transporter.use(
   })
 );
 
-sendAdminEmailNotification = () => {
-  // const { firstname, phone, rides } = user;
+module.exports = {
+  sendAdminEmailNotification: async () => {
+    // const { firstname, phone, rides } = user;
 
-  const mailData = {
-    from: {
-      name: "Paark",
-      address: process.env.SMTP_USER_EMAIL,
-    },
-    to: process.env.RECIPIENTS_SMTP_USER_EMAIL,
-    subject: "Nouvelle réseravtion Paark",
-    template: "new_reservation",
-    context: {
-      firstname: "Bob",
-      phone: "0092727733",
-      dropOffLocation: "address ",
-      dropOffTime: "hours ",
-    },
-  };
+    const mailData = {
+      from: {
+        name: "Paark",
+        address: process.env.SMTP_USER_EMAIL,
+      },
+      to: "helloaplusk@live.fr",
+      subject: "Nouvelle réservation Paark",
+      template: "new_reservation",
+      context: {
+        firstname: "",
+        phone: "",
+        dropOffLocation: "rides[0].dropOffLocation",
+        dropOffTime: "rides[0].dropOffTime",
+      },
+    };
 
-  return transporter.sendMail(mailData);
+    return transporter.sendMail(mailData);
+  },
 };
-
-sendAdminEmailNotification();
-// };

@@ -5,6 +5,9 @@ const cors = require("cors");
 const port = 5000;
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const sendEmail = require("./services/send_email");
+
+sendEmail.sendAdminEmailNotification();
 
 // db config
 const url = process.env.ATLAS_URL;
