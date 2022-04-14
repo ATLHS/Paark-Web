@@ -86,10 +86,10 @@ router.post("/signup", async (req, res) => {
             });
           } else {
             // send confirmed code to the user via Email
-            // const isSent = sendSMS.sendSmsNotification(
-            //   registeredConfirmedCode,
-            //   formattedPhone(phone)
-            // );
+            const isSent = sendSMS.sendSmsNotification(
+              registeredConfirmedCode,
+              formattedPhone(phone)
+            );
 
             if (updatedAdminUser) {
               res.status(200).json({

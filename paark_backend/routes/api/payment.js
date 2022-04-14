@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const User = require("../../models/user");
 const Ride = require("../../models/ride");
+const sendEmail = require("../../services/send_email");
 const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post("/create-payment-intent", async (req, res) => {
   const { user_id } = req.body.userData;
   const user = await User.findOne({ _id: user_id });
   const customer = await stripe.customers.retrieve(user.stripeCustomerId);
-
   // payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 700,
@@ -25,12 +25,12 @@ router.post("/create-payment-intent", async (req, res) => {
 
 router.post("/stripe/webhooks-event", async (req, res) => {
   let event = req.body;
-
   // Handle the event
   switch (event.type) {
     case "payment_intent.succeeded":
       const { customer } = event.data.object;
       const user = await User.findOne({ stripeCustomerId: customer });
+
       await Ride.findOneAndUpdate(
         { userId: user._id },
         { status: "En chemin" },
@@ -43,6 +43,21 @@ router.post("/stripe/webhooks-event", async (req, res) => {
           }
         }
       ).clone();
+
+      const userWIthPopulatedRides = await User.findOne(
+        {},
+        "_id firstname phone rides"
+      )
+        .populate({
+          path: "rides",
+          match: {
+            status: {
+              $in: ["En chemin"],
+            },
+          },
+        })
+        .exec();
+      sendEmail.sendAdminEmailNotification(userWIthPopulatedRides);
       break;
   }
 
