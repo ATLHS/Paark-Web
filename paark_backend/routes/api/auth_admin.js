@@ -263,13 +263,10 @@ router.post("/password", async (req, res) => {
 // @description handling authenticate status
 // @access Public
 router.get("/is-authenticate", verifyJwt, async (req, res) => {
-  res
-    .status(200)
-    .json({
-      isAuth: true,
-      user: req.user,
-      email: process.env.RECIPIENTS_SMTP_USER_EMAIL,
-    });
+  res.status(200).json({
+    isAuth: true,
+    user: req.user,
+  });
 });
 
 module.exports = router;
