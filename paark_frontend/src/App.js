@@ -23,7 +23,7 @@ const App = () => {
     setIsLoading(true);
     authService
       .isLoggedIn()
-      .then((res) => res)
+      .then((res) => res) 
       .then((data) => {
         setAuth(data.isAuth);
         setUser(data.user);
