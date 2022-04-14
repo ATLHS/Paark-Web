@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.cb8be734.css",
-    "main.js": "/static/js/main.0fcf226c.js",
+    "main.js": "/static/js/main.123b9abf.js",
     "static/js/787.31dbedcb.chunk.js": "/static/js/787.31dbedcb.chunk.js",
     "static/media/paark_home.jpg": "/static/media/paark_home.ce25873b73485f168f48.jpg",
     "index.html": "/index.html",
     "main.cb8be734.css.map": "/static/css/main.cb8be734.css.map",
-    "main.0fcf226c.js.map": "/static/js/main.0fcf226c.js.map",
+    "main.123b9abf.js.map": "/static/js/main.123b9abf.js.map",
     "787.31dbedcb.chunk.js.map": "/static/js/787.31dbedcb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cb8be734.css",
-    "static/js/main.0fcf226c.js"
+    "static/js/main.123b9abf.js"
   ]
 }

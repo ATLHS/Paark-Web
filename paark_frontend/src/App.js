@@ -25,6 +25,7 @@ const App = () => {
       .isLoggedIn()
       .then((res) => res)
       .then((data) => {
+        console.log(data, "fffffff");
         setAuth(data.isAuth);
         setUser(data.user);
         setIsLoading(false);
