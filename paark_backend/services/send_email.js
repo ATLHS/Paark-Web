@@ -22,7 +22,7 @@ transporter.use(
 );
 
 module.exports = {
-  sendAdminEmailNotification: async () => {
+  sendAdminEmailNotification: async () => { 
     // const { firstname, phone, rides } = user;
 
     const mailData = {

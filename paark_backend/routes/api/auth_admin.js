@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const { verifyJwt } = require("../../middleware/verifyJwt.js");
 const AUTHORIZE_ADMIN_EMAIL = process.env.AUTHORIZE_ADMIN_EMAIL;
 const saltRounds = 12;
+const sendEmail = require("../../services/send_email");
 
 // @route POST /api/admin/login
 // @description admin login
@@ -60,103 +61,105 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email } = req.body.data;
+  sendEmail.sendAdminEmailNotification();
 
-  if (email !== AUTHORIZE_ADMIN_EMAIL) {
-    return res.status(400).json({
-      message: "Adresse email non autorisé.",
-      email,
-    });
-  }
+  // const { email } = req.body.data;
 
-  const adminExist = await Admin.findOne({ email });
-  const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
-  if (adminExist) {
-    if (!adminExist.emailConfirmed) {
-      await Admin.findOneAndUpdate(
-        { _id: adminExist.id },
-        { registeredConfirmedCode },
-        {
-          new: true,
-        },
-        async (err, updatedAdminUser) => {
-          if (err) {
-            res.status(400).json({
-              message: "Un probleme est survenue, veuillez réessayer.",
-            });
-          } else {
-            // send confirmed code to the user via Email
-            const isSent = sendSMS.sendSmsNotification(
-              registeredConfirmedCode,
-              formattedPhone(phone)
-            );
+  // if (email !== AUTHORIZE_ADMIN_EMAIL) {
+  //   return res.status(400).json({
+  //     message: "Adresse email non autorisé.",
+  //     email,
+  //   });
+  // }
 
-            if (updatedAdminUser) {
-              res.status(200).json({
-                user: {
-                  user_id: updatedAdminUser._id,
-                  email: updatedAdminUser.email,
-                  emailConfirmed: updatedAdminUser.emailConfirmed,
-                },
+  // const adminExist = await Admin.findOne({ email });
+  // const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
+  // if (adminExist) {
+  //   if (!adminExist.emailConfirmed) {
+  //     await Admin.findOneAndUpdate(
+  //       { _id: adminExist.id },
+  //       { registeredConfirmedCode },
+  //       {
+  //         new: true,
+  //       },
+  //       async (err, updatedAdminUser) => {
+  //         if (err) {
+  //           res.status(400).json({
+  //             message: "Un probleme est survenue, veuillez réessayer.",
+  //           });
+  //         } else {
+  //           // send confirmed code to the user via Email
+  //           const isSent = sendSMS.sendSmsNotification(
+  //             registeredConfirmedCode,
+  //             formattedPhone(phone)
+  //           );
 
-                message: `Entrez le code reçu par email a l'adresse ${email} :`,
-              });
-            } else {
-              res.status(400).json({
-                message: "Un probleme est survenue, veuillez réessayer.",
-              });
-            }
-          }
-        }
-      ).clone();
-    }
-    if (adminExist.emailConfirmed) {
-      if (!adminExist.accountConfirmed) {
-        res.status(200).json({
-          user: {
-            user_id: adminExist._id,
-            email: adminExist.email,
-            emailConfirmed: adminExist.emailConfirmed,
-            accountConfirmed: adminExist.accountConfirmed,
-          },
-          message: "Indiquez un mot de passe.",
-        });
-      } else {
-        res.status(400).json({
-          user: {
-            user_id: adminExist._id,
-            email: adminExist.email,
-            emailConfirmed: adminExist.emailConfirmed,
-            accountConfirmed: adminExist.accountConfirmed,
-          },
-          message: `Un compte admin existe déjà avec l'adresse email ${adminExist.email}`,
-        });
-      }
-    }
-  } else {
-    const admin = new Admin({
-      email,
-      emailConfirmed: false,
-      registeredConfirmedCode,
-    });
-    const newAdmin = await admin.save();
+  //           if (updatedAdminUser) {
+  //             res.status(200).json({
+  //               user: {
+  //                 user_id: updatedAdminUser._id,
+  //                 email: updatedAdminUser.email,
+  //                 emailConfirmed: updatedAdminUser.emailConfirmed,
+  //               },
 
-    if (newAdmin) {
-      return res.status(200).json({
-        user: {
-          user_id: newAdmin.id,
-          email: newAdmin.email,
-          emailConfirmed: newAdmin.emailConfirmed,
-        },
-        message: `Entrez le code reçu par email a l'adresse ${email} :`,
-      });
-    } else {
-      res.status(400).json({
-        user: { firstname: newUser.firstname },
-        message: "Un probleme est survenue, veuillez réessayer.",
-      });
-    }
-  }
+  //               message: `Entrez le code reçu par email a l'adresse ${email} :`,
+  //             });
+  //           } else {
+  //             res.status(400).json({
+  //               message: "Un probleme est survenue, veuillez réessayer.",
+  //             });
+  //           }
+  //         }
+  //       }
+  //     ).clone();
+  //   }
+  //   if (adminExist.emailConfirmed) {
+  //     if (!adminExist.accountConfirmed) {
+  //       res.status(200).json({
+  //         user: {
+  //           user_id: adminExist._id,
+  //           email: adminExist.email,
+  //           emailConfirmed: adminExist.emailConfirmed,
+  //           accountConfirmed: adminExist.accountConfirmed,
+  //         },
+  //         message: "Indiquez un mot de passe.",
+  //       });
+  //     } else {
+  //       res.status(400).json({
+  //         user: {
+  //           user_id: adminExist._id,
+  //           email: adminExist.email,
+  //           emailConfirmed: adminExist.emailConfirmed,
+  //           accountConfirmed: adminExist.accountConfirmed,
+  //         },
+  //         message: `Un compte admin existe déjà avec l'adresse email ${adminExist.email}`,
+  //       });
+  //     }
+  //   }
+  // } else {
+  //   const admin = new Admin({
+  //     email,
+  //     emailConfirmed: false,
+  //     registeredConfirmedCode,
+  //   });
+  //   const newAdmin = await admin.save();
+
+  //   if (newAdmin) {
+  //     return res.status(200).json({
+  //       user: {
+  //         user_id: newAdmin.id,
+  //         email: newAdmin.email,
+  //         emailConfirmed: newAdmin.emailConfirmed,
+  //       },
+  //       message: `Entrez le code reçu par email a l'adresse ${email} :`,
+  //     });
+  //   } else {
+  //     res.status(400).json({
+  //       user: { firstname: newUser.firstname },
+  //       message: "Un probleme est survenue, veuillez réessayer.",
+  //     });
+  //   }
+  // }
 });
 
 router.get("/signout", async (req, res) => {
