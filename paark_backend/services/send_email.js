@@ -3,13 +3,13 @@ const hbs = require("nodemailer-express-handlebars");
 const path = require("path");
 
 const transporter = nodemailer.createTransport({
-  port: 587,
+  port: 465,
   host: process.env.SMTP_HOST,
   auth: {
     user: process.env.SMTP_USER_EMAIL,
     pass: process.env.SMTP_USER_PASSWORD,
   },
-  secure: false,
+  secure: true,
 });
 
 transporter.use(
@@ -41,8 +41,6 @@ module.exports = {
       },
     };
 
-    const t = await transporter.sendMail(mailData);
-    console.log(t);
-    return t;
+    return transporter.sendMail(mailData);
   },
 };
