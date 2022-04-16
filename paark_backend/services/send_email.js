@@ -3,13 +3,13 @@ const hbs = require("nodemailer-express-handlebars");
 const path = require("path");
 
 const transporter = nodemailer.createTransport({
-  port: 465,
+  port: 587,
   host: process.env.SMTP_HOST,
   auth: {
     user: process.env.SMTP_USER_EMAIL,
     pass: process.env.SMTP_USER_PASSWORD,
   },
-  secure: true,
+  secure: false,
 });
 
 transporter.use(

@@ -34,7 +34,7 @@
       "type": "phone",
       "default": "",
       "placeholder": "N° de télephone",
-      "helper": "Nous vous enverrons un SMS pour confirmer la réservatons et restitution de votre véhicule.",
+      "helper": "Nous vous enverrons un SMS pour confirmer la réservation et restitution de votre véhicule.",
       "validation": {
         "required": "Indiquez votre n° de télephone",
         "minLength": {
@@ -44,15 +44,15 @@
       }
     },
     "time": {
-      "label": "Heure d'arrivé",
+      "label": "Heure d'arrivée",
       "name": "time",
       "description": "User time",
       "type": "select",
       "default": "",
-      "placeholder": "Heure d'arrivé",
-      "helper": "Un voiturier vous attendra à l'heure choisis.",
+      "placeholder": "Heure d'arrivée",
+      "helper": "Un voiturier vous attendra à l'heure choisie.",
       "validation": {
-        "required": "Indiquez l'heure d'arrvié"
+        "required": "Indiquez l'heure d'arrivée"
       }
     }
   }

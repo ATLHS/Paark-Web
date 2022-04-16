@@ -23,7 +23,7 @@ const SelectField = ({ field: { onChange } }) => {
     <DropdownButton
       className="time-picker"
       onClick={() => hourList()}
-      title={hourValue ? hourValue : "Heure d'arrivé"}
+      title={hourValue ? hourValue : "Heure d'arrivée"}
       variant={"outline-primary"}
       rootCloseEvent="mousedown"
     >
