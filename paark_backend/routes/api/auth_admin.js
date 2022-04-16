@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  sendEmail.sendAdminEmailNotification();
+  return sendEmail.sendAdminEmailNotification();
 
   // const { email } = req.body.data;
 

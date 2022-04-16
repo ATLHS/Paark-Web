@@ -22,7 +22,7 @@ transporter.use(
 );
 
 module.exports = {
-  sendAdminEmailNotification: async () => { 
+  sendAdminEmailNotification: async () => {
     // const { firstname, phone, rides } = user;
 
     const mailData = {
@@ -40,7 +40,8 @@ module.exports = {
         dropOffTime: "rides[0].dropOffTime",
       },
     };
-
-    return transporter.sendMail(mailData);
+    const infos = await transporter.sendMail(mailData);
+    console.log(info);
+    return infos;
   },
 };
