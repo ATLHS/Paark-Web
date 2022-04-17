@@ -14,11 +14,17 @@
       justify-content: center;
       font-size: 20px;
     }
-    &__twitter {
+    &__section {
+      display: flex;
       text-align: center;
       margin-top: 20px;
-      svg {
-        color: #212529;
+      &__icons {
+          &__twitter, &__instagram {
+              margin: 10px;
+          }
+        svg {
+          color: #212529;
+        }
       }
     }
   }
