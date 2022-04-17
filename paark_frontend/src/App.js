@@ -101,7 +101,7 @@ const App = () => {
             />
           </Routes>
         )}
-        <Footer />
+        {!auth ? <Footer /> : ""}
       </AuthApi.Provider>
     </BrowserRouter>
   );

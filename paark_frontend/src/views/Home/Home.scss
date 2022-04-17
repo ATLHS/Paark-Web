@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Fugaz+One&family=Mochiy+Pop+P+One&display=swap");
 .home {
   &__headlines {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     &__container {
       display: flex;
       flex-direction: column;
@@ -57,6 +57,21 @@
           }
         }
       }
+      &__insurance-infos {
+        margin-top: 20px;
+
+        @media only screen and (max-width: 750px) {
+          display: block;
+          justify-content: center;
+          width: 300px;
+          margin: auto;
+          text-align: center;
+          margin-top: 15px;
+        }
+        &__icon {
+          width: 120px;
+        }
+      }
     }
     &__image {
       &__desktop {
@@ -72,7 +87,8 @@
       }
     }
   }
-  &__how-it-works {
+  &__how-it-works,
+  &__benefits {
     margin-bottom: 40px;
     &__title {
       font-size: 40px;
@@ -90,13 +106,14 @@
   &__steps {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 
     @media only screen and (max-width: 750px) {
       justify-content: center;
     }
     &__card {
       width: 19rem !important;
+      border: none !important;
 
       @media only screen and (max-width: 750px) {
         margin-bottom: 20px;
@@ -131,8 +148,15 @@
         }
         &__description {
           text-align: center;
+          margin-top: 25px;
         }
       }
     }
+  }
+  &__advantages {
+    height: 400px;
+    background-color: black;
+    border-radius: 5px;
+    margin-bottom: 100px;
   }
 }

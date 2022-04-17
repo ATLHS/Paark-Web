@@ -13,6 +13,7 @@ import {
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useNavigate } from "react-router-dom";
 import paark_home from "../../assets/images/paark_home.jpg";
+import paark_assurance from "../../assets/images/paark_assurance.svg";
 import "./Home.scss";
 
 const Home = () => {
@@ -48,6 +49,14 @@ const Home = () => {
               onClick={() => navigate("/get-car")}
             />
           </Row>
+          <Row className="home__headlines__container__insurance-infos">
+            Véhicule assuré pendant la prise en charge par
+            <Image
+              className="home__headlines__container__insurance-infos__icon"
+              src={paark_assurance}
+              rounded
+            />
+          </Row>
         </Col>
         <Col className="home__headlines__image__desktop">
           <Image
@@ -73,9 +82,7 @@ const Home = () => {
               RÉSERVEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Cliquez sur "Réservez un voiturier", indiquez votre destination et
-              l'heure d'arrivée puis procédez au paiement. Un voiturier vous
-              attendra sur le lieu de prise en charge
+              Un voiturier en ligne en moins de 5 mins.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -91,8 +98,7 @@ const Home = () => {
               CONFIEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Confiez au voiturier votre véhicule qui sera garé dans un parking
-              sécurisé aux alentours du lieu de prise en charge
+              Votre véhicule au voiturier sur le lieu de prise en charge.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -108,9 +114,7 @@ const Home = () => {
               RÉCUPÉREZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Sur paark.fr, cliquez sur "Récupérer mon véhicule" puis indiquez vôtre
-              numéro de téléphone et votre localisation. Un SMS vous sera envoyé
-              à l'arrivée de votre véhicule
+              Votre véhicule n'importe ou dans Paris uniquement.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -126,14 +130,27 @@ const Home = () => {
               PAYEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Le stationnement du parking est à régler avec le voiturier à la
-              remise des clés et c'est tout ! <br /> <br /> Paiement acceptés :{" "}
-              <br /> CB, Paypal, Lydia, ApplePay
+              Le stationnement du parking à la remise des clés et c'est tout !
             </Card.Text>
           </Card.Body>
         </Card>
       </Row>
-      {/* <Row className="home__copyright">© 2021 - Paark. Tous droits réservés.</Row> */}
+      {/* <Row className="home__benefits">
+        <Col className="home__benefits__title">Les avantages</Col>
+      </Row>
+      <Row className="home__advantages">
+      <Card>
+          <Card.Body>
+            <Card.Header>
+              <Col>
+                <FontAwesomeIcon icon={faCalendarCheck} size="2x" />
+              </Col>
+            </Card.Header>
+            <Card.Title>RAPIDE</Card.Title>
+            <Card.Text>Un voiturier en ligne en moins de 5 min.</Card.Text>
+          </Card.Body>
+        </Card>
+      </Row> */}
     </Container>
   );
 };

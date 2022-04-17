@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.22268ffe.css",
-    "main.js": "/static/js/main.8e775d00.js",
+    "main.css": "/static/css/main.d49b0361.css",
+    "main.js": "/static/js/main.e34886d4.js",
     "static/js/787.31dbedcb.chunk.js": "/static/js/787.31dbedcb.chunk.js",
     "static/media/paark_home.jpg": "/static/media/paark_home.ce25873b73485f168f48.jpg",
+    "static/media/paark_assurance.svg": "/static/media/paark_assurance.3e3ef2cc6b2d9e1c6780985f56a43af0.svg",
     "index.html": "/index.html",
-    "main.22268ffe.css.map": "/static/css/main.22268ffe.css.map",
-    "main.8e775d00.js.map": "/static/js/main.8e775d00.js.map",
+    "main.d49b0361.css.map": "/static/css/main.d49b0361.css.map",
+    "main.e34886d4.js.map": "/static/js/main.e34886d4.js.map",
     "787.31dbedcb.chunk.js.map": "/static/js/787.31dbedcb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.22268ffe.css",
-    "static/js/main.8e775d00.js"
+    "static/css/main.d49b0361.css",
+    "static/js/main.e34886d4.js"
   ]
 }
