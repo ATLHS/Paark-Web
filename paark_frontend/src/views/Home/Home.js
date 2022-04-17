@@ -133,7 +133,7 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Row>
-      <Row className="home__copyright">© 2021 - Paark. Tous droits réservés.</Row>
+      {/* <Row className="home__copyright">© 2021 - Paark. Tous droits réservés.</Row> */}
     </Container>
   );
 };

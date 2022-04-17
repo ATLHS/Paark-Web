@@ -41,7 +41,6 @@ module.exports = {
       },
     };
     const infos = await transporter.sendMail(mailData);
-    console.log(info);
     return infos;
   },
 };

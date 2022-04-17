@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation/Navigation";
 import AdminRoute from "./components/AdminRoute/AdminRoute";
 import PublicRoute from "./components/PublicRoute/PublicRoute";
+import Footer from "./components/Footer/Footer";
 import Booking from "./views/Booking/Booking";
 import AdminLogin from "./views/AdminLogin/AdminLogin";
 import AdminSignup from "./views/AdminSignup/AdminSignup";
@@ -23,7 +24,7 @@ const App = () => {
     setIsLoading(true);
     authService
       .isLoggedIn()
-      .then((res) => res) 
+      .then((res) => res)
       .then((data) => {
         setAuth(data.isAuth);
         setUser(data.user);
@@ -100,6 +101,7 @@ const App = () => {
             />
           </Routes>
         )}
+        <Footer />
       </AuthApi.Provider>
     </BrowserRouter>
   );
