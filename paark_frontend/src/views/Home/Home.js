@@ -152,6 +152,9 @@ const Home = () => {
           </Col>
           <Col className="home__advantages__b__infos">
             <Row className="home__advantages__b__infos__description">
+              <Row className="home__advantages__b__infos__description__title">
+                Simple.
+              </Row>
               Prenez la route sereinement, sans stress et sans appréhension du
               calvaire du stationnement dans Paris, on s'occupe de tout !
             </Row>
@@ -160,6 +163,9 @@ const Home = () => {
         <Row className="home__advantages__b advantage-two">
           <Col className="home__advantages__b__container">
             <Row className="home__advantages__b__infos__description">
+              <Row className="home__advantages__b__infos__description__title">
+                Pratique.
+              </Row>
               Évitez de tourner en rond à la recherche d'une place c'est mauvais
               pour l’environnement et surtout pour votre portefeuille.
             </Row>
@@ -182,6 +188,9 @@ const Home = () => {
           </Col>
           <Col className="home__advantages__b__infos">
             <Row className="home__advantages__b__infos__description">
+              <Row className="home__advantages__b__infos__description__title">
+                Magique.
+              </Row>
               Ne cherchez plus votre voiture dite-nous ou vous voulez la
               récupérer et nous vous la restituerons et cela n'importe ou dans
               Paris !

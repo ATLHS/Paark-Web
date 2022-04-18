@@ -158,7 +158,7 @@
     justify-content: center;
     background-color: black;
     border-radius: 10px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     padding: 50px;
 
     @media only screen and (max-width: 750px) {
@@ -175,6 +175,10 @@
 
     &__b {
       margin: 50px;
+
+      @media only screen and (max-width: 750px) {
+        margin: 30px;
+      }
 
       &__container {
         display: flex;
@@ -193,9 +197,9 @@
       &__infos {
         align-items: center;
         display: flex;
-        margin-top: 20px;
 
         @media only screen and (max-width: 750px) {
+          margin-top: 30px;
           &.advantage-two {
             margin-top: 0;
           }
@@ -207,8 +211,30 @@
           margin: 0;
           text-align: inherit;
           width: 495px;
+          display: flex;
+          justify-content: center;
+
           @media only screen and (max-width: 750px) {
             text-align: center;
+          }
+
+          &__title {
+            color: white;
+            font-size: 70px;
+            line-height: normal;
+            font-family: "Roboto", sans-serif;
+            display: flex;
+            padding: 0;
+            margin-bottom: 30px;
+
+            @media only screen and (max-width: 750px) {
+              justify-content: center;
+            }
+
+            @media only screen and (max-width: 750px) {
+              font-size: 50px;
+              text-align: center;
+            }
           }
         }
       }
