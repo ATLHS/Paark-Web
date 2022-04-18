@@ -14,6 +14,9 @@ import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
 import { useNavigate } from "react-router-dom";
 import paark_home from "../../assets/images/paark_home.jpg";
 import paark_assurance from "../../assets/images/paark_assurance.svg";
+import advantage1 from "../../assets/images/advantage1.gif";
+import advantage2 from "../../assets/images/advantage2.gif";
+import advantage3 from "../../assets/images/advantage3.gif";
 import "./Home.scss";
 
 const Home = () => {
@@ -135,22 +138,65 @@ const Home = () => {
           </Card.Body>
         </Card>
       </Row>
-      {/* <Row className="home__benefits">
+      <Row className="home__benefits">
         <Col className="home__benefits__title">Les avantages</Col>
       </Row>
       <Row className="home__advantages">
-      <Card>
-          <Card.Body>
-            <Card.Header>
-              <Col>
-                <FontAwesomeIcon icon={faCalendarCheck} size="2x" />
-              </Col>
-            </Card.Header>
-            <Card.Title>RAPIDE</Card.Title>
-            <Card.Text>Un voiturier en ligne en moins de 5 min.</Card.Text>
-          </Card.Body>
-        </Card>
-      </Row> */}
+        <Row className="home__advantages__b">
+          <Col className="home__advantages__b__container">
+            <Image
+              className="home__advantages__b__container__image"
+              src={advantage1}
+              rounded
+            />
+          </Col>
+          <Col className="home__advantages__b__infos">
+            <Row className="home__advantages__b__infos__description">
+              Prenez la route sereinement, sans stress et sans appréhension du
+              calvaire du stationnement dans Paris, on s'occupe de tout !
+            </Row>
+          </Col>
+        </Row>
+        <Row className="home__advantages__b advantage-two">
+          <Col className="home__advantages__b__container">
+            <Row className="home__advantages__b__infos__description">
+              Évitez de tourner en rond à la recherche d'une place c'est mauvais
+              pour l’environnement et surtout pour votre portefeuille.
+            </Row>
+          </Col>
+          <Col className="home__advantages__b__infos advantage-two">
+            <Image
+              className="home__advantages__b__container__image"
+              src={advantage2}
+              rounded
+            />
+          </Col>
+        </Row>
+        <Row className="home__advantages__b">
+          <Col className="home__advantages__b__container">
+            <Image
+              className="home__advantages__b__container__image"
+              src={advantage3}
+              rounded
+            />
+          </Col>
+          <Col className="home__advantages__b__infos">
+            <Row className="home__advantages__b__infos__description">
+              Ne cherchez plus votre voiture dite-nous ou vous voulez la
+              récupérer et nous vous la restituerons et cela n'importe ou dans
+              Paris !
+            </Row>
+          </Col>
+        </Row>
+      </Row>
+      <Row className="home__ctas">
+        <PrimaryButton
+          variant="blue-paark"
+          size="medium"
+          text="Réserver maintenant"
+          onClick={() => navigate("/get-valet")}
+        />
+      </Row>
     </Container>
   );
 };
