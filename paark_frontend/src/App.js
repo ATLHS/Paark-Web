@@ -12,6 +12,8 @@ import GetCar from "./views/GetCar/GetCar";
 import AuthApi from "./context/AuthApi";
 import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
+import TermsOfUse from "./views/TermsOfUse/TermsOfUse";
+import RGPD from "./views/RGPD/RGPD";
 import Home from "./views/Home/Home";
 const axios = require("axios");
 
@@ -88,6 +90,22 @@ const App = () => {
               element={
                 <PublicRoute>
                   <AdminSignup />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/term-of-use"
+              element={
+                <PublicRoute>
+                  <TermsOfUse />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/rgpd"
+              element={
+                <PublicRoute>
+                  <RGPD />
                 </PublicRoute>
               }
             />

@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
 import "./Footer.scss";
 
 const Footer = () => {
@@ -30,8 +31,34 @@ const Footer = () => {
             </Col>
           </Row>
         </Row>
-        <Row className="footer__copyright">
-          © 2021 - Paark. Tous droits réservés.
+        <Row className="footer">
+          <Col className="footer__legal">
+            <Row className="footer__legal__infos">
+              <Col
+                as={Link}
+                className="footer__legal__infos__term-of-use"
+                to="/term-of-use"
+              >
+                Mentions légales
+              </Col>
+              <Col as={Link} className="footer__legal__infos__rgpd" to="/rgpd">
+                RGPD
+              </Col>
+              {/* <Col as={Link} className="footer__legal__infos__rgpd" to="/cgv">
+                C.G.V
+              </Col>
+              <Col
+                as={Link}
+                className="footer__legal__infos__cookies"
+                to="/cookies"
+              >
+                Cookies
+              </Col> */}
+            </Row>
+          </Col>
+          <Col className="footer__copyright">
+            © 2021 - Paark. Tous droits réservés.
+          </Col>
         </Row>
       </Container>
     </>
