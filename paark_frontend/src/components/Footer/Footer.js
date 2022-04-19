@@ -46,14 +46,14 @@ const Footer = () => {
               </Col>
               {/* <Col as={Link} className="footer__legal__infos__rgpd" to="/cgv">
                 C.G.V
-              </Col>
+              </Col> */}
               <Col
                 as={Link}
                 className="footer__legal__infos__cookies"
                 to="/cookies"
               >
                 Cookies
-              </Col> */}
+              </Col>
             </Row>
           </Col>
           <Col className="footer__copyright">

@@ -17,6 +17,12 @@ import paark_assurance from "../../assets/images/paark_assurance.svg";
 import advantage1 from "../../assets/images/advantage1.gif";
 import advantage2 from "../../assets/images/advantage2.gif";
 import advantage3 from "../../assets/images/advantage3.gif";
+import applePay from "../../assets/images/apple_pay.png";
+import cb from "../../assets/images/cb.jpg";
+import lydia from "../../assets/images/lydia_pay.png";
+import tether from "../../assets/images/tether.png";
+import paypal from "../../assets/images/paypal.png";
+import Accordion from "react-bootstrap/Accordion";
 import "./Home.scss";
 
 const Home = () => {
@@ -205,6 +211,201 @@ const Home = () => {
           text="Réserver maintenant"
           onClick={() => navigate("/get-valet")}
         />
+      </Row>
+      <Row className="home__common-questions">
+        <Col className="home__common-questions__title">
+          Questions fréquentes
+        </Col>
+      </Row>
+      <Row className="home__section__common-questions">
+        <Col className="home__section__common-questions__container">
+          <Accordion
+            className="home__section__common-questions__container__accordion"
+            flush
+          >
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="0"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Combien ça coûte ?
+                <hr />
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Le coût de la prise en charge et de la restitution de votre
+                véhicule est de 7€ ( hors frais de stationnement ), voire les{" "}
+                <a
+                  className="home__section__common-questions__container__accordion__item__body__infos"
+                  href="https://www.paris.fr/pages/trouver-un-parking-2270"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  tarifs de stationnement
+                </a>{" "}
+                en vigueur dans Paris.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="1"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Où est garé mon véhicule ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Votre véhicule sera stationné dans le parking privé, fermé, et
+                sécurisé le plus proche du lieu de prise en charge que vous avez
+                renseigné lors de votre réservation.
+              </Accordion.Body>
+            </Accordion.Item>
+            {/* <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="2"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Qui gare mon véhicule ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                La prise en charge de votre véhiocule est effectuée par un voiturier Paark, qui 
+              </Accordion.Body>
+            </Accordion.Item> */}
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="3"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Puis-je réserver un voiturier en dehors de Paris ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Non, le service de prise en charge des véhicules Paark est
+                disponible uniquement dans Paris.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="4"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Que se passe-t-il en cas de sinistre ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                L’activité exercée par Paark est assurée par notre partenaire{" "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance"
+                  src={paark_assurance}
+                  rounded
+                />{" "}
+                notoirement solvables couvrant les risques liés à son activité
+                conformément à la législation en vigueur et en particulier : Les
+                garanties acquises comprennent la responsabilité civile
+                professionnelle de Paark ainsi que les dommages subis par les
+                véhicules confiés.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="5"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                J’ai du retard sur le lieu de prise en charge ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Pas de soucis, en cas de retard votre voiturier vous contactera
+                pour connaître votre heure d'arrivée finale.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="6"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Comment je récupère mon véhicule ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                C'est simple, il vous suffit de cliquer sur le bouton "Récupérer
+                mon véhicule" et d'indiquer votre position ainsi que votre
+                numéro de téléphone, le même qui a servi pour la réservation.
+                <br />
+                Vous recevrez alors une notification par SMS vous confirmant que
+                votre vehicule est en route vers votre position
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="7"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                En combien de temps je récupère mon véhicule ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Avec Paark votre véhicule peut vous être rendu n'importe où dans
+                Paris, mais sera toujours garé aux alentours du point de prise
+                en charge. <br />
+                Cela étant dit, la restitution de votre véhicule peut varier de
+                5 à 20 mins maximum.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="8"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Je possède un abonnement pour un parking ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Si vous possédez un abonnement pour un parking, n'hésitez pas à
+                le remettre à votre voituirer qui stationnera votre véhicule
+                dans le parking approprié.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="9"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Comment je régles mon stationnement ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                Le stationnement de votre véhicule est à régler avec votre
+                voiturier à la remise des clés. À ce moment-là, il vous remettra
+                le ticket de stationnement avec toutes les informations
+                nécessaires inscrites dessus. <br />
+                Les paiements acceptés sont : {"  "}
+                <br />
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance__cb"
+                  src={cb}
+                  rounded
+                />
+                {"  "},{"  "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance"
+                  src={paypal}
+                  rounded
+                />
+                {"  "},{"  "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance__apple-pay"
+                  src={applePay}
+                  rounded
+                />
+                {"  "},{"  "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance"
+                  src={lydia}
+                  rounded
+                />
+                {"  "},{"  "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance__tether"
+                  src={tether}
+                  rounded
+                />
+                {"  "}
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </Col>
       </Row>
     </Container>
   );

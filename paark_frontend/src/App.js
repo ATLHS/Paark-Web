@@ -14,8 +14,8 @@ import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
 import TermsOfUse from "./views/TermsOfUse/TermsOfUse";
 import RGPD from "./views/RGPD/RGPD";
+import Cookies from "./views/Cookies/Cookies";
 import Home from "./views/Home/Home";
-const axios = require("axios");
 
 const App = () => {
   const [auth, setAuth] = useState(false);
@@ -106,6 +106,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <RGPD />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/cookies"
+              element={
+                <PublicRoute>
+                  <Cookies />
                 </PublicRoute>
               }
             />
