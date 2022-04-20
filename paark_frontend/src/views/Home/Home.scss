@@ -70,6 +70,11 @@
         }
         &__icon {
           width: 120px;
+
+          @media only screen and (max-width: 750px) {
+            padding-bottom: 4px;
+            padding-left: 8px;
+          }
         }
       }
     }
@@ -150,6 +155,7 @@
         &__description {
           text-align: center;
           margin-top: 25px;
+          font-size: 1.2rem !important;
         }
       }
     }
@@ -159,7 +165,7 @@
     justify-content: center;
     background-color: black;
     border-radius: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     padding: 50px;
 
     @media only screen and (max-width: 750px) {
