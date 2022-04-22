@@ -10,7 +10,7 @@ const sendSmsNotificationOptions = (code, phone) => ({
 });
 
 const sendUserCarBackNotificationOptions = (address, phone) => ({
-  body: smsNotification.CarBackNotificationSms(address, phone),
+  body: smsNotification.carBackNotificationSms(address, phone),
   from: process.env.PAARK,
   to: `+33${phone}`,
 });
