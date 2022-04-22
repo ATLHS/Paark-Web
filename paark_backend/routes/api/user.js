@@ -4,7 +4,6 @@ const stripeCustomer = require("../../utils/stripeCustomer.js");
 const sendSMS = require("../../services/send_sms");
 const User = require("../../models/user");
 const Ride = require("../../models/ride");
-const { findOneAndUpdate } = require("../../models/ride");
 
 const formattedPhone = (phone) => parseInt(phone);
 // @route POST /api/user/user-information

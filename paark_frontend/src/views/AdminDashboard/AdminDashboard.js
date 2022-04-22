@@ -290,7 +290,10 @@ const AdminDashboard = () => {
         ) : (
           <>
             <Accordion className="admin-dashboard__container__filter" flush>
-              <Accordion.Item className="admin-dashboard__container__filter__items">
+              <Accordion.Item
+                eventKey="0"
+                className="admin-dashboard__container__filter__items"
+              >
                 <Accordion.Header className="admin-dashboard__container__filter__items__header">
                   Filtres
                 </Accordion.Header>

@@ -97,12 +97,11 @@
     &__mobile {
       display: flex;
       justify-content: center;
+      margin: 20px;
 
       &__card {
         width: 19rem !important;
         &__body {
-          &__title {
-          }
           &__container {
             &__drop-off {
               width: auto;
