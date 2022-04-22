@@ -81,7 +81,6 @@ const GetCar = () => {
       .catch((err) => {
         setIsLoading(false);
         setMessage(err.message);
-        console.log(err);
       });
   };
 

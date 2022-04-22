@@ -195,7 +195,6 @@ router.post("/confirm-user-phone", async (req, res) => {
     code,
     userData: { user_id },
   } = req.body.data;
-
   const user = await User.findOne({ _id: user_id });
 
   if (code && user) {
