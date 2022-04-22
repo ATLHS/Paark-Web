@@ -216,12 +216,19 @@ router.post("/confirm-user-phone", async (req, res) => {
                 message: "Un probleme est survenue, veuillez réessayer.",
               });
             } else {
-              // return res to the client and send a notification to bring the car back to the customer
+              // return res to the client and send SMS notification to the user and to the valet to bring the car back to the customer
+
+              const isSent = sendSMS.sendUserCarBackNotification(
+                dropBackLocation,
+                formattedPhone(phone)
+              );
+
               return res.status(200).json({
                 user: {
                   user_id: user._id,
                 },
-                message: `Un voiturier prend en charge votre véhicule, il vous contactera des son arrivé à l'adresse : ${dropBackLocation}`,
+                message:
+                  "la restitution de votre véhicule a bien été enregistrée, un SMS de confirmation va vous être envoyés.",
               });
             }
           }
@@ -327,7 +334,11 @@ router.post("/return-user-car", async (req, res) => {
                   message: "Un probleme est survenue, veuillez réessayer.",
                 });
               } else {
-                // return res to the client and send a notification to bring the car back to the customer
+                const isSent = sendSMS.sendSmsNotification(
+                  registeredConfirmedCode,
+                  formattedPhone(phone)
+                );
+
                 return res.status(200).json({
                   user: {
                     user_id: user._id,
@@ -344,7 +355,7 @@ router.post("/return-user-car", async (req, res) => {
     } else {
       return res.status(200).json({
         message:
-          "Vous n'avez aucun véhicule pris en charge par un voiturier paark.",
+          "Vous n'avez aucun véhicule pris en charge par un voiturier Paark.",
         status: null,
       });
     }

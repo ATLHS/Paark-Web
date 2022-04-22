@@ -74,6 +74,11 @@
 
             &__selector-status {
               position: inherit;
+              width: 100%;
+
+              button {
+                width: 100%;
+              }
 
               &.hide {
                 button::after {
