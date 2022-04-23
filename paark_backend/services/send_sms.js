@@ -16,18 +16,20 @@ const sendUserCarBackNotificationOptions = (address, phone) => ({
 });
 
 module.exports = {
-  sendSmsNotification: (code, phone) =>
+  sendSmsNotification: (code, phone) => {
     client.messages
       .create(sendSmsNotificationOptions(code, phone))
       .then((res) => {
         return res.status === "sent";
-      }),
+      });
+  },
 
-  sendUserCarBackNotification: (address, phone) =>
+  sendUserCarBackNotification: (address, phone) => {
     client.messages
       .create(sendUserCarBackNotificationOptions(address, phone))
       .then((res) => {
         console.log(res, "ressss from twilio ");
         return res.status === "sent";
-      }),
+      });
+  },
 };
