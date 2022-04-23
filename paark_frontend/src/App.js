@@ -12,6 +12,7 @@ import GetCar from "./views/GetCar/GetCar";
 import AuthApi from "./context/AuthApi";
 import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
+import ReturningCarConfirmation from "./views/ReturningCarConfirmation/ReturningCarConfirmation";
 import TermsOfUse from "./views/TermsOfUse/TermsOfUse";
 import RGPD from "./views/RGPD/RGPD";
 import Cookies from "./views/Cookies/Cookies";
@@ -74,6 +75,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <PaymentConfirmed />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/returning-car-confirmation"
+              element={
+                <PublicRoute>
+                  <ReturningCarConfirmation />
                 </PublicRoute>
               }
             />

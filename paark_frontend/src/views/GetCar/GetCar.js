@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import userInfoForm from "../../schemas/userInfoForm";
 import confirmCodeForm from "../../schemas/verificationCodeField.json";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FormGroup from "../../components/FormGroup/FormGroup";
 import PrimaryButton from "../../components/Button/PrimaryButton/PrimaryButton";
@@ -14,6 +15,7 @@ import user from "../../services/user";
 import "./GetCar.scss";
 
 const GetCar = () => {
+  let navigate = useNavigate();
   const { handleSubmit: handleSubmit1, control: control1 } = useForm();
   const { handleSubmit: handleSubmit2, control: control2 } = useForm();
   const [userInfoSchema, setUserInfoSchema] = useState([]);
@@ -75,8 +77,7 @@ const GetCar = () => {
       .then((res) => res)
       .then((data) => {
         setIsLoading(false);
-
-        setMessage(data.message);
+        navigate("/returning-car-confirmation");
       })
       .catch((err) => {
         setIsLoading(false);

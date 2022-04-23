@@ -58,6 +58,7 @@ router.post("/stripe/webhooks-event", async (req, res) => {
           },
         })
         .exec();
+        
       sendSMS.sendNewReservationNotification();
       sendEmail.sendAdminEmailNotification(userWIthPopulatedRides);
       break;
