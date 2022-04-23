@@ -27,6 +27,7 @@ module.exports = {
     client.messages
       .create(sendUserCarBackNotificationOptions(address, phone))
       .then((res) => {
+        console.log(res, "ressss from twilio ");
         return res.status === "sent";
       }),
 };

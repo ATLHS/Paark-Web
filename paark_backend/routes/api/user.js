@@ -222,12 +222,14 @@ router.post("/confirm-user-phone", async (req, res) => {
                 formattedPhone(user.phone)
               );
 
+              console.log(isSent, "SMS sent");
+
               return res.status(200).json({
                 user: {
                   user_id: user._id,
                 },
                 message:
-                  "la restitution de votre véhicule a bien été enregistrée, un SMS de confirmation va vous être envoyés.",
+                  "La restitution de votre véhicule a bien été enregistrée, un SMS de confirmation va vous être envoyé.",
               });
             }
           }
