@@ -41,6 +41,7 @@ module.exports = {
       .create(sendNewReservationNotificationOptions())
       .then((res) => {
         return res.status === "sent";
-      });
+      })
+      .catch((err) => console.log(err));
   },
 };

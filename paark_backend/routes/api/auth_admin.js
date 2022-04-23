@@ -7,6 +7,7 @@ const { verifyJwt } = require("../../middleware/verifyJwt.js");
 const AUTHORIZE_ADMIN_EMAIL = process.env.AUTHORIZE_ADMIN_EMAIL;
 const saltRounds = 12;
 const sendEmail = require("../../services/send_email");
+const sendSMS = require("../../services/send_sms");
 
 // @route POST /api/admin/login
 // @description admin login
@@ -61,7 +62,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  return sendEmail.sendAdminEmailNotification();
+  // sendSMS.sendNewReservationNotification();
+  // return sendEmail.sendAdminEmailNotification();
 
   // const { email } = req.body.data;
 
