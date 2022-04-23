@@ -62,10 +62,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const isSent = await sendSMS.sendUserCarBackNotification(
-    "1 place jehan rictus",
-    "0624577955"
-  );
+  sendSMS.sendUserCarBackNotification("1 place jehan rictus", "0624577955");
 
   console.log(isSent, "SMS sent");
   return;
