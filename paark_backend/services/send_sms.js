@@ -15,6 +15,12 @@ const sendUserCarBackNotificationOptions = (address, phone) => ({
   to: `+33${phone}`,
 });
 
+const sendNewReservationNotificationOptions = () => ({
+  body: smsNotification.newReservationNotificationSms(),
+  from: process.env.PAARK_RESERVATION,
+  to: `+33${process.env.VALET_NUMBER}`,
+});
+
 module.exports = {
   sendSmsNotification: (code, phone) => {
     client.messages
@@ -23,12 +29,17 @@ module.exports = {
         return res.status === "sent";
       });
   },
-
   sendUserCarBackNotification: (address, phone) => {
     client.messages
       .create(sendUserCarBackNotificationOptions(address, phone))
       .then((res) => {
-        console.log(res, "ressss from twilio ");
+        return res.status === "sent";
+      });
+  },
+  sendNewReservationNotification: () => {
+    client.messages
+      .create(sendNewReservationNotificationOptions())
+      .then((res) => {
         return res.status === "sent";
       });
   },

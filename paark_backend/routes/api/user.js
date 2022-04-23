@@ -152,7 +152,7 @@ router.post("/user-information", async (req, res) => {
 
       if (saveRide) {
         // send confirmed code to the user via SMS
-        const isSent = await sendSMS.sendSmsNotification(
+        const isSent = sendSMS.sendSmsNotification(
           registeredConfirmedCode,
           formattedPhone(phone)
         );
@@ -216,13 +216,10 @@ router.post("/confirm-user-phone", async (req, res) => {
               });
             } else {
               // return res to the client and send SMS notification to the user and to the valet to bring the car back to the customer
-
               const isSent = sendSMS.sendUserCarBackNotification(
                 dropBackLocation,
                 formattedPhone(user.phone)
               );
-
-              console.log(isSent, "SMS sent");
 
               return res.status(200).json({
                 user: {

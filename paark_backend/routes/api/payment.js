@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../../models/user");
 const Ride = require("../../models/ride");
 const sendEmail = require("../../services/send_email");
+const sendSMS = require("../../services/send_sms");
 const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post("/create-payment-intent", async (req, res) => {
@@ -57,6 +58,7 @@ router.post("/stripe/webhooks-event", async (req, res) => {
           },
         })
         .exec();
+      sendSMS.sendNewReservationNotification();
       sendEmail.sendAdminEmailNotification(userWIthPopulatedRides);
       break;
   }
