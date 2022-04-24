@@ -21,7 +21,7 @@ const PaymentConfirmed = () => {
             PAIEMENT CONFIRMÉ !
           </Row>
           <Row className="payment-confirmed__headlines__container__description">
-            Un SMS de confirmation va vous a être envoyé.
+            Un SMS de confirmation va vous être envoyé.
           </Row>
           <Row className="payment-confirmed__headlines__container__action">
             <Form.Group className="payment-confirmed__headlines__container__action__cta">

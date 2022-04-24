@@ -21,7 +21,7 @@ const ReturningCarConfirmation = () => {
             LA RESTITUTION DE VOTRE VÉHICULE EST EN COURS !
           </Row>
           <Row className="returning-car-confirmation__headlines__container__description">
-            Un SMS de confirmation va vous a être envoyé.
+            Un SMS de confirmation va vous être envoyé.
           </Row>
           <Row className="returning-car-confirmation__headlines__container__action">
             <Form.Group className="returning-car-confirmation__headlines__container__action__cta">
