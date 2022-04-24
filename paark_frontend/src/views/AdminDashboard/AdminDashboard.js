@@ -226,10 +226,16 @@ const AdminDashboard = () => {
                   ADRESSE D'ARRIVÉE
                 </Col>
                 <Col className="admin-dashboard__container__table__header__tabs__tab">
-                  HUERE D'ARRIVÉ
+                  HEURE D'ARRIVÉ
+                </Col>
+                <Col className="admin-dashboard__container__table__header__tabs__tab">
+                  CODE DE PRISE EN CHARGE
                 </Col>
                 <Col className="admin-dashboard__container__table__header__tabs__tab">
                   ADERESSE DE RETOUR
+                </Col>
+                <Col className="admin-dashboard__container__table__header__tabs__tab">
+                  CODE DE RESTITUTION
                 </Col>
                 <Col className="admin-dashboard__container__table__header__tabs__tab">
                   NUMÉRO DE TÉLÉPHONE
@@ -256,7 +262,13 @@ const AdminDashboard = () => {
                         {user.rides[0].dropOffTime}
                       </Col>
                       <Col className="admin-dashboard__container__table__body__race__info">
+                        {user.rides[0].dropOffCode}
+                      </Col>
+                      <Col className="admin-dashboard__container__table__body__race__info">
                         {user.rides[0].dropBackLocation || "-"}
+                      </Col>
+                      <Col className="admin-dashboard__container__table__body__race__info">
+                        {user.rides[0].dropBackCode}
                       </Col>
                       <Col className="admin-dashboard__container__table__body__race__info">
                         {user.phone}
@@ -364,7 +376,7 @@ const AdminDashboard = () => {
                           </Card.Text>
                         </Row>
                         <Row className="admin-dashboard__container__mobile__card__body__container">
-                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-off__hour">
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-off-hour">
                             Heure d'arrivé :
                           </Card.Text>
                           <Card.Text className="admin-dashboard__container__mobile__card__body__container__hour">
@@ -372,11 +384,27 @@ const AdminDashboard = () => {
                           </Card.Text>
                         </Row>
                         <Row className="admin-dashboard__container__mobile__card__body__container">
-                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-off">
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-off-code">
+                            Code de prise en charge :
+                          </Card.Text>
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__code">
+                            {user.rides[0].dropOffCode || "-"}
+                          </Card.Text>
+                        </Row>
+                        <Row className="admin-dashboard__container__mobile__card__body__container">
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-back">
                             Retour :
                           </Card.Text>
                           <Card.Text className="admin-dashboard__container__mobile__card__body__container__address">
                             {user.rides[0].dropBackLocation || "-"}
+                          </Card.Text>
+                        </Row>
+                        <Row className="admin-dashboard__container__mobile__card__body__container">
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-back-code">
+                            Code de restitution :
+                          </Card.Text>
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__code">
+                            {user.rides[0].dropBackCode || "-"}
                           </Card.Text>
                         </Row>
                         <Row className="admin-dashboard__container__mobile__card__body__container">

@@ -8,8 +8,10 @@ const rideSchema = new mongoose.Schema(
       ref: "User",
     },
     dropOffLocation: { type: String },
+    dropOffCode: { type: String },
     dropOffTime: { type: String },
     dropBackLocation: { type: String },
+    dropBackCode: { type: String },
     status: { type: String, default: "Enregistré" },
     valet: {
       type: mongoose.Schema.Types.ObjectId,

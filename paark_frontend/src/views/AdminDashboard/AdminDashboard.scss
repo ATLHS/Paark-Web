@@ -1,5 +1,11 @@
 .admin-dashboard {
   &__container {
+    padding: 0;
+
+    @media only screen and (max-width: 750px) {
+      padding-right: 12px;
+      padding-left: 12px;
+    }
     &__table {
       border-radius: 5px;
       padding: 50px;
@@ -111,10 +117,26 @@
             &__drop-off {
               width: auto;
               margin-bottom: 0;
-              &__hour {
-                width: auto;
-                margin-bottom: 0;
-              }
+            }
+            &__drop-off-hour {
+              width: auto;
+              margin-bottom: 0;
+            }
+            &__drop-off-code {
+              width: auto;
+              margin-bottom: 0;
+            }
+            &__drop-back {
+              width: auto;
+              margin-bottom: 0;
+            }
+            &__drop-back-code {
+              width: auto;
+              margin-bottom: 0;
+            }
+            &__code {
+              width: auto;
+              padding-left: 0;
             }
             &__phone {
               width: auto;
@@ -126,7 +148,7 @@
             }
             &__address {
               width: auto;
-              padding-left: 0;
+              padding-left: 12px;
             }
             &__number {
               width: auto;

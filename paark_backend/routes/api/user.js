@@ -196,6 +196,7 @@ router.post("/confirm-user-phone", async (req, res) => {
     userData: { user_id },
   } = req.body.data;
   const user = await User.findOne({ _id: user_id });
+  const dropBackCode = randomNumber.randomFourDigitNumber();
 
   if (code && user) {
     // if user phone is confirmed
@@ -205,7 +206,7 @@ router.post("/confirm-user-phone", async (req, res) => {
       if (isValidCode) {
         await Ride.findOneAndUpdate(
           { userId: user._id, status: "Pris en charge" },
-          { isReturning: true },
+          { isReturning: true, dropBackCode },
           {
             new: true,
           },
@@ -218,6 +219,7 @@ router.post("/confirm-user-phone", async (req, res) => {
               // return res to the client and send SMS notification to the user and to the valet to bring the car back to the customer
               const isSent = sendSMS.sendUserCarBackNotification(
                 dropBackLocation,
+                dropBackCode,
                 formattedPhone(user.phone)
               );
 

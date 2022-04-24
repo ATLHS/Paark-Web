@@ -9,8 +9,8 @@ const sendSmsNotificationOptions = (code, phone) => ({
   to: `+33${phone}`,
 });
 
-const sendUserCarBackNotificationOptions = (address, phone) => ({
-  body: smsNotification.carBackNotificationSms(address, phone),
+const sendUserCarBackNotificationOptions = (address, dropBackCode, phone) => ({
+  body: smsNotification.carBackNotificationSms(address, dropBackCode),
   from: process.env.PAARK,
   to: `+33${phone}`,
 });
@@ -21,6 +21,21 @@ const sendNewReservationNotificationOptions = () => ({
   to: `+33${process.env.VALET_NUMBER}`,
 });
 
+const sendUserReservationNotificationOptions = (
+  phone,
+  hour,
+  address,
+  dropOffCode
+) => ({
+  body: smsNotification.userReservationNotificationSms(
+    hour,
+    address,
+    dropOffCode
+  ),
+  from: process.env.PAARK,
+  to: `+33${phone}`,
+});
+
 module.exports = {
   sendSmsNotification: (code, phone) => {
     client.messages
@@ -29,9 +44,23 @@ module.exports = {
         return res.status === "sent";
       });
   },
-  sendUserCarBackNotification: (address, phone) => {
+  sendUserReservationNotification: (phone, hour, address, dropOffCode) => {
     client.messages
-      .create(sendUserCarBackNotificationOptions(address, phone))
+      .create(
+        sendUserReservationNotificationOptions(
+          phone,
+          hour,
+          address,
+          dropOffCode
+        )
+      )
+      .then((res) => {
+        return res.status === "sent";
+      });
+  },
+  sendUserCarBackNotification: (address, dropBackCode, phone) => {
+    client.messages
+      .create(sendUserCarBackNotificationOptions(address, dropBackCode, phone))
       .then((res) => {
         return res.status === "sent";
       });

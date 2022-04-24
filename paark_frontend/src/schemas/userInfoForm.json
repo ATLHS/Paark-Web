@@ -16,15 +16,15 @@
       }
     },
     "phone": {
-      "label": "Télephone",
+      "label": "Téléphone",
       "name": "phone",
       "description": "User phone number",
       "type": "phone",
       "default": "",
-      "placeholder": "N° de télephone",
+      "placeholder": "N° de téléphone",
       "helper": "Nous vous enverrons un SMS pour vous indiquer l'arrivée de votre véhicule.",
       "validation": {
-        "required": "Indiquez votre n° de télephone",
+        "required": "Indiquez votre n° de téléphone",
         "minLength": {
           "value": 10,
           "message": "N° de téléphone invalide."

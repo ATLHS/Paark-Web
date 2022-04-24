@@ -3,6 +3,7 @@ const User = require("../../models/user");
 const Ride = require("../../models/ride");
 const sendEmail = require("../../services/send_email");
 const sendSMS = require("../../services/send_sms");
+const randomNumber = require("../../utils/randomDigitNumber.js");
 const stripe = require("stripe")(process.env.STRIPE_TEST_SECRET_KEY);
 
 router.post("/create-payment-intent", async (req, res) => {
@@ -26,15 +27,16 @@ router.post("/create-payment-intent", async (req, res) => {
 
 router.post("/stripe/webhooks-event", async (req, res) => {
   let event = req.body;
+  const dropOffCode = randomNumber.randomFourDigitNumber();
   // Handle the event
   switch (event.type) {
     case "payment_intent.succeeded":
       const { customer } = event.data.object;
       const user = await User.findOne({ stripeCustomerId: customer });
 
-      await Ride.findOneAndUpdate(
+      const userRide = await Ride.findOneAndUpdate(
         { userId: user._id },
-        { status: "En chemin" },
+        { status: "En chemin", dropOffCode },
         {
           new: true,
         },
@@ -58,9 +60,14 @@ router.post("/stripe/webhooks-event", async (req, res) => {
           },
         })
         .exec();
-        
+
       sendSMS.sendNewReservationNotification();
-      sendEmail.sendAdminEmailNotification(userWIthPopulatedRides);
+      sendSMS.sendUserReservationNotification(
+        user.phone,
+        userRide.hour,
+        userRide.address,
+        dropOffCode
+      );
       break;
   }
 
