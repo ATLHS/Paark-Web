@@ -70,7 +70,7 @@ router.post("/user-information", async (req, res) => {
                       });
                     } else {
                       // send confirmed code to the user via SMS
-                      const isSent = sendSMS.sendSmsNotification(
+                      const isSent = sendSMS.sendConfirmationCodeSms(
                         registeredConfirmedCode,
                         formattedPhone(phone)
                       );
@@ -152,7 +152,7 @@ router.post("/user-information", async (req, res) => {
 
       if (saveRide) {
         // send confirmed code to the user via SMS
-        const isSent = sendSMS.sendSmsNotification(
+        const isSent = sendSMS.sendConfirmationCodeSms(
           registeredConfirmedCode,
           formattedPhone(phone)
         );
@@ -217,7 +217,7 @@ router.post("/confirm-user-phone", async (req, res) => {
               });
             } else {
               // return res to the client and send SMS notification to the user and to the valet to bring the car back to the customer
-              const isSent = sendSMS.sendUserCarBackNotification(
+              const isSent = sendSMS.sendUserConfirmedCarBackSms(
                 dropBackLocation,
                 dropBackCode,
                 formattedPhone(user.phone)
@@ -334,7 +334,7 @@ router.post("/return-user-car", async (req, res) => {
                   message: "Un probleme est survenue, veuillez réessayer.",
                 });
               } else {
-                const isSent = sendSMS.sendSmsNotification(
+                const isSent = sendSMS.sendConfirmationCodeSms(
                   registeredConfirmedCode,
                   formattedPhone(phone)
                 );

@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  // sendSMS.sendNewReservationNotification();
+  // sendSMS.sendAdminNewReservationAlertSms();
   // return sendEmail.sendAdminEmailNotification();
 
   // const { email } = req.body.data;
@@ -91,7 +91,7 @@ router.post("/signup", async (req, res) => {
   //           });
   //         } else {
   //           // send confirmed code to the user via Email
-  //           const isSent = sendSMS.sendSmsNotification(
+  //           const isSent = sendSMS.sendConfirmationCodeSms(
   //             registeredConfirmedCode,
   //             formattedPhone(phone)
   //           );

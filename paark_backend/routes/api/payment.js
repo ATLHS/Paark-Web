@@ -10,6 +10,7 @@ router.post("/create-payment-intent", async (req, res) => {
   const { user_id } = req.body.userData;
   const user = await User.findOne({ _id: user_id });
   const customer = await stripe.customers.retrieve(user.stripeCustomerId);
+
   // payment intent
   const paymentIntent = await stripe.paymentIntents.create({
     amount: 700,
@@ -61,8 +62,8 @@ router.post("/stripe/webhooks-event", async (req, res) => {
         })
         .exec();
 
-      sendSMS.sendNewReservationNotification();
-      sendSMS.sendUserReservationNotification(
+      sendSMS.sendAdminNewReservationAlertSms();
+      sendSMS.sendUserConfirmedReservationSms(
         user.phone,
         userRide.dropOffTime,
         userRide.dropOffLocation,
