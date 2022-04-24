@@ -37,32 +37,32 @@ const adminNewReservationAlertOptions = () => ({
   to: `+33${process.env.VALET_NUMBER}`,
 });
 
-export function sendConfirmationCodeSms(code, phone) {
+export const sendConfirmationCodeSms = (code, phone) => {
   client.messages.create(confirmationCodeOptions(code, phone)).then((res) => {
     return res.status === "sent";
   });
-}
-export function sendUserConfirmedReservationSms(
+};
+export const sendUserConfirmedReservationSms = (
   phone,
   hour,
   address,
   dropOffCode
-) {
+) => {
   client.messages
     .create(userConfirmedReservationOptions(phone, hour, address, dropOffCode))
     .then((res) => {
       return res.status === "sent";
     });
-}
-export function sendUserConfirmedCarBackSms(address, dropBackCode, phone) {
+};
+export const sendUserConfirmedCarBackSms = (address, dropBackCode, phone) => {
   client.messages
     .create(userConfirmedCarBackOptions(address, dropBackCode, phone))
     .then((res) => {
       return res.status === "sent";
     });
-}
-export function sendAdminNewReservationAlertSms() {
+};
+export const sendAdminNewReservationAlertSms = () => {
   client.messages.create(adminNewReservationAlertOptions()).then((res) => {
     return res.status === "sent";
   });
-}
+};
