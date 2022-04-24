@@ -4,7 +4,7 @@ const client = require("twilio")(accountSid, authToken);
 const smsNotification = require("../utils/smsNotificationMssage");
 
 const confirmationCodeOptions = (code, phone) => ({
-  body: smsNotification.bookingNotificationSms(code),
+  body: smsNotification.confirmationCodeMessage(code),
   from: process.env.PAARK,
   to: `+33${phone}`,
 });
@@ -15,7 +15,7 @@ const userConfirmedReservationOptions = (
   address,
   dropOffCode
 ) => ({
-  body: smsNotification.userReservationNotificationSms(
+  body: smsNotification.userConfirmedReservationMessage(
     hour,
     address,
     dropOffCode
@@ -25,13 +25,13 @@ const userConfirmedReservationOptions = (
 });
 
 const userConfirmedCarBackOptions = (address, dropBackCode, phone) => ({
-  body: smsNotification.carBackNotificationSms(address, dropBackCode),
+  body: smsNotification.userConfirmedCarBackMessage(address, dropBackCode),
   from: process.env.PAARK,
   to: `+33${phone}`,
 });
 
 const adminNewReservationAlertOptions = () => ({
-  body: smsNotification.newReservationNotificationSms(),
+  body: smsNotification.adminNewReservationAlertMessage(),
   from: process.env.PAARK_RESERVATION,
   to: `+33${process.env.VALET_NUMBER}`,
 });
