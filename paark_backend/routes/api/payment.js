@@ -12,7 +12,7 @@ router.post("/create-payment-intent", async (req, res) => {
   const customer = await stripe.customers.retrieve(user.stripeCustomerId);
   // payment intent
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 700,
+    amount: 100,
     currency: "eur",
     automatic_payment_methods: {
       enabled: true,
@@ -64,8 +64,8 @@ router.post("/stripe/webhooks-event", async (req, res) => {
       sendSMS.sendNewReservationNotification();
       sendSMS.sendUserReservationNotification(
         user.phone,
-        userRide.hour,
-        userRide.address,
+        userRide.dropOffTime,
+        userRide.dropOffLocation,
         dropOffCode
       );
       break;
