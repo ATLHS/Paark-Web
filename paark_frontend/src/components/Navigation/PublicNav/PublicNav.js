@@ -20,12 +20,12 @@ const PublicNav = () => {
           <Nav.Link className="public-nav__desktop__navbar__link" href="#">
             Questions fréquentes
           </Nav.Link>
-          <Nav.Link
+          {/* <Nav.Link
             className="public-nav__desktop__navbar__link"
             href="/contact"
           >
             Nous contacter
-          </Nav.Link>
+          </Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
       {/* mobile navbar */}
@@ -51,12 +51,12 @@ const PublicNav = () => {
             <Nav.Link className="public-nav__mobile__body__nav__link" href="/">
               Questions fréquentes
             </Nav.Link>
-            <Nav.Link
+            {/* <Nav.Link
               className="public-nav__mobile__body__nav__link"
               href="/contact"
             >
               Nous contacter
-            </Nav.Link>
+            </Nav.Link> */}
           </Nav>
         </Offcanvas.Body>
       </Navbar.Offcanvas>
