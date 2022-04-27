@@ -4,6 +4,7 @@ import PhoneField from "../FormElement/PhoneField/PhoneField";
 import GooglePlacesAutocompleteField from "../FormElement/GooglePlacesAutocompleteField/GooglePlacesAutocompleteField";
 import SelectField from "../FormElement/SelectField/SelectField";
 import VerificationCodeField from "../FormElement/VerificationCodeField/VerificationCodeField";
+import TextareaField from "../FormElement/TextareaField/TextareaField";
 
 const FormConstructor = ({ events, field }) => {
   switch (field.type) {
@@ -11,6 +12,8 @@ const FormConstructor = ({ events, field }) => {
     case "email":
     case "password":
       return <InputField {...events} {...field} />;
+    case "textarea":
+      return <TextareaField {...events} {...field} />;
     case "select":
       return <SelectField {...events} {...field} />;
     case "phone":

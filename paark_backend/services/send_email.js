@@ -1,46 +1,40 @@
-const nodemailer = require("nodemailer");
-const hbs = require("nodemailer-express-handlebars");
-const path = require("path");
+const AWS = require("aws-sdk");
 
-const transporter = nodemailer.createTransport({
-  port: 587,
-  host: process.env.SMTP_HOST,
-  auth: {
-    user: process.env.SMTP_USER_EMAIL,
-    pass: process.env.SMTP_USER_PASSWORD,
-  },
-  secure: false,
-});
+const SES_CONFIG = {
+  accessKeyId: process.env.AWS_SES_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SES_SECRET_KEY_ID,
+  region: process.env.AWS_REGION,
+};
 
-transporter.use(
-  "compile",
-  hbs({
-    viewEngine: { encoding: "utf8", defaultLayout: false },
-    viewPath: path.join(process.cwd() + "/views"),
-    extName: ".hbs",
-  })
-);
+const AWS_SES = new AWS.SES(SES_CONFIG);
+
+const sendEmail = (firstname, email, message) => {
+  let params = {
+    Source: process.env.SMTP_USER_EMAIL,
+    Destination: {
+      ToAddresses: [process.env.SMTP_USER_EMAIL],
+    },
+    ReplyToAddresses: [],
+    Message: {
+      Body: {
+        Html: {
+          Charset: "UTF-8",
+          Data: `De : ${email}
+
+          <p>Prénom : ${firstname}<p/>
+          
+          <p>${message}<p/>`,
+        },
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: "Paark - Nouveau message",
+      },
+    },
+  };
+  return AWS_SES.sendEmail(params).promise();
+};
 
 module.exports = {
-  sendAdminEmailNotification: async () => {
-    // const { firstname, phone, rides } = user;
-
-    const mailData = {
-      from: {
-        name: "Paark",
-        address: process.env.SMTP_USER_EMAIL,
-      },
-      to: "helloaplusk@live.fr",
-      subject: "Nouvelle réservation Paark",
-      template: "new_reservation",
-      context: {
-        firstname: "",
-        phone: "",
-        dropOffLocation: "rides[0].dropOffLocation",
-        dropOffTime: "rides[0].dropOffTime",
-      },
-    };
-    const infos = await transporter.sendMail(mailData);
-    return infos;
-  },
+  sendEmail,
 };

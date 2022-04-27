@@ -12,6 +12,7 @@ import GetCar from "./views/GetCar/GetCar";
 import AuthApi from "./context/AuthApi";
 import authService from "./services/auth";
 import PaymentConfirmed from "./views/PaymentConfirmed/PaymentConfirmed";
+import Contact from "./views/Contact/Contact";
 import ReturningCarConfirmation from "./views/ReturningCarConfirmation/ReturningCarConfirmation";
 import TermsOfUse from "./views/TermsOfUse/TermsOfUse";
 import RGPD from "./views/RGPD/RGPD";
@@ -83,6 +84,14 @@ const App = () => {
               element={
                 <PublicRoute>
                   <ReturningCarConfirmation />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <PublicRoute>
+                  <Contact />
                 </PublicRoute>
               }
             />

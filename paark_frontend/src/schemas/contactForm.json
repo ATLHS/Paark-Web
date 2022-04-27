@@ -1,0 +1,43 @@
+{
+  "title": "Contact form",
+  "description": "SUpport contact form",
+  "type": "object",
+  "fields": {
+    "firstname": {
+      "label": "Prénom",
+      "name": "firstname",
+      "description": "User name",
+      "type": "text",
+      "default": "",
+      "placeholder": "Prénom",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez votre prénom"
+      }
+    },
+    "email": {
+      "label": "Email",
+      "name": "email",
+      "description": "User email",
+      "type": "email",
+      "default": "",
+      "placeholder": "Adresse e-mail",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez votre adresse e-mail"
+      }
+    },
+    "message": {
+      "label": "Message",
+      "name": "message",
+      "description": "User message",
+      "type": "textarea",
+      "default": "",
+      "placeholder": "Message",
+      "helper": "",
+      "validation": {
+        "required": "Indiquez votre message"
+      }
+    }
+  }
+}

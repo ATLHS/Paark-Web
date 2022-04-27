@@ -23,10 +23,12 @@ const user = require("./routes/api/user");
 const payment = require("./routes/api/payment");
 const adminAuth = require("./routes/api/auth_admin");
 const ride = require("./routes/api/ride");
+const message = require("./routes/api/message");
 
 app.use("/api/user/", user);
 app.use("/api/payment/", payment);
 app.use("/api/admin/", adminAuth);
 app.use("/api/ride/", ride);
+app.use("/api/message/", message);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
