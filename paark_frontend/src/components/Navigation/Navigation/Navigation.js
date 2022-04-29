@@ -8,6 +8,7 @@ import "./Navigation.scss";
 
 const Navigation = () => {
   const { auth } = useContext(AuthApi);
+
   return (
     <Navbar collapseOnSelect className="navigation" expand="lg">
       <Container className="navigation__container">

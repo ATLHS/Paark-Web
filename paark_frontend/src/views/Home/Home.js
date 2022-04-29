@@ -27,6 +27,7 @@ import "./Home.scss";
 
 const Home = () => {
   let navigate = useNavigate();
+
   return (
     <Container className="home">
       <Row className="home__headlines">
