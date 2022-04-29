@@ -27,20 +27,20 @@ const PublicNav = () => {
             className="public-nav__desktop__navbar__link"
             onClick={() =>
               scroller.scrollTo("home__common-questions", {
-                duration: 600,
+                duration: 700,
                 delay: 0,
-                smooth: "easeInQuint",
+                smooth: "linear",
               })
             }
           >
             Questions fréquentes
           </Nav.Link>
-          {/* <Nav.Link
+          <Nav.Link
             className="public-nav__desktop__navbar__link"
-            href="/contact"
+            href="mailto:contact@paark.fr"
           >
             Nous contacter
-          </Nav.Link> */}
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
       {/* mobile navbar */}
@@ -76,20 +76,20 @@ const PublicNav = () => {
               onClick={() => {
                 setShowOffCanvas(false);
                 scroller.scrollTo("home__common-questions", {
-                  duration: 500,
+                  duration: 700,
                   delay: 0,
-                  smooth: "easeInQuint",
+                  smooth: "linear",
                 });
               }}
             >
               Questions fréquentes
             </Nav.Link>
-            {/* <Nav.Link
+            <Nav.Link
               className="public-nav__mobile__body__nav__link"
-              href="/contact"
+              href="mailto:contact@paark.fr"
             >
               Nous contacter
-            </Nav.Link> */}
+            </Nav.Link>
           </Nav>
         </Offcanvas.Body>
       </Navbar.Offcanvas>
