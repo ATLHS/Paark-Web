@@ -43,7 +43,8 @@ const Home = () => {
             Service de voiturier à la demande.
           </Row>
           <Row className="home__headlines__container__sub-headline">
-            Ne tournez plus en rond à la recherche d'une place de stationnement.
+            {/* Ne tournez plus en rond à la recherche d'une place de stationnement. */}
+            Un voiturier n'importe où, n'importe quand dans Paris.
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton

@@ -25,10 +25,10 @@ const PublicNav = () => {
         <Nav className="public-nav__desktop__navbar">
           <Nav.Link
             className="public-nav__desktop__navbar__link"
-            href="#"
+            href="/"
             onClick={() =>
               scroller.scrollTo("home__common-questions", {
-                duration: 200,
+                duration: 600,
                 delay: 0,
                 smooth: "easeInQuint",
               })
@@ -73,6 +73,7 @@ const PublicNav = () => {
               Récupérer mon véhicule
             </Nav.Link>
             <Nav.Link
+              href="/"
               className="public-nav__mobile__body__nav__link"
               onClick={() => {
                 setShowOffCanvas(false);
