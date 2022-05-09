@@ -14,6 +14,7 @@ import paymentServices from "../../services/payment";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Spinner from "react-bootstrap/Spinner";
+import Carousel from "react-bootstrap/Carousel";
 import "./Booking.scss";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY);
@@ -22,6 +23,7 @@ const Booking = () => {
   const { handleSubmit: handleSubmit1, control: control1 } = useForm();
   const { handleSubmit: handleSubmit2, control: control2 } = useForm();
 
+  const [index, setIndex] = useState(0);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingSchema, setBookingSchema] = useState([]);
   const [userData, setUserData] = useState();
@@ -96,12 +98,14 @@ const Booking = () => {
             ...prevStatus,
             userInfo: true,
           }));
+          setIndex(1);
         } else {
           setProcessStatus((prevStatus) => ({
             ...prevStatus,
             userInfo: true,
             confirmCode: true,
           }));
+          setIndex(2);
         }
       })
       .catch((err) => {
@@ -128,6 +132,7 @@ const Booking = () => {
             userInfo: true,
             confirmCode: true,
           }));
+          setIndex(2);
         }
       })
       .catch((err) => {
@@ -148,93 +153,107 @@ const Booking = () => {
         </Row>
         <Row className="booking__section__process">
           <Row className="booking__section__process__content">
-            <Row
-              className={`booking__section__process__content__form ${
-                processStatus.userInfo ? "switchX1" : ""
-              } ${processStatus.confirmCode ? "switchX2" : ""} `}
-            >
-              {/* user info form */}
-              <Col
-                className={`booking__section__process__content__form__order  ${
-                  processStatus.userInfo ? "hide" : "show"
-                } `}
+            <Row className={`booking__section__process__content__form`}>
+              <Carousel
+                activeIndex={index}
+                keyboard={false}
+                touch={false}
+                bsPrefix="booking__section__process__content__form__slider carousel"
               >
-                <Form className="booking__section__process__content__form__order__container">
-                  <FormGroup schema={bookingSchema} control={control1} />
-                  <Form.Group className="booking__section__process__content__form__order__container__cta">
-                    <PrimaryButton
-                      variant="blue-paark"
-                      size="large"
-                      disabled={isLoading ? true : false}
-                      text={
-                        isLoading ? (
-                          <>
-                            <Spinner
-                              as="span"
-                              animation="border"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                            />{" "}
-                            Réservez un voiturier
-                          </>
-                        ) : (
-                          "Réservez un voiturier"
-                        )
-                      }
-                      onClick={handleSubmit1(handleUserInfos)}
-                    />
-                  </Form.Group>
-                </Form>
-              </Col>
-              {/* confirm code number form */}
-              <Col
-                className={`booking__section__process__content__form__confirm ${
-                  processStatus.userInfo ? "show" : ""
-                } ${processStatus.confirmCode ? "hide" : ""} `}
-              >
-                <Form className="booking__section__process__content__form__confirm__container">
-                  <FormGroup schema={confirmCodeSchema} control={control2} />
-                  <Form.Group className="booking__section__process__content__form__confirm__container__cta">
-                    <PrimaryButton
-                      variant="blue-paark"
-                      size="large"
-                      disabled={isLoading ? true : false}
-                      text={
-                        isLoading ? (
-                          <>
-                            <Spinner
-                              as="span"
-                              animation="border"
-                              size="sm"
-                              role="status"
-                              aria-hidden="true"
-                            />{" "}
-                            Confirmer
-                          </>
-                        ) : (
-                          "Confirmer"
-                        )
-                      }
-                      onClick={handleSubmit2(confirmUserPhone)}
-                    />
-                  </Form.Group>
-                </Form>
-              </Col>
-              {/* payment form */}
-              <Col
-                className={`booking__section__process__content__form__pay ${
-                  processStatus.confirmCode ? "show" : ""
-                } ${processStatus.payment ? "hide" : ""}   `}
-              >
-                <Form className="booking__section__process__content__form__pay__container">
-                  {clientSecret && (
-                    <Elements options={options} stripe={stripePromise}>
-                      <PaymentForm setMessage={setMessage} />
-                    </Elements>
-                  )}
-                </Form>
-              </Col>
+                <Carousel.Item
+                  className={`booking__section__process__content__form__slider__items`}
+                >
+                  {/* user info form */}
+                  <Col
+                    className={`booking__section__process__content__form__slider__items__order ${
+                      processStatus.userInfo ? "hide" : "show"
+                    } `}
+                  >
+                    <Form className="booking__section__process__content__form__slider__items__order__container">
+                      <FormGroup schema={bookingSchema} control={control1} />
+                      <Form.Group className="booking__section__process__content__form__slider__items__order__container__cta">
+                        <PrimaryButton
+                          variant="blue-paark"
+                          size="large"
+                          disabled={isLoading ? true : false}
+                          text={
+                            isLoading ? (
+                              <>
+                                <Spinner
+                                  as="span"
+                                  animation="border"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                />{" "}
+                                Réservez un voiturier
+                              </>
+                            ) : (
+                              "Réservez un voiturier"
+                            )
+                          }
+                          onClick={handleSubmit1(handleUserInfos)}
+                        />
+                      </Form.Group>
+                    </Form>
+                  </Col>
+                </Carousel.Item>
+                <Carousel.Item>
+                  {/* confirm code number form */}
+                  <Col
+                    className={`booking__section__process__content__form__slider__items__confirm ${
+                      processStatus.userInfo ? "show" : ""
+                    } ${processStatus.confirmCode ? "hide" : ""} `}
+                  >
+                    <Form className="booking__section__process__content__form__slider__items__confirm__container">
+                      <FormGroup
+                        schema={confirmCodeSchema}
+                        control={control2}
+                      />
+                      <Form.Group className="booking__section__process__content__form__slider__items__confirm__container__cta">
+                        <PrimaryButton
+                          variant="blue-paark"
+                          size="large"
+                          disabled={isLoading ? true : false}
+                          text={
+                            isLoading ? (
+                              <>
+                                <Spinner
+                                  as="span"
+                                  animation="border"
+                                  size="sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                />{" "}
+                                Confirmer
+                              </>
+                            ) : (
+                              "Confirmer"
+                            )
+                          }
+                          onClick={handleSubmit2(confirmUserPhone)}
+                        />
+                      </Form.Group>
+                    </Form>
+                  </Col>
+                </Carousel.Item>
+                <Carousel.Item>
+                  {/* payment form */}
+                  <Col
+                    className={`booking__section__process__content__form__slider__items__pay ${
+                      processStatus.confirmCode ? "show" : ""
+                    } ${processStatus.payment ? "hide" : ""}   `}
+                  >
+                    <Form className="booking__section__process__content__form__slider__items__pay__container">
+                      {clientSecret && (
+                        <Elements options={options} stripe={stripePromise}>
+                          <PaymentForm setMessage={setMessage} />
+                        </Elements>
+                      )}
+                    </Form>
+                  </Col>
+                </Carousel.Item>
+              </Carousel>
             </Row>
           </Row>
         </Row>

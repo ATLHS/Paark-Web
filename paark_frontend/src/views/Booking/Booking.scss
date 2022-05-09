@@ -30,69 +30,61 @@
       overflow: hidden;
 
       &__content {
+        display: flex;
+        justify-content: center;
         width: 500px;
         height: 600px;
         margin: 0 auto;
         padding: 0;
 
         &__form {
-          max-width: max-content;
-          width: max-content;
-          position: absolute;
           height: 600px;
           padding: 0px;
           transition: transform ease 1s;
 
-          @media only screen and (max-width: 750px) {
+          &__slider {
             padding: 12px;
-          }
-
-          &.switchX1 {
-            transform: translateX(-500px);
-
-            @media only screen and (max-width: 750px) {
-              transform: translateX(-366px);
+            &.carousel-indicators {
+              display: none;
             }
-            &.switchX2 {
-              transform: translateX(-1000px);
+            &__items {
+              &__order,
+              &__confirm,
+              &__pay {
+                opacity: 0;
+                width: 100%;
+                transition: opacity ease 0.3s, visibility ease 0.3s;
 
-              @media only screen and (max-width: 750px) {
-                transform: translateX(-732px);
-              }
-            }
-          }
-
-          &__order,
-          &__confirm,
-          &__pay {
-            opacity: 0;
-            width: 500px;
-            transition: opacity ease 0.3s;
-
-            @media only screen and (max-width: 750px) {
-              width: 366px;
-            }
-
-            &__container {
-              display: flex;
-              flex-direction: column;
-              padding-top: 1rem !important;
-
-              &__cta {
-                margin-bottom: 1rem;
-                &__submit {
-                  margin: 0 !important;
+                @media only screen and (max-width: 750px) {
                   width: 100%;
-                  height: 60px;
+                }
+
+                &__container {
+                  display: flex;
+                  flex-direction: column;
+                  padding-top: 1rem !important;
+
+                  &__cta {
+                    margin-bottom: 1rem;
+                    &__submit {
+                      margin: 0 !important;
+                      width: 100%;
+                      height: 60px;
+                    }
+                  }
+                }
+
+                &.show {
+                  opacity: 1;
+                  &.hide {
+                    opacity: 0;
+                  }
                 }
               }
             }
-
-            &.show {
-              opacity: 1;
-              &.hide {
-                opacity: 0;
-              }
+            .carousel-control-prev,
+            .carousel-control-next {
+              display: none;
             }
           }
         }
