@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.760c8242.css",
-    "main.js": "/static/js/main.b1797993.js",
+    "main.css": "/static/css/main.148289d2.css",
+    "main.js": "/static/js/main.20199cc0.js",
     "static/js/787.31dbedcb.chunk.js": "/static/js/787.31dbedcb.chunk.js",
     "static/media/advantage2.gif": "/static/media/advantage2.2380896caa1d242eeec7.gif",
     "static/media/advantage1.gif": "/static/media/advantage1.8ce32c692d07f789073d.gif",
@@ -14,12 +14,12 @@
     "static/media/cb.jpg": "/static/media/cb.d84cb2807a66f60ba90e.jpg",
     "static/media/paark_assurance.svg": "/static/media/paark_assurance.3e3ef2cc6b2d9e1c6780985f56a43af0.svg",
     "index.html": "/index.html",
-    "main.760c8242.css.map": "/static/css/main.760c8242.css.map",
-    "main.b1797993.js.map": "/static/js/main.b1797993.js.map",
+    "main.148289d2.css.map": "/static/css/main.148289d2.css.map",
+    "main.20199cc0.js.map": "/static/js/main.20199cc0.js.map",
     "787.31dbedcb.chunk.js.map": "/static/js/787.31dbedcb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.760c8242.css",
-    "static/js/main.b1797993.js"
+    "static/css/main.148289d2.css",
+    "static/js/main.20199cc0.js"
   ]
 }
