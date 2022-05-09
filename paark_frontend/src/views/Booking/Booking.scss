@@ -43,7 +43,10 @@
           transition: transform ease 1s;
 
           &__slider {
-            padding: 12px;
+            &.carousel-inner {
+              padding-left: 8px;
+              padding-right: 8px;
+            }
             &.carousel-indicators {
               display: none;
             }
