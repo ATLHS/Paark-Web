@@ -5,6 +5,7 @@ import GooglePlacesAutocompleteField from "../FormElement/GooglePlacesAutocomple
 import SelectField from "../FormElement/SelectField/SelectField";
 import VerificationCodeField from "../FormElement/VerificationCodeField/VerificationCodeField";
 import TextareaField from "../FormElement/TextareaField/TextareaField";
+import CheckboxField from "../FormElement/CheckboxField/CheckboxField";
 
 const FormConstructor = ({ events, field }) => {
   switch (field.type) {
@@ -14,6 +15,8 @@ const FormConstructor = ({ events, field }) => {
       return <InputField {...events} {...field} />;
     case "textarea":
       return <TextareaField {...events} {...field} />;
+    case "checkbox":
+      return <CheckboxField {...events} {...field} />;
     case "select":
       return <SelectField {...events} {...field} />;
     case "phone":

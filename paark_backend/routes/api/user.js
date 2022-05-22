@@ -15,7 +15,11 @@ router.post("/user-information", async (req, res) => {
     destination: { label },
     firstname,
     time,
+    parking,
+    roadway,
   } = req.body.data;
+
+  const parkingArea = parking ? "Parking" : "Voirie";
 
   const registeredConfirmedCode = randomNumber.randomFourDigitNumber();
 
@@ -52,6 +56,7 @@ router.post("/user-information", async (req, res) => {
           if (ride) {
             ride.dropOffLocation = label;
             ride.dropOffTime = time;
+            ride.parkingArea = parkingArea;
 
             const updatedRide = await ride.save();
             if (updatedRide) {
@@ -143,6 +148,7 @@ router.post("/user-information", async (req, res) => {
       const newRide = new Ride({
         dropOffLocation: label,
         dropOffTime: time,
+        parkingArea,
         userId: user._id,
       });
 

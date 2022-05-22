@@ -232,6 +232,9 @@ const AdminDashboard = () => {
                   CODE DE PRISE EN CHARGE
                 </Col>
                 <Col className="admin-dashboard__container__table__header__tabs__tab">
+                  LIEU DE STATIONNEMENT
+                </Col>
+                <Col className="admin-dashboard__container__table__header__tabs__tab">
                   ADERESSE DE RETOUR
                 </Col>
                 <Col className="admin-dashboard__container__table__header__tabs__tab">
@@ -263,6 +266,9 @@ const AdminDashboard = () => {
                       </Col>
                       <Col className="admin-dashboard__container__table__body__race__info">
                         {user.rides[0].dropOffCode}
+                      </Col>
+                      <Col className="admin-dashboard__container__table__body__race__info">
+                        {user.rides[0].parkingArea}
                       </Col>
                       <Col className="admin-dashboard__container__table__body__race__info">
                         {user.rides[0].dropBackLocation || "-"}
@@ -389,6 +395,14 @@ const AdminDashboard = () => {
                           </Card.Text>
                           <Card.Text className="admin-dashboard__container__mobile__card__body__container__code">
                             {user.rides[0].dropOffCode || "-"}
+                          </Card.Text>
+                        </Row>
+                        <Row className="admin-dashboard__container__mobile__card__body__container">
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__drop-off-code">
+                            Lieu de stationnement :
+                          </Card.Text>
+                          <Card.Text className="admin-dashboard__container__mobile__card__body__container__code">
+                            {user.rides[0].parkingArea || "-"}
                           </Card.Text>
                         </Row>
                         <Row className="admin-dashboard__container__mobile__card__body__container">

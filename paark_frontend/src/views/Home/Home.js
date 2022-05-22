@@ -141,7 +141,7 @@ const Home = () => {
               PAYEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Le stationnement du parking à la remise des clés et c'est tout !
+              Le stationnement du parking ou de la voirie à la remise des clés.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -235,16 +235,31 @@ const Home = () => {
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
                 Le coût de la prise en charge et de la restitution de votre
-                véhicule est de 7€ ( hors frais de stationnement ), voire les{" "}
+                véhicule est de 7€,
+                <span className="home__section__common-questions__container__accordion__item__body__warning">
+                  ( hors frais de stationnement )
+                </span>{" "}
+                voir les tarifs de stationnement :
+                <br /> -{" "}
+                <a
+                  className="home__section__common-questions__container__accordion__item__body__infos"
+                  href="https://www.paris.fr/pages/payer-son-stationnement-2129"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Voirie
+                </a>
+                <br /> -{" "}
                 <a
                   className="home__section__common-questions__container__accordion__item__body__infos"
                   href="https://www.paris.fr/pages/trouver-un-parking-2270"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  tarifs de stationnement
-                </a>{" "}
-                en vigueur dans Paris.
+                  Parking
+                </a>
+                {/* <br />
+                dans Paris. */}
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item
@@ -255,9 +270,10 @@ const Home = () => {
                 Où est garé mon véhicule ?
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                Votre véhicule sera stationné dans le parking privé, fermé, et
-                sécurisé le plus proche du lieu de prise en charge que vous avez
-                renseigné lors de votre réservation.
+                Votre véhicule sera stationné selon votre choix en voirie ou
+                dans un parking, dans tout les cas le plus proche du lieu de
+                prise en charge que vous avez renseigné lors de votre
+                réservation.
               </Accordion.Body>
             </Accordion.Item>
             {/* <Accordion.Item
@@ -324,12 +340,12 @@ const Home = () => {
                 Comment je récupère mon véhicule ?
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                C'est simple, il vous suffit de cliquer sur le bouton "Récupérer
-                mon véhicule" et d'indiquer votre position ainsi que votre
-                numéro de téléphone, le même qui a servi pour la réservation.
+                C'est simple, cliquer sur le bouton "Récupérer mon véhicule" et
+                indiquer votre position ainsi que votre numéro de téléphone, le
+                même qui a servi pour la réservation.
                 <br />
                 Vous recevrez alors une notification par SMS vous confirmant que
-                votre vehicule est en route vers votre position
+                votre véhicule est en route vers votre position
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item
@@ -368,10 +384,11 @@ const Home = () => {
                 Comment je régles mon stationnement ?
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                Le stationnement de votre véhicule est à régler avec votre
-                voiturier à la remise des clés. À ce moment-là, il vous remettra
-                le ticket de stationnement avec toutes les informations
-                nécessaires inscrites dessus. <br />
+                Le stationnement en voirie ou dans un parking de votre véhicule
+                est à régler avec votre voiturier à la remise des clés. À ce
+                moment-là, il vous remettra le ticket de stationnement avec
+                toutes les informations nécessaires inscrites dessus. <br />
+                <br />
                 Les paiements acceptés sont : {"  "}
                 <br />
                 <Image

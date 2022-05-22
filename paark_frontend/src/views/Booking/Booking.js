@@ -20,7 +20,12 @@ import "./Booking.scss";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY);
 
 const Booking = () => {
-  const { handleSubmit: handleSubmit1, control: control1 } = useForm();
+  const {
+    handleSubmit: handleSubmit1,
+    watch,
+    clearErrors,
+    control: control1,
+  } = useForm();
   const { handleSubmit: handleSubmit2, control: control2 } = useForm();
 
   const [index, setIndex] = useState(0);
@@ -35,6 +40,9 @@ const Booking = () => {
     confirmCode: false,
     payment: false,
   });
+  const watchParking = watch("parking");
+  const watchRoadway = watch("roadway");
+
   useEffect(() => {
     const bookingSchemaValidation = Object.keys(bookingForm.fields).map(
       (key) => bookingForm.fields[key]
@@ -44,6 +52,7 @@ const Booking = () => {
       (key) => confirmCodeForm.fields[key]
     );
     setBookingSchema(bookingSchemaValidation);
+
     setConfirmCodeSchema(confirmCodeSchemaValidation);
     if (processStatus.confirmCode) {
       // Create PaymentIntent as soon as the page loads
@@ -52,6 +61,28 @@ const Booking = () => {
       });
     }
   }, [userData, processStatus.confirmCode]);
+
+  useEffect(() => {
+    if (watchParking || watchRoadway) {
+      setBookingSchema(
+        bookingSchema.map((schema) => {
+          if (schema.name === "parking" || schema.name === "roadway") {
+            return {
+              ...schema,
+              validation: { required: { value: false, message: "" } },
+            };
+          }
+          return schema;
+        })
+      );
+      clearErrors(["parking", "roadway"]);
+    } else {
+      const bookingSchemaValidation = Object.keys(bookingForm.fields).map(
+        (key) => bookingForm.fields[key]
+      );
+      setBookingSchema(bookingSchemaValidation);
+    }
+  }, [watchParking, watchRoadway]);
 
   // stripe options
   const appearance = {
@@ -74,7 +105,7 @@ const Booking = () => {
 
   const titleStatus = () => {
     return !processStatus.userInfo
-      ? "RÉSERVATION"
+      ? "OÙ ALLEZ-VOUS ?"
       : !processStatus.confirmCode
       ? "CONFIRMEZ VOTRE NUMÉRO"
       : "PAIEMENT";
