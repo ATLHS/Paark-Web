@@ -42,7 +42,7 @@ const GetCar = () => {
 
   const titleStatus = () => {
     return !processStatus.userInfo
-      ? "NUMÉRO DE TÉLÉPHONE"
+      ? "OÙ ÊTES VOUS ?"
       : "CONFIRMEZ VOTRE NUMÉRO";
   };
 

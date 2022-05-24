@@ -16,7 +16,6 @@ router.post("/user-information", async (req, res) => {
     firstname,
     time,
     parking,
-    roadway,
   } = req.body.data;
 
   const parkingArea = parking ? "Parking" : "Voirie";
