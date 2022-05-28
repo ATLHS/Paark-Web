@@ -95,6 +95,96 @@
       }
     }
   }
+  &__comparison {
+    margin-bottom: 100px;
+    margin-top: 100px;
+
+    @media only screen and (max-width: 750px) {
+      margin-bottom: 80px;
+      margin-top: 80px;
+    }
+    &__title {
+      text-align: center;
+      font-size: 40px;
+      line-height: normal;
+      padding-left: 0;
+      font-family: "Roboto", sans-serif;
+
+      @media only screen and (max-width: 750px) {
+        text-align: center;
+        font-size: 30px;
+        padding-left: 12px;
+      }
+    }
+    &__paark {
+      @media only screen and (max-width: 750px) {
+        margin: 20px;
+      }
+      &__logo {
+        height: 75px;
+        @media only screen and (max-width: 750px) {
+          display: flex;
+          justify-content: center;
+        }
+        &__info {
+          display: flex;
+          justify-content: center;
+          font-weight: "bold";
+          font-size: 20px;
+          // font-family: "Fugaz One";
+          @media only screen and (max-width: 750px) {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+          }
+        }
+      }
+      &__price {
+        display: flex;
+        justify-content: center;
+        font-weight: "bold";
+        font-size: 60px;
+        font-family: "Fugaz One";
+        @media only screen and (max-width: 750px) {
+          margin-top: 30px;
+          font-size: 40px;
+        }
+      }
+    }
+    &__paris {
+      @media only screen and (max-width: 750px) {
+        margin: 20px;
+      }
+      &__logo {
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: "bold";
+        font-size: 20px;
+        // font-family: "Fugaz One";
+        @media only screen and (max-width: 750px) {
+          font-size: 15px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+      &__price {
+        display: flex;
+        justify-content: center;
+        font-weight: "bold";
+        font-size: 60px;
+        font-family: "Fugaz One";
+        @media only screen and (max-width: 750px) {
+          font-size: 40px;
+          margin-top: 30px;
+        }
+      }
+    }
+    &__range {
+      margin: auto;
+    }
+  }
   &__how-it-works,
   &__benefits,
   &__common-questions {
@@ -112,6 +202,7 @@
       }
     }
   }
+
   &__steps {
     display: flex;
     justify-content: space-between;

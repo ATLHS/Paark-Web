@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,16 +18,78 @@ import paark_assurance from "../../assets/images/paark_assurance.svg";
 import advantage1 from "../../assets/images/advantage1.gif";
 import advantage2 from "../../assets/images/advantage2.gif";
 import advantage3 from "../../assets/images/advantage3.gif";
+import paris from "../../assets/images/ville_de_paris_logo.png";
 import applePay from "../../assets/images/apple_pay.png";
 import cb from "../../assets/images/cb.jpg";
 import lydia from "../../assets/images/lydia_pay.png";
 import tether from "../../assets/images/tether.png";
 import paypal from "../../assets/images/paypal.png";
 import Accordion from "react-bootstrap/Accordion";
+import RangeSlider from "react-bootstrap-range-slider";
+import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 import "./Home.scss";
 
 const Home = () => {
   let navigate = useNavigate();
+  const [value, setValue] = useState(0);
+  const [parisPrice, setParisPrice] = useState(3);
+  const [paarkPrice, setPaarkPrice] = useState(5);
+  // const [tooltipe, setTooltipe] = useState("30 min");
+
+  const formatteTooltipeLabel = () => {
+    switch (value.toString()) {
+      case "0":
+        setParisPrice(3);
+        setPaarkPrice(5);
+        return "30 min";
+      case "1":
+        setParisPrice(6);
+        setPaarkPrice(6);
+        return "1h";
+      case "2":
+        setParisPrice(9);
+        setPaarkPrice(8);
+        return "1h30";
+      case "3":
+        setParisPrice(12);
+        setPaarkPrice(10);
+        return "2h";
+      case "4":
+        setParisPrice(18);
+        setPaarkPrice(15);
+        return "2h30";
+      case "5":
+        setParisPrice(24);
+        setPaarkPrice(20);
+        return "3h";
+      case "6":
+        setParisPrice(31);
+        setPaarkPrice(25);
+        return "3h30";
+      case "7":
+        setParisPrice(39);
+        setPaarkPrice(35);
+        return "4h";
+      case "8":
+        setParisPrice(48);
+        setPaarkPrice(40);
+        return "4h30";
+      case "9":
+        setParisPrice(57);
+        setPaarkPrice(45);
+        return "5h";
+      case "10":
+        setParisPrice(66);
+        setPaarkPrice(50);
+        return "5h30";
+      case "11":
+        setParisPrice(75);
+        setPaarkPrice(55);
+        return "6h";
+      default:
+        return "bobby";
+    }
+  };
 
   return (
     <Container className="home">
@@ -44,7 +107,8 @@ const Home = () => {
           </Row>
           <Row className="home__headlines__container__sub-headline">
             {/* Ne tournez plus en rond à la recherche d'une place de stationnement. */}
-            Un voiturier n'importe où, n'importe quand dans Paris.
+            {/* Un voiturier n'importe où, n'importe quand dans Paris. */}
+            Gagner du temps et de l'argent.
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
@@ -76,6 +140,47 @@ const Home = () => {
             rounded
           />
         </Col>
+      </Row>
+      <Row className="home__comparison">
+        <Col className="home__comparison__title">
+          Prix simple, et transparent.
+        </Col>
+      </Row>
+      <Row className="home__comparison">
+        <Col className="home__comparison__paark">
+          <Row className="home__comparison__paark__logo">
+            <Row className="home__comparison__paark__logo__info">
+              Coût de la prise en charge avec Paark
+            </Row>{" "}
+            <Row className="home__comparison__paark__logo__info">
+              ( service de voiturier inclue ).
+            </Row>
+          </Row>
+          <Row className="home__comparison__paark__price">{paarkPrice} €</Row>
+        </Col>
+        <Col className="home__comparison__paris">
+          <Row className="home__comparison__paris__logo">
+            Coût du stationnement dans Paris.
+          </Row>
+
+          <Row className="home__comparison__paris__price">{parisPrice} €</Row>
+        </Col>
+        <Row className="home__comparison__range">
+          <RangeSlider
+            min={0}
+            max={11}
+            variant="dark"
+            tooltip="on"
+            tooltipPlacement="top"
+            className="home__comparison__range__slider"
+            value={value}
+            tooltipLabel={() => formatteTooltipeLabel()}
+            onChange={(changeEvent) => {
+              setValue(changeEvent.target.value);
+              formatteTooltipeLabel();
+            }}
+          />
+        </Row>
       </Row>
       <Row className="home__how-it-works">
         <Col className="home__how-it-works__title">Comment ça marche ?</Col>
