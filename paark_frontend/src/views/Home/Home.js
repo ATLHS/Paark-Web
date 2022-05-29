@@ -426,7 +426,7 @@ const Home = () => {
                     <tr>
                       <td>5h</td>
                       <td>45 €</td>
-                      <td>57 €n</td>
+                      <td>57 €</td>
                     </tr>
                     <tr>
                       <td>5h30</td>
