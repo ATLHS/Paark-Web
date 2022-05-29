@@ -54,36 +54,6 @@
       "validation": {
         "required": "Indiquez l'heure d'arrivée"
       }
-    },
-    "parking": {
-      "name": "parking",
-      "value": "parking",
-      "type": "checkbox",
-      "id": "parking",
-      "label": "Garer mon véhicule dans un parking.",
-      "description": "Parking place",
-      "default": "",
-      "validation": {
-        "required": {
-          "value": true,
-          "message": "Veuillez Indiquez au moin un lieu de stationement pour votre véhicule."
-        }
-      }
-    },
-    "roadway": {
-      "name": "roadway",
-      "value": "voirie",
-      "type": "checkbox",
-      "id": "voirie",
-      "label": "Garer mon véhicule en voirie.",
-      "description": "Roadway place",
-      "default": "",
-      "validation": {
-        "required": {
-          "value": true,
-          "message": "Veuillez Indiquez au moin un lieu de stationement pour votre véhicule."
-        }
-      }
     }
   }
 }

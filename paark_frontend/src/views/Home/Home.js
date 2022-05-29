@@ -246,7 +246,7 @@ const Home = () => {
               PAYEZ
             </Card.Title>
             <Card.Text className="home__steps__card__container__description">
-              Le stationnement du parking ou de la voirie à la remise des clés.
+              La prise en charge de votre véhicule à la remise des clés.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -339,7 +339,7 @@ const Home = () => {
                 <hr />
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                Le coût de la prise en charge et de la restitution de votre
+                {/* Le coût de la prise en charge et de la restitution de votre
                 véhicule est de 7€,
                 <span className="home__section__common-questions__container__accordion__item__body__warning">
                   ( hors frais de stationnement )
@@ -362,9 +362,10 @@ const Home = () => {
                   rel="noreferrer"
                 >
                   Parking
-                </a>
-                {/* <br />
-                dans Paris. */}
+                </a> */}
+                Le coût de la prise en charge et de la restitution de votre
+                véhicule est progressif mais sera toujours égal ou moins cher
+                que le stationnement dans Paris, voir le tableau ci dessous :
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item
@@ -375,10 +376,33 @@ const Home = () => {
                 Où est garé mon véhicule ?
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                Votre véhicule sera stationné selon votre choix en voirie ou
+                {/* Votre véhicule sera stationné selon votre choix en voirie ou
                 dans un parking, dans tout les cas le plus proche du lieu de
                 prise en charge que vous avez renseigné lors de votre
-                réservation.
+                réservation. */}
+                Votre véhicule sera garé en voirie, le plus proche de la
+                destination que vous avez renseigné lors de votre réservation.
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item
+              className="home__section__common-questions__container__accordion__item"
+              eventKey="4"
+            >
+              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
+                Que se passe-t-il en cas de sinistre ?
+              </Accordion.Header>
+              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
+                L’activité exercée par Paark est assurée par notre partenaire{" "}
+                <Image
+                  className="home__section__common-questions__container__accordion__item__body__insurance"
+                  src={paark_assurance}
+                  rounded
+                />{" "}
+                notoirement solvables couvrant les risques liés à son activité
+                conformément à la législation en vigueur et en particulier : Les
+                garanties acquises comprennent la responsabilité civile
+                professionnelle de Paark ainsi que les dommages subis par les
+                véhicules confiés.
               </Accordion.Body>
             </Accordion.Item>
             {/* <Accordion.Item
@@ -402,27 +426,6 @@ const Home = () => {
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
                 Non, le service de prise en charge des véhicules Paark est
                 disponible uniquement dans Paris.
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item
-              className="home__section__common-questions__container__accordion__item"
-              eventKey="4"
-            >
-              <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
-                Que se passe-t-il en cas de sinistre ?
-              </Accordion.Header>
-              <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                L’activité exercée par Paark est assurée par notre partenaire{" "}
-                <Image
-                  className="home__section__common-questions__container__accordion__item__body__insurance"
-                  src={paark_assurance}
-                  rounded
-                />{" "}
-                notoirement solvables couvrant les risques liés à son activité
-                conformément à la législation en vigueur et en particulier : Les
-                garanties acquises comprennent la responsabilité civile
-                professionnelle de Paark ainsi que les dommages subis par les
-                véhicules confiés.
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item
@@ -468,7 +471,7 @@ const Home = () => {
                 5 à 20 mins maximum.
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item
+            {/* <Accordion.Item
               className="home__section__common-questions__container__accordion__item"
               eventKey="8"
             >
@@ -480,19 +483,22 @@ const Home = () => {
                 le remettre à votre voituirer qui stationnera votre véhicule
                 dans le parking approprié.
               </Accordion.Body>
-            </Accordion.Item>
+            </Accordion.Item> */}
             <Accordion.Item
               className="home__section__common-questions__container__accordion__item"
               eventKey="9"
             >
               <Accordion.Header className="home__section__common-questions__container__accordion__item__header">
-                Comment je régles mon stationnement ?
+                Comment je règle la prise en charge de mon véhicule ?
               </Accordion.Header>
               <Accordion.Body className="home__section__common-questions__container__accordion__item__body">
-                Le stationnement en voirie ou dans un parking de votre véhicule
+                {/* Le stationnement en voirie ou dans un parking de votre véhicule
                 est à régler avec votre voiturier à la remise des clés. À ce
                 moment-là, il vous remettra le ticket de stationnement avec
-                toutes les informations nécessaires inscrites dessus. <br />
+                toutes les informations nécessaires inscrites dessus.  */}
+                La prise en charge de votre véhicule est à régler avec votre
+                voiturier à la remise des clés.
+                <br />
                 <br />
                 Les paiements acceptés sont : {"  "}
                 <br />

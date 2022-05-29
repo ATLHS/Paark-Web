@@ -12,7 +12,7 @@ const rideSchema = new mongoose.Schema(
     dropOffTime: { type: String },
     dropBackLocation: { type: String },
     dropBackCode: { type: String },
-    parkingArea: { type: String },
+    // parkingArea: { type: String },
     status: { type: String, default: "Enregistré" },
     valet: {
       type: mongoose.Schema.Types.ObjectId,

@@ -47,7 +47,7 @@ const PaymentForm = ({ setMessage }) => {
         <Form.Text className="payment-form__description text-muted">
           Total
         </Form.Text>
-        <Form.Text className="payment-form__total text-muted">7,00 €</Form.Text>
+        <Form.Text className="payment-form__total text-muted">5,00 €</Form.Text>
       </Col>
       <Form.Group className="payment-group">
         <PrimaryButton
