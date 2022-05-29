@@ -26,6 +26,7 @@ import tether from "../../assets/images/tether.png";
 import paypal from "../../assets/images/paypal.png";
 import Accordion from "react-bootstrap/Accordion";
 import RangeSlider from "react-bootstrap-range-slider";
+import Table from "react-bootstrap/Table";
 import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 import "./Home.scss";
 
@@ -365,7 +366,80 @@ const Home = () => {
                 </a> */}
                 Le coût de la prise en charge et de la restitution de votre
                 véhicule est progressif mais sera toujours égal ou moins cher
-                que le stationnement dans Paris, voir le tableau ci dessous :
+                que le stationnement dans Paris, voir le tableau ci dessous :{" "}
+                <br />
+                <br />
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Durée</th>
+                      <th>Prix de la prise en charge avec Paark</th>
+                      <th>Prix du stationnement dans Paris</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>30 min</td>
+                      <td>5 €</td>
+                      <td>3 €</td>
+                    </tr>
+                    <tr>
+                      <td>1h</td>
+                      <td>6 €</td>
+                      <td>6 €</td>
+                    </tr>
+                    <tr>
+                      <td>1h30</td>
+                      <td>8 €</td>
+                      <td>9 €</td>
+                    </tr>
+                    <tr>
+                      <td>2h</td>
+                      <td>10 €</td>
+                      <td>12 €</td>
+                    </tr>
+                    <tr>
+                      <td>2h30</td>
+                      <td>15 €</td>
+                      <td>18 €</td>
+                    </tr>
+                    <tr>
+                      <td>3h</td>
+                      <td>20 €</td>
+                      <td>24 €</td>
+                    </tr>
+                    <tr>
+                      <td>3h30</td>
+                      <td>25 €</td>
+                      <td>32 €</td>
+                    </tr>
+                    <tr>
+                      <td>4h</td>
+                      <td>35 €</td>
+                      <td>39 €</td>
+                    </tr>
+                    <tr>
+                      <td>4h30</td>
+                      <td>40 €</td>
+                      <td>48 €</td>
+                    </tr>
+                    <tr>
+                      <td>5h</td>
+                      <td>45 €</td>
+                      <td>57 €n</td>
+                    </tr>
+                    <tr>
+                      <td>5h30</td>
+                      <td>50 €</td>
+                      <td>66 €</td>
+                    </tr>
+                    <tr>
+                      <td>6h</td>
+                      <td>55 €</td>
+                      <td>75 €</td>
+                    </tr>
+                  </tbody>
+                </Table>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item
