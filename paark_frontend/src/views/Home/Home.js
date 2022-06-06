@@ -104,12 +104,12 @@ const Home = () => {
             />
           </Col>
           <Row className="home__headlines__container__headline">
-            Service de voiturier à la demande.
+            Réservez un voiturier en 5 mins.
           </Row>
           <Row className="home__headlines__container__sub-headline">
             {/* Ne tournez plus en rond à la recherche d'une place de stationnement. */}
             {/* Un voiturier n'importe où, n'importe quand dans Paris. */}
-            Gagner du temps et de l'argent.
+            Gagner du temps et économisez en stationnement dans Paris.
           </Row>
           <Row className="home__headlines__container__ctas">
             <PrimaryButton
@@ -143,9 +143,7 @@ const Home = () => {
         </Col>
       </Row>
       <Row className="home__comparison">
-        <Col className="home__comparison__title">
-          Prix simple, et transparent.
-        </Col>
+        <Col className="home__comparison__title">Combien ça coûte ?</Col>
       </Row>
       <Row className="home__comparison">
         <Col className="home__comparison__paark">
