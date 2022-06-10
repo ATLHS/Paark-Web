@@ -104,7 +104,8 @@ const Home = () => {
             />
           </Col>
           <Row className="home__headlines__container__headline">
-            Réservez un voiturier en 5 mins.
+            {/* Réservez un voiturier en 5 mins. */}
+            Votre parking avec voiturier dans Paris.
           </Row>
           <Row className="home__headlines__container__sub-headline">
             {/* Ne tournez plus en rond à la recherche d'une place de stationnement. */}
