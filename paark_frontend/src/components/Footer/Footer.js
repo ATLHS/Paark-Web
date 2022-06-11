@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import "./Footer.scss";
 
@@ -21,13 +21,13 @@ const Footer = () => {
               >
                 <FontAwesomeIcon icon={faTwitter} size="2x" />
               </a>
-              <a
+              {/* <a
                 className="footer__socials__section__icons__instagram"
                 href="https://www.instagram.com/paark_fr/?hl=fr"
                 target="blank"
               >
                 <FontAwesomeIcon icon={faInstagram} size="2x" />
-              </a>
+              </a> */}
             </Col>
           </Row>
         </Row>
