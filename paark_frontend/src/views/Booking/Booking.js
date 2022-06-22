@@ -44,16 +44,17 @@ const Booking = () => {
   // const watchRoadway = watch("roadway");
 
   useEffect(() => {
-    const bookingSchemaValidation = Object.keys(bookingForm.fields).map(
+    let bookingSchemaValidation = Object.keys(bookingForm.fields).map(
       (key) => bookingForm.fields[key]
     );
 
     const confirmCodeSchemaValidation = Object.keys(confirmCodeForm.fields).map(
       (key) => confirmCodeForm.fields[key]
     );
-    setBookingSchema(bookingSchemaValidation);
 
+    setBookingSchema(bookingSchemaValidation);
     setConfirmCodeSchema(confirmCodeSchemaValidation);
+    
     if (processStatus.confirmCode) {
       // Create PaymentIntent as soon as the page loads
       paymentServices.getPaymentIntent(userData).then(({ data }) => {
