@@ -16,7 +16,7 @@ const bookingValidation = {
         validate: {
           validateCity: (v) =>
             v.value.structured_formatting.secondary_text === "Paris" ||
-            "Veuillez indiquez une adresse dans Paris",
+            "Veuillez indiquer une adresse dans Paris",
         },
       },
     },
